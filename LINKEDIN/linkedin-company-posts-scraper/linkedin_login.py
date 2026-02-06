@@ -8,7 +8,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-import json
 import os
 import shutil
 import random
@@ -18,9 +17,6 @@ from datetime import datetime
 EMAIL = "fivverabhishek@gmail.com"
 PASSWORD = "abhi1234@1234"
 LOGIN_URL = "https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin"
-
-# Extraction settings
-NUM_POSTS_TO_EXTRACT = 5  # Number of posts to extract (change this to extract more/fewer posts)
 
 def setup_driver():
     """Setup Chrome driver with options - NON-HEADLESS MODE"""
@@ -181,12 +177,11 @@ def navigate_to_visa_posts(driver):
         traceback.print_exc()
         return False
 
-def extract_post_details(driver, num_posts=5, output_dir="visa_posts"):
-    """Extract details from the first N posts and save each to a separate text file
+def extract_post_details(driver, output_dir="visa_posts"):
+    """Extract details from all available posts and save each to a separate text file
     
     Args:
         driver: Selenium WebDriver instance
-        num_posts: Number of posts to extract (default: 5)
         output_dir: Directory to save post text files (default: "visa_posts")
     
     Returns:
@@ -198,7 +193,7 @@ def extract_post_details(driver, num_posts=5, output_dir="visa_posts"):
     
     try:
         print("\n" + "="*80)
-        print(f"STEP 4: Extracting First {num_posts} Post Details")
+        print("STEP 4: Extracting Post Details")
         print("="*80)
         wait = WebDriverWait(driver, 20)
         
@@ -360,9 +355,9 @@ def extract_post_details(driver, num_posts=5, output_dir="visa_posts"):
             print("  ✗ ERROR: No posts found on the page.")
             return []
         
-        # Limit to first num_posts
-        posts_to_extract = min(num_posts, len(post_containers))
-        print(f"  → Extracting details from first {posts_to_extract} post(s)...")
+        # Extract all available posts
+        posts_to_extract = len(post_containers)
+        print(f"  → Extracting details from all {posts_to_extract} post(s)...")
         
         extracted_posts = []
         
@@ -534,13 +529,6 @@ def extract_post_details(driver, num_posts=5, output_dir="visa_posts"):
             print(f"  Likes: {post['likes_count']}")
             print(f"  Text Preview: {post['post_text'][:150]}..." if len(post['post_text']) > 150 else f"  Text: {post['post_text']}")
         
-        # Save to JSON file as well
-        json_output_file = f"visa_posts_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        print(f"\n  → Saving extracted data to JSON: {json_output_file}")
-        with open(json_output_file, 'w', encoding='utf-8') as f:
-            json.dump(extracted_posts, f, indent=2, ensure_ascii=False)
-        print(f"  ✓ JSON data saved to {json_output_file}")
-        
         return extracted_posts
         
     except Exception as e:
@@ -565,8 +553,8 @@ if __name__ == "__main__":
             # Navigate directly to Visa company Posts page
             navigate_to_visa_posts(driver)
             
-            # Extract post details
-            extract_post_details(driver, num_posts=NUM_POSTS_TO_EXTRACT)
+            # Extract all available post details
+            extract_post_details(driver)
             
             # Keep browser open to see results
             print("\n" + "="*80)
