@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
-import shutil
+import csv
 import random
 from datetime import datetime
 
@@ -17,6 +17,9 @@ from datetime import datetime
 EMAIL = "fivverabhishek@gmail.com"
 PASSWORD = "abhi1234@1234"
 LOGIN_URL = "https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin"
+
+# Company settings
+COMPANY_NAME = "visa"  # Company name for CSV file naming
 
 def setup_driver():
     """Setup Chrome driver with options - NON-HEADLESS MODE"""
@@ -31,6 +34,9 @@ def setup_driver():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
     
@@ -177,16 +183,20 @@ def navigate_to_visa_posts(driver):
         traceback.print_exc()
         return False
 
-def extract_post_details(driver, output_dir="visa_posts"):
-    """Extract details from all available posts and save each to a separate text file
+def extract_post_details(driver, company_name=None):
+    """Extract details from all available posts and save to a CSV file
     
     Args:
         driver: Selenium WebDriver instance
-        output_dir: Directory to save post text files (default: "visa_posts")
+        company_name: Company name for CSV file naming (default: uses COMPANY_NAME constant)
     
     Returns:
         List of dictionaries containing post details
     """
+    if company_name is None:
+        company_name = COMPANY_NAME
+    
+    csv_filename = f"{company_name}_posts.csv"
     if not driver:
         print("  ✗ ERROR: Driver is not available. Please login first.")
         return []
@@ -196,17 +206,6 @@ def extract_post_details(driver, output_dir="visa_posts"):
         print("STEP 4: Extracting Post Details")
         print("="*80)
         wait = WebDriverWait(driver, 20)
-        
-        # Delete existing directory and create a new one
-        print(f"  → Checking output directory: {output_dir}")
-        if os.path.exists(output_dir):
-            print(f"  → Deleting existing directory: {output_dir}")
-            shutil.rmtree(output_dir)
-            print(f"  ✓ Deleted existing directory")
-        
-        print(f"  → Creating new directory: {output_dir}")
-        os.makedirs(output_dir)
-        print(f"  ✓ Created new directory: {output_dir}")
         
         # Wait for posts to load
         print("\n  → Waiting for posts to load (3 seconds)...")
@@ -482,28 +481,7 @@ def extract_post_details(driver, output_dir="visa_posts"):
                 except Exception as e:
                     print(f"      ⚠ Could not extract likes: {str(e)}")
                 
-                # Save post text to individual text file
-                if post_data["post_text"]:
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    filename = f"post_{idx + 1:03d}_{timestamp}.txt"
-                    filepath = os.path.join(output_dir, filename)
-                    
-                    print(f"    → Saving to file: {filename}")
-                    with open(filepath, 'w', encoding='utf-8') as f:
-                        f.write(f"Post #{idx + 1}\n")
-                        f.write("=" * 80 + "\n\n")
-                        if post_data["post_time"]:
-                            f.write(f"Posted: {post_data['post_time']}\n")
-                        if post_data["likes_count"]:
-                            f.write(f"Likes: {post_data['likes_count']}\n")
-                        f.write("\n" + "-" * 80 + "\n\n")
-                        f.write(post_data["post_text"])
-                        f.write("\n")
-                    
-                    print(f"      ✓ Saved! ({len(post_data['post_text'])} characters)")
-                else:
-                    print(f"      ⚠ Post has no text content, skipping file save...")
-                
+                # Add post to list (will save to CSV at the end)
                 extracted_posts.append(post_data)
                 print(f"    ✓ Post #{idx + 1} extraction complete!")
                 
@@ -513,10 +491,32 @@ def extract_post_details(driver, output_dir="visa_posts"):
                 traceback.print_exc()
                 continue
         
+        # Save all posts to CSV file (overwrite existing file)
+        if extracted_posts:
+            print(f"\n  → Saving all posts to CSV file: {csv_filename}")
+            print(f"  → Overwriting existing file if it exists...")
+            with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+                fieldnames = ['post_number', 'post_time', 'post_text', 'likes_count']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                
+                writer.writeheader()
+                for post in extracted_posts:
+                    writer.writerow({
+                        'post_number': post['post_number'],
+                        'post_time': post['post_time'],
+                        'post_text': post['post_text'],
+                        'likes_count': post['likes_count']
+                    })
+            
+            print(f"  ✓ CSV file saved: {csv_filename}")
+            print(f"  → Total posts saved: {len(extracted_posts)}")
+        else:
+            print("  ⚠ No posts to save to CSV")
+        
         print(f"\n" + "="*80)
         print(f"✓ EXTRACTION AND SAVING COMPLETE!")
         print(f"  → Successfully extracted {len(extracted_posts)} post(s)")
-        print(f"  → Output directory: {output_dir}")
+        print(f"  → CSV file: {csv_filename}")
         print("="*80)
         
         # Display extracted data summary
@@ -553,7 +553,7 @@ if __name__ == "__main__":
             # Navigate directly to Visa company Posts page
             navigate_to_visa_posts(driver)
             
-            # Extract all available post details
+            # Extract all available post details and save to CSV
             extract_post_details(driver)
             
             # Keep browser open to see results
