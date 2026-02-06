@@ -343,7 +343,7 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
         
         # Step 1: Scroll to the end of page 50 times to load all posts
         print("\n  → STEP 1: Scrolling to end of page 50 times to load all posts...")
-        num_scrolls = 10
+        num_scrolls = 5
         
         for scroll_num in range(1, num_scrolls + 1):
             print(f"\n    Scroll #{scroll_num}/{num_scrolls}:")
@@ -574,8 +574,8 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
         traceback.print_exc()
         return False
 
-def login_and_search(search_text=""):
-    """Login to LinkedIn and perform a search"""
+def scrape_linkedin_posts(search_text=""):
+    """Login to LinkedIn, search, filter posts, and extract all posts"""
     driver = None
     try:
         print("\n" + "="*80)
@@ -617,4 +617,4 @@ def login_and_search(search_text=""):
 
 if __name__ == "__main__":
     # SEARCH_TEXT is defined at the top of the file
-    login_and_search(SEARCH_TEXT)
+    scrape_linkedin_posts(SEARCH_TEXT)
