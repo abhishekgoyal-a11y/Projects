@@ -344,7 +344,7 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
         
         # Step 1: Scroll to the end of page 50 times to load all posts
         print("\n  → STEP 1: Scrolling to end of page 50 times to load all posts...")
-        num_scrolls = 5
+        num_scrolls = 30
         
         for scroll_num in range(1, num_scrolls + 1):
             print(f"\n    Scroll #{scroll_num}/{num_scrolls}:")
