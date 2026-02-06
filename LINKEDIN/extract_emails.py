@@ -32,15 +32,35 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
     
     print(f"  → Found {len(text_files)} text files")
     
+    # Load existing emails if JSON file exists
+    existing_emails = []
+    all_emails_set = set()  # To track unique emails
+    
+    if os.path.exists(output_json):
+        print(f"  → Found existing JSON file: {output_json}")
+        try:
+            with open(output_json, 'r', encoding='utf-8') as f:
+                existing_data = json.load(f)
+                existing_emails = existing_data.get("emails", [])
+                # Add existing emails to the set
+                for email_entry in existing_emails:
+                    email_addr = email_entry.get("email", "")
+                    if email_addr:
+                        all_emails_set.add(email_addr)
+                print(f"  → Loaded {len(existing_emails)} existing emails from JSON file")
+        except Exception as e:
+            print(f"  ⚠ Warning: Could not load existing JSON file: {str(e)}")
+            print(f"  → Starting fresh")
+    
     # Dictionary to store emails with metadata
     emails_data = {
         "extraction_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "total_files_processed": len(text_files),
         "total_unique_emails": 0,
-        "emails": []
+        "emails": existing_emails.copy()  # Start with existing emails
     }
     
-    all_emails_set = set()  # To track unique emails
+    new_emails_count = 0  # Track how many new emails were added
     
     print(f"\n  → Processing files...")
     for idx, filename in enumerate(text_files, 1):
@@ -67,6 +87,9 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
                             "email": email,
                             "source_file": filename
                         })
+                        new_emails_count += 1
+                    else:
+                        print(f"      → Email '{email}' already exists, skipping...")
             else:
                 print(f"    File {idx}/{len(text_files)} ({filename}): No emails found")
                 
@@ -77,7 +100,7 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
     # Update total unique emails count
     emails_data["total_unique_emails"] = len(all_emails_set)
     
-    # Save to JSON file
+    # Save to JSON file (append mode - overwrites but merges with existing)
     print(f"\n  → Saving extracted emails to: {output_json}")
     try:
         with open(output_json, 'w', encoding='utf-8') as f:
@@ -85,13 +108,17 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
         
         print(f"  ✓ Successfully saved {emails_data['total_unique_emails']} unique emails to '{output_json}'")
         print(f"  → Processed {emails_data['total_files_processed']} files")
+        print(f"  → New emails added: {new_emails_count}")
+        print(f"  → Existing emails kept: {len(existing_emails)}")
         
         # Print summary
         print(f"\n" + "="*80)
         print("EMAIL EXTRACTION SUMMARY")
         print("="*80)
         print(f"  → Total files processed: {emails_data['total_files_processed']}")
-        print(f"  → Total unique emails found: {emails_data['total_unique_emails']}")
+        print(f"  → Total unique emails: {emails_data['total_unique_emails']}")
+        print(f"  → New emails added: {new_emails_count}")
+        print(f"  → Existing emails: {len(existing_emails)}")
         print(f"  → Output file: {output_json}")
         print("="*80)
         

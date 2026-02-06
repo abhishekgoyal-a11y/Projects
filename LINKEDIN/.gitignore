@@ -21,6 +21,3 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
-
-# Output files
-extracted_emails.json

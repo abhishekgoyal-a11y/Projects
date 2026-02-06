@@ -1,0 +1,523 @@
+{
+  "extraction_date": "2026-02-06 17:49:19",
+  "total_files_processed": 313,
+  "total_unique_emails": 129,
+  "emails": [
+    {
+      "email": "intell.nisha@gmail.com",
+      "source_file": "post_001_20260206_173048.txt"
+    },
+    {
+      "email": "hr@transacn.com",
+      "source_file": "post_003_20260206_173051.txt"
+    },
+    {
+      "email": "dopet@collector.org",
+      "source_file": "post_005_20260206_173054.txt"
+    },
+    {
+      "email": "abhilipsa@loansjagat.com",
+      "source_file": "post_007_20260206_173057.txt"
+    },
+    {
+      "email": "varskumari@deloitte.com",
+      "source_file": "post_008_20260206_173059.txt"
+    },
+    {
+      "email": "Prashant@rulesiq.com",
+      "source_file": "post_010_20260206_173102.txt"
+    },
+    {
+      "email": "hrmanager@mansainfotech.com",
+      "source_file": "post_011_20260206_173104.txt"
+    },
+    {
+      "email": "jobs@techvantagesystems.com",
+      "source_file": "post_012_20260206_173105.txt"
+    },
+    {
+      "email": "hr@vyomsigmabuildzone.com",
+      "source_file": "post_013_20260206_173107.txt"
+    },
+    {
+      "email": "abhilash.ps@zafin.com",
+      "source_file": "post_014_20260206_173109.txt"
+    },
+    {
+      "email": "Sangeeta.senwal@codersbrain.com",
+      "source_file": "post_015_20260206_173110.txt"
+    },
+    {
+      "email": "a.rajanbabu@irclass.org",
+      "source_file": "post_016_20260206_173112.txt"
+    },
+    {
+      "email": "rt.kumar@irclass.org",
+      "source_file": "post_016_20260206_173112.txt"
+    },
+    {
+      "email": "piyush.gadhiya@dec-group.in",
+      "source_file": "post_017_20260206_173113.txt"
+    },
+    {
+      "email": "harshali.jala@dec-group.in",
+      "source_file": "post_017_20260206_173113.txt"
+    },
+    {
+      "email": "anshuman-thakur@cssoftsolutions.com",
+      "source_file": "post_020_20260206_173118.txt"
+    },
+    {
+      "email": "contact@oneittech.com",
+      "source_file": "post_023_20260206_173123.txt"
+    },
+    {
+      "email": "sujana.p@ziniosedge.com",
+      "source_file": "post_024_20260206_173125.txt"
+    },
+    {
+      "email": "ramprakash@codersbrain.com",
+      "source_file": "post_025_20260206_173126.txt"
+    },
+    {
+      "email": "chahat.malhotra@talentelgia.com",
+      "source_file": "post_030_20260206_173134.txt"
+    },
+    {
+      "email": "support@divintrallc.com",
+      "source_file": "post_031_20260206_173136.txt"
+    },
+    {
+      "email": "meenu.soni@mobiosolutions.com",
+      "source_file": "post_033_20260206_173139.txt"
+    },
+    {
+      "email": "kayalvizhi@vysystems.com",
+      "source_file": "post_036_20260206_173144.txt"
+    },
+    {
+      "email": "staffing@prominentconsultant.com",
+      "source_file": "post_039_20260206_173148.txt"
+    },
+    {
+      "email": "bhavya.sharma@agicent.com",
+      "source_file": "post_040_20260206_173149.txt"
+    },
+    {
+      "email": "rahul@pcsjobsi.com",
+      "source_file": "post_041_20260206_173151.txt"
+    },
+    {
+      "email": "navya@fusionhiretech.com",
+      "source_file": "post_042_20260206_173153.txt"
+    },
+    {
+      "email": "angie@acsincny.com",
+      "source_file": "post_043_20260206_173154.txt"
+    },
+    {
+      "email": "ithiring954@gmail.com",
+      "source_file": "post_045_20260206_173204.txt"
+    },
+    {
+      "email": "ashwini.c@aviintech.com",
+      "source_file": "post_046_20260206_173205.txt"
+    },
+    {
+      "email": "careers@riaadvisory.com",
+      "source_file": "post_048_20260206_173209.txt"
+    },
+    {
+      "email": "videshmukh@teksystems.com",
+      "source_file": "post_049_20260206_173211.txt"
+    },
+    {
+      "email": "priyanka.g@astrongroup.com",
+      "source_file": "post_050_20260206_173212.txt"
+    },
+    {
+      "email": "hr@payfi.co.in",
+      "source_file": "post_052_20260206_173215.txt"
+    },
+    {
+      "email": "aakanksha@rconsultinginc.com",
+      "source_file": "post_053_20260206_173217.txt"
+    },
+    {
+      "email": "pooja@syook.com",
+      "source_file": "post_054_20260206_173219.txt"
+    },
+    {
+      "email": "mahendra@ecofinity.in",
+      "source_file": "post_056_20260206_173222.txt"
+    },
+    {
+      "email": "yashdeep.singh@delphic.in",
+      "source_file": "post_057_20260206_173224.txt"
+    },
+    {
+      "email": "bhavana.chaudhary@bonamisoftware.com",
+      "source_file": "post_058_20260206_173225.txt"
+    },
+    {
+      "email": "ajeet.singh@braintreeus.com",
+      "source_file": "post_059_20260206_173227.txt"
+    },
+    {
+      "email": "Soumya.t@ampstek.com|www",
+      "source_file": "post_060_20260206_173228.txt"
+    },
+    {
+      "email": "sivashankar.goud@latinem.in",
+      "source_file": "post_061_20260206_173230.txt"
+    },
+    {
+      "email": "kalpana@hticglobal.com",
+      "source_file": "post_063_20260206_173233.txt"
+    },
+    {
+      "email": "hr@greatify.ai",
+      "source_file": "post_065_20260206_173236.txt"
+    },
+    {
+      "email": "mohan.k@ideatetechnologies.com",
+      "source_file": "post_066_20260206_173238.txt"
+    },
+    {
+      "email": "nandini.k@forcecloudlabs.com",
+      "source_file": "post_068_20260206_173241.txt"
+    },
+    {
+      "email": "hardik.thapa@thewitslab.com",
+      "source_file": "post_069_20260206_173243.txt"
+    },
+    {
+      "email": "info@everserveconsultants.com",
+      "source_file": "post_071_20260206_173246.txt"
+    },
+    {
+      "email": "poojithavisys@gmail.com",
+      "source_file": "post_072_20260206_173248.txt"
+    },
+    {
+      "email": "pawan@quantumworldit.com",
+      "source_file": "post_073_20260206_173249.txt"
+    },
+    {
+      "email": "vp@amsaaf.com",
+      "source_file": "post_074_20260206_173251.txt"
+    },
+    {
+      "email": "Shailendra.jha@Nityo.com",
+      "source_file": "post_078_20260206_173257.txt"
+    },
+    {
+      "email": "rkumar@tanishasystems.com",
+      "source_file": "post_079_20260206_173259.txt"
+    },
+    {
+      "email": "jobs@webdeskinc.com",
+      "source_file": "post_081_20260206_173302.txt"
+    },
+    {
+      "email": "HR@seventhtriangle.com",
+      "source_file": "post_082_20260206_173304.txt"
+    },
+    {
+      "email": "kiruthika.b@entry2entiresolutions.com",
+      "source_file": "post_083_20260206_173306.txt"
+    },
+    {
+      "email": "mukesh.sunchu@winfosolutions.com",
+      "source_file": "post_084_20260206_173307.txt"
+    },
+    {
+      "email": "cv15@hrinternational.in",
+      "source_file": "post_086_20260206_173310.txt"
+    },
+    {
+      "email": "Gowri@zealogics.com",
+      "source_file": "post_087_20260206_173312.txt"
+    },
+    {
+      "email": "james@initus.co.in",
+      "source_file": "post_090_20260206_173317.txt"
+    },
+    {
+      "email": "ssai@encore-c.com",
+      "source_file": "post_091_20260206_173318.txt"
+    },
+    {
+      "email": "hiringtanisha@gmail.com",
+      "source_file": "post_092_20260206_173320.txt"
+    },
+    {
+      "email": "sahil@aasthaconsulting.com",
+      "source_file": "post_093_20260206_173322.txt"
+    },
+    {
+      "email": "jobs@morphoshr.com",
+      "source_file": "post_094_20260206_173323.txt"
+    },
+    {
+      "email": "shashi@anprax.com",
+      "source_file": "post_095_20260206_173325.txt"
+    },
+    {
+      "email": "sandeep.kaur@avendata-group.com",
+      "source_file": "post_097_20260206_173328.txt"
+    },
+    {
+      "email": "singh.ashish@resource-logistics.com",
+      "source_file": "post_104_20260206_173338.txt"
+    },
+    {
+      "email": "mohini.hr@technology-next.com",
+      "source_file": "post_109_20260206_173346.txt"
+    },
+    {
+      "email": "recruiter25@hrinternational.in",
+      "source_file": "post_111_20260206_173350.txt"
+    },
+    {
+      "email": "careers@resoluteelectronics.com",
+      "source_file": "post_126_20260206_173413.txt"
+    },
+    {
+      "email": "hr@azlogics.com",
+      "source_file": "post_133_20260206_173423.txt"
+    },
+    {
+      "email": "bharti.shivhare@brihatisglobal.com",
+      "source_file": "post_137_20260206_173430.txt"
+    },
+    {
+      "email": "hr43@hectorandstreak.com",
+      "source_file": "post_138_20260206_173431.txt"
+    },
+    {
+      "email": "remotefreelancejobs6@gmail.com",
+      "source_file": "post_139_20260206_173433.txt"
+    },
+    {
+      "email": "jobs@wizni.com",
+      "source_file": "post_141_20260206_173436.txt"
+    },
+    {
+      "email": "sunanda.mungekar@testingxperts.com",
+      "source_file": "post_143_20260206_173440.txt"
+    },
+    {
+      "email": "Akhilesh@skyzentech.com",
+      "source_file": "post_145_20260206_173443.txt"
+    },
+    {
+      "email": "reqruitment@skandavelwebtech.com",
+      "source_file": "post_146_20260206_173444.txt"
+    },
+    {
+      "email": "aldubey@deqode.com",
+      "source_file": "post_147_20260206_173446.txt"
+    },
+    {
+      "email": "nitya.thakur@jignect.tech",
+      "source_file": "post_150_20260206_173451.txt"
+    },
+    {
+      "email": "anna.c@gandivainsights.com",
+      "source_file": "post_151_20260206_173452.txt"
+    },
+    {
+      "email": "sanskruti.bhalerao@aqmtechnologies.com",
+      "source_file": "post_153_20260206_173456.txt"
+    },
+    {
+      "email": "jignesh.namah@radiancetechllc.com",
+      "source_file": "post_154_20260206_173457.txt"
+    },
+    {
+      "email": "shreya.khankriyal@infojiniconsulting.com",
+      "source_file": "post_155_20260206_173459.txt"
+    },
+    {
+      "email": "sanitha.dsouza@idcmps.ae",
+      "source_file": "post_156_20260206_173500.txt"
+    },
+    {
+      "email": "bhavana.p@stsoman.com",
+      "source_file": "post_157_20260206_173502.txt"
+    },
+    {
+      "email": "recruiter2@infolexus.com",
+      "source_file": "post_158_20260206_173504.txt"
+    },
+    {
+      "email": "PBalasubramaniyam@datamaxis.net",
+      "source_file": "post_160_20260206_173507.txt"
+    },
+    {
+      "email": "jbhatia@forcecraver.com",
+      "source_file": "post_163_20260206_173512.txt"
+    },
+    {
+      "email": "devkrafthr@devkraft.in",
+      "source_file": "post_165_20260206_173515.txt"
+    },
+    {
+      "email": "Laxmi.priya@oracle.com",
+      "source_file": "post_166_20260206_173517.txt"
+    },
+    {
+      "email": "tarun.killamsetty@oracle.com",
+      "source_file": "post_166_20260206_173517.txt"
+    },
+    {
+      "email": "shreyapatel.hyperlinkinfosystem@gmail.com",
+      "source_file": "post_168_20260206_173520.txt"
+    },
+    {
+      "email": "Blessy@algebrait.com",
+      "source_file": "post_171_20260206_173525.txt"
+    },
+    {
+      "email": "salma@digivancesol.com",
+      "source_file": "post_173_20260206_173528.txt"
+    },
+    {
+      "email": "lakshmi_l@logic-semi.com",
+      "source_file": "post_174_20260206_173529.txt"
+    },
+    {
+      "email": "riyahiring7@gmail.com",
+      "source_file": "post_176_20260206_173533.txt"
+    },
+    {
+      "email": "Rajesh.kumar1@nlbtech.com",
+      "source_file": "post_181_20260206_173541.txt"
+    },
+    {
+      "email": "jobs@mazdaconsultancy.com",
+      "source_file": "post_183_20260206_173544.txt"
+    },
+    {
+      "email": "shafiq.j@vdartinc.com",
+      "source_file": "post_185_20260206_173547.txt"
+    },
+    {
+      "email": "jobs@codewinglet.com",
+      "source_file": "post_186_20260206_173549.txt"
+    },
+    {
+      "email": "hiringvamika@gmail.com",
+      "source_file": "post_188_20260206_173553.txt"
+    },
+    {
+      "email": "gajanand.mk@ibridgetechsoft.com",
+      "source_file": "post_189_20260206_173554.txt"
+    },
+    {
+      "email": "baishali.biswas@weavers-web.com",
+      "source_file": "post_190_20260206_173556.txt"
+    },
+    {
+      "email": "keerthana.manikandan@bounteous.com",
+      "source_file": "post_191_20260206_173558.txt"
+    },
+    {
+      "email": "Soumya.t@ampstek.com",
+      "source_file": "post_192_20260206_173559.txt"
+    },
+    {
+      "email": "Priyanka@beanhr.com",
+      "source_file": "post_194_20260206_173601.txt"
+    },
+    {
+      "email": "prasadh@siriinfo.com",
+      "source_file": "post_195_20260206_173603.txt"
+    },
+    {
+      "email": "tanya.gupta@shipglobal.in",
+      "source_file": "post_196_20260206_173605.txt"
+    },
+    {
+      "email": "Vanshtiwari543@gmail.com",
+      "source_file": "post_198_20260206_173608.txt"
+    },
+    {
+      "email": "vinod@anther.co.in",
+      "source_file": "post_202_20260206_173614.txt"
+    },
+    {
+      "email": "career@bytestechnolab.com",
+      "source_file": "post_203_20260206_173616.txt"
+    },
+    {
+      "email": "info@techdhaba.com",
+      "source_file": "post_208_20260206_173624.txt"
+    },
+    {
+      "email": "divya@karmaasolutions.com",
+      "source_file": "post_212_20260206_173630.txt"
+    },
+    {
+      "email": "nitin.jadhav@ampcustech.com",
+      "source_file": "post_215_20260206_173633.txt"
+    },
+    {
+      "email": "Aadil.Shaikh@ltimindtree.com",
+      "source_file": "post_219_20260206_173640.txt"
+    },
+    {
+      "email": "mamtad@harmanfinochem.com",
+      "source_file": "post_220_20260206_173641.txt"
+    },
+    {
+      "email": "rahulp@harmanfinochem.com",
+      "source_file": "post_220_20260206_173641.txt"
+    },
+    {
+      "email": "sweshika@racktreeinc.com",
+      "source_file": "post_227_20260206_173653.txt"
+    },
+    {
+      "email": "koushal.k@ehub.global",
+      "source_file": "post_230_20260206_173656.txt"
+    },
+    {
+      "email": "hr@ebenus.co.in",
+      "source_file": "post_233_20260206_173701.txt"
+    },
+    {
+      "email": "amrita.g@csiglobal.co.uk",
+      "source_file": "post_237_20260206_173708.txt"
+    },
+    {
+      "email": "lipika@momentousa.com",
+      "source_file": "post_244_20260206_173718.txt"
+    },
+    {
+      "email": "swetha@webapplogic.in",
+      "source_file": "post_274_20260206_173804.txt"
+    },
+    {
+      "email": "sameer.j@e-solutionsinc.com",
+      "source_file": "post_282_20260206_173816.txt"
+    },
+    {
+      "email": "hiteshp@milesahead91.com",
+      "source_file": "post_305_20260206_173853.txt"
+    },
+    {
+      "email": "shravani@bwbsol.com",
+      "source_file": "post_235_20260206_173704.txt"
+    },
+    {
+      "email": "sneha.janakiraman@sandhata.com",
+      "source_file": "post_295_20260206_173837.txt"
+    },
+    {
+      "email": "herbertchristopher5457@gmail.com",
+      "source_file": "post_290_20260206_173829.txt"
+    }
+  ]
+}
