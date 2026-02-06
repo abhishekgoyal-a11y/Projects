@@ -10,6 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
 import shutil
+import random
 from datetime import datetime
 
 # LinkedIn login credentials
@@ -392,7 +393,7 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
                     
                     # Scroll within this container
                     driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight;", largest_container['element'])
-                    time.sleep(1)
+                    time.sleep(0.5)
                     new_scroll_top = driver.execute_script("return arguments[0].scrollTop;", largest_container['element'])
                     print(f"      → Scrolled container to: {new_scroll_top}px")
                 else:
@@ -403,14 +404,14 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
             # Try multiple window scrolling methods
             print("      → Method 1: Scrolling window to document.body.scrollHeight...")
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
+            time.sleep(0.5)
             
             # Check if we actually scrolled
             new_scroll = driver.execute_script("return window.pageYOffset;")
             if new_scroll == current_scroll:
                 print("      → Method 1 didn't work, trying document.documentElement.scrollHeight...")
                 driver.execute_script("window.scrollTo(0, document.documentElement.scrollHeight);")
-                time.sleep(1)
+                time.sleep(0.5)
                 new_scroll = driver.execute_script("return window.pageYOffset;")
             
             # Try scrolling by window height increments
@@ -418,7 +419,7 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
                 print("      → Trying incremental scroll (current + window_height)...")
                 scroll_amount = current_scroll + window_height
                 driver.execute_script(f"window.scrollTo(0, {scroll_amount});")
-                time.sleep(1)
+                time.sleep(0.5)
                 new_scroll = driver.execute_script("return window.pageYOffset;")
             
             # Try using Keys.PAGE_DOWN and END
@@ -448,9 +449,10 @@ def extract_and_save_posts(driver, output_dir="linkedin_posts"):
             print(f"      → New scroll position: {new_scroll}px")
             print(f"      → Scrolled: {new_scroll - current_scroll}px")
             
-            # Wait for content to load
-            print("      → Waiting 3 seconds for content to load...")
-            time.sleep(3)
+            # Wait for content to load (random between 3 and 4 seconds)
+            wait_time = round(random.uniform(3, 4), 1)
+            print(f"      → Waiting {wait_time} seconds for content to load...")
+            time.sleep(wait_time)
             
             # Check new page height after scroll
             new_page_height = driver.execute_script("return document.body.scrollHeight;")
