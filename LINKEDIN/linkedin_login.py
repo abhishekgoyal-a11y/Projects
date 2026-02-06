@@ -616,10 +616,5 @@ def login_and_search(search_text=""):
             print("="*80)
 
 if __name__ == "__main__":
-    # You can modify SEARCH_TEXT at the top of the file or pass it here
-    search_term = SEARCH_TEXT if SEARCH_TEXT else input("Enter search term (or press Enter to skip search): ").strip()
-    
-    if search_term:
-        login_and_search(search_term)
-    else:
-        login_to_linkedin(close_browser=True)
+    # SEARCH_TEXT is defined at the top of the file
+    login_and_search(SEARCH_TEXT)
