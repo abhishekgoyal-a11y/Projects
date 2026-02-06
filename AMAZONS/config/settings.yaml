@@ -1,0 +1,37 @@
+# E-commerce Product Intelligence Scraper Configuration
+# Default settings for Amazon product scraping
+
+marketplace: amazon
+region: india
+search_keyword: "laptop"
+min_price: 20000
+max_price: 80000
+
+# Optional filters
+optional_filters:
+  brand: null  # e.g., "Dell", "HP", "Lenovo"
+  minimum_rating: null  # e.g., 4.0
+  in_stock_only: false
+  max_pages: null  # null means scrape all pages
+
+# Scraping behavior
+scraping:
+  delay_between_requests: 2  # seconds
+  delay_between_pages: 3  # seconds
+  max_retries: 3
+  timeout: 30  # seconds
+  headless: true
+  use_playwright: true  # Use Playwright for JavaScript-rendered content
+
+# Output settings
+output:
+  format: csv  # csv, json, both
+  output_dir: outputs
+  include_timestamp: true
+  deduplicate: true
+
+# Logging
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  log_file: logs/scraper.log
+  console_output: true
