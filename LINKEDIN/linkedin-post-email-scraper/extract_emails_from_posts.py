@@ -1,15 +1,67 @@
 """
 Email Extraction Script
-Reads all text files from linkedin_posts directory, extracts emails using regex, and saves to JSON
+Reads all text files from linkedin_posts directory, extracts emails using regex, and saves to CSV
 """
 
 import os
 import re
-import json
+import csv
 from datetime import datetime
 
-def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted_emails.json"):
-    """Read all text files from posts directory, extract emails using regex, and save to JSON"""
+def get_company_name_from_email(email):
+    """
+    Extract company name from email address.
+    Returns the company name based on the domain.
+    """
+    if not email or '@' not in email:
+        return "Unknown"
+    
+    # Extract domain from email
+    domain = email.split('@')[1].lower()
+    
+    # Common personal email providers
+    personal_email_providers = [
+        'gmail.com', 'yahoo.com', 'yahoo.co.in', 'hotmail.com', 'outlook.com',
+        'live.com', 'msn.com', 'aol.com', 'icloud.com', 'mail.com', 'protonmail.com',
+        'yandex.com', 'zoho.com', 'rediffmail.com', 'inbox.com', 'gmx.com'
+    ]
+    
+    # Check if it's a personal email provider
+    if domain in personal_email_providers:
+        return "Personal Email"
+    
+    # Extract company name from domain
+    # Remove common TLDs and subdomains
+    domain_parts = domain.split('.')
+    
+    # Remove TLD (last part) and common prefixes like 'www', 'mail', 'email'
+    company_parts = []
+    skip_prefixes = ['www', 'mail', 'email', 'smtp', 'pop', 'imap']
+    
+    for part in domain_parts[:-1]:  # Exclude TLD
+        if part not in skip_prefixes:
+            company_parts.append(part)
+    
+    if company_parts:
+        # Take the main domain part (usually the first non-skipped part)
+        company_name = company_parts[0]
+        # Capitalize first letter of each word if it's a compound name
+        # Handle camelCase or hyphenated names
+        if '-' in company_name:
+            company_name = ' '.join(word.capitalize() for word in company_name.split('-'))
+        elif any(c.isupper() for c in company_name):
+            # Already has capitalization, keep it
+            pass
+        else:
+            # Capitalize first letter
+            company_name = company_name.capitalize()
+        
+        return company_name
+    
+    return domain  # Fallback to domain if we can't extract company name
+
+def extract_emails_from_posts(posts_dir="linkedin_posts", output_csv="extracted_emails.csv"):
+    """Read all text files from posts directory, extract emails using regex, and save to CSV"""
     print("\n" + "="*80)
     print("EXTRACTING EMAILS FROM POSTS")
     print("="*80)
@@ -32,35 +84,32 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
     
     print(f"  → Found {len(text_files)} text files")
     
-    # Load existing emails if JSON file exists
+    # Load existing emails if CSV file exists
     existing_emails = []
     all_emails_set = set()  # To track unique emails
     
-    if os.path.exists(output_json):
-        print(f"  → Found existing JSON file: {output_json}")
+    if os.path.exists(output_csv):
+        print(f"  → Found existing CSV file: {output_csv}")
         try:
-            with open(output_json, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-                existing_emails = existing_data.get("emails", [])
-                # Add existing emails to the set
-                for email_entry in existing_emails:
-                    email_addr = email_entry.get("email", "")
+            with open(output_csv, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    email_addr = row.get("email", "").strip()
                     if email_addr:
                         all_emails_set.add(email_addr)
-                print(f"  → Loaded {len(existing_emails)} existing emails from JSON file")
+                        existing_emails.append({
+                            "email": email_addr,
+                            "company": row.get("company", get_company_name_from_email(email_addr)).strip()
+                        })
+                print(f"  → Loaded {len(existing_emails)} existing emails from CSV file")
         except Exception as e:
-            print(f"  ⚠ Warning: Could not load existing JSON file: {str(e)}")
+            print(f"  ⚠ Warning: Could not load existing CSV file: {str(e)}")
             print(f"  → Starting fresh")
     
-    # Dictionary to store emails with metadata
-    emails_data = {
-        "extraction_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "total_files_processed": len(text_files),
-        "total_unique_emails": 0,
-        "emails": existing_emails.copy()  # Start with existing emails
-    }
-    
+    # List to store all emails (existing + new)
+    all_emails_list = existing_emails.copy()
     new_emails_count = 0  # Track how many new emails were added
+    extraction_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     print(f"\n  → Processing files...")
     for idx, filename in enumerate(text_files, 1):
@@ -83,9 +132,10 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
                 for email in unique_emails_in_file:
                     if email not in all_emails_set:
                         all_emails_set.add(email)
-                        emails_data["emails"].append({
+                        company_name = get_company_name_from_email(email)
+                        all_emails_list.append({
                             "email": email,
-                            "source_file": filename
+                            "company": company_name
                         })
                         new_emails_count += 1
                     else:
@@ -97,17 +147,17 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
             print(f"    ✗ ERROR processing file {filename}: {str(e)}")
             continue
     
-    # Update total unique emails count
-    emails_data["total_unique_emails"] = len(all_emails_set)
-    
-    # Save to JSON file (append mode - overwrites but merges with existing)
-    print(f"\n  → Saving extracted emails to: {output_json}")
+    # Save to CSV file (overwrites but merges with existing)
+    total_unique_emails = len(all_emails_set)
+    print(f"\n  → Saving extracted emails to: {output_csv}")
     try:
-        with open(output_json, 'w', encoding='utf-8') as f:
-            json.dump(emails_data, f, indent=2, ensure_ascii=False)
+        with open(output_csv, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=['email', 'company'])
+            writer.writeheader()
+            writer.writerows(all_emails_list)
         
-        print(f"  ✓ Successfully saved {emails_data['total_unique_emails']} unique emails to '{output_json}'")
-        print(f"  → Processed {emails_data['total_files_processed']} files")
+        print(f"  ✓ Successfully saved {total_unique_emails} unique emails to '{output_csv}'")
+        print(f"  → Processed {len(text_files)} files")
         print(f"  → New emails added: {new_emails_count}")
         print(f"  → Existing emails kept: {len(existing_emails)}")
         
@@ -115,17 +165,17 @@ def extract_emails_from_posts(posts_dir="linkedin_posts", output_json="extracted
         print(f"\n" + "="*80)
         print("EMAIL EXTRACTION SUMMARY")
         print("="*80)
-        print(f"  → Total files processed: {emails_data['total_files_processed']}")
-        print(f"  → Total unique emails: {emails_data['total_unique_emails']}")
+        print(f"  → Total files processed: {len(text_files)}")
+        print(f"  → Total unique emails: {total_unique_emails}")
         print(f"  → New emails added: {new_emails_count}")
         print(f"  → Existing emails: {len(existing_emails)}")
-        print(f"  → Output file: {output_json}")
+        print(f"  → Output file: {output_csv}")
         print("="*80)
         
         return True
         
     except Exception as e:
-        print(f"  ✗ ERROR saving JSON file: {str(e)}")
+        print(f"  ✗ ERROR saving CSV file: {str(e)}")
         return False
 
 if __name__ == "__main__":

@@ -1,14 +1,17 @@
 # LinkedIn Post Scraper
 
-Automated tool to scrape LinkedIn posts based on search terms and extract email addresses.
+Automated tool to scrape LinkedIn posts based on search terms and extract email addresses with company name detection.
 
 ## 🎯 What it does
 
-1. Logs into LinkedIn using secure credentials
-2. Searches for posts using a keyword
-3. Scrolls to load all posts
-4. Extracts and saves each post to a text file
-5. Extracts email addresses from saved posts
+1. Logs into LinkedIn using secure credentials (environment variables)
+2. Searches for posts using a configurable keyword
+3. Filters results to show only Posts
+4. Scrolls 30 times to load all posts dynamically
+5. Extracts and saves each post to a separate text file
+6. Extracts email addresses from saved posts using regex
+7. Identifies company names from email domains
+8. Saves results to CSV with email and company columns
 
 ## 📋 Requirements
 
@@ -48,7 +51,10 @@ python3 scrape_linkedin_posts.py
 **Configuration:**
 - **Credentials**: Set via environment variables (see Installation step 2)
 - **Search Term**: Set `LINKEDIN_SEARCH_TEXT` environment variable or modify default in script
-- **Output**: Posts are saved to `linkedin_posts/` directory
+- **Output**: Posts are saved to `linkedin_posts/` directory (existing directory is deleted and recreated)
+- **Browser Mode**: Runs in visible mode (non-headless) to allow manual challenge handling
+- **Scrolling**: Scrolls 30 times to load all posts dynamically
+- **Post Extraction**: Automatically clicks "more" buttons to expand truncated text
 
 ### 2. Extract Emails
 
@@ -57,9 +63,12 @@ python3 extract_emails_from_posts.py
 ```
 
 **Output:**
-- Emails saved to `extracted_emails.json`
-- Appends new emails (skips duplicates)
-- Includes metadata: extraction date, source file, total count
+- Emails saved to `extracted_emails.csv` (CSV format with `email` and `company` columns)
+- Merges with existing CSV file (preserves previous emails)
+- Skips duplicate emails automatically
+- Extracts company names from email domains
+- Identifies personal email providers (Gmail, Yahoo, etc.)
+- Provides detailed progress output and summary statistics
 
 ## ⚙️ Configuration
 
@@ -80,10 +89,10 @@ python3 scrape_linkedin_posts.py
 
 ## 📁 Files
 
-- `scrape_linkedin_posts.py` - Main scraper script
-- `extract_emails_from_posts.py` - Email extraction script
-- `linkedin_posts/` - Directory with saved posts (auto-created)
-- `extracted_emails.json` - Extracted emails in JSON format
+- `scrape_linkedin_posts.py` - Main scraper script (Selenium-based LinkedIn automation)
+- `extract_emails_from_posts.py` - Email extraction script with company name detection
+- `linkedin_posts/` - Directory with saved posts (auto-created, overwritten on each run)
+- `extracted_emails.csv` - Extracted emails in CSV format with `email` and `company` columns
 
 ## 🔒 Security & Privacy
 
@@ -94,11 +103,15 @@ python3 scrape_linkedin_posts.py
 
 ## 📝 Notes
 
-- Runs in **headless mode** by default (browser not visible)
-- Scrolls 30 times to load posts (configurable in code)
+- Runs in **non-headless mode** (browser visible) to allow manual challenge handling
+- Scrolls **30 times** to load posts dynamically (configurable in code)
 - Handles session timeouts and errors gracefully
-- Removes duplicate posts automatically
-- Email extraction uses regex pattern matching
+- Removes duplicate posts automatically during extraction
+- Email extraction uses regex pattern matching: `\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b`
+- Company name extraction from email domains (identifies personal vs. business emails)
+- CSV output preserves existing emails and only adds new unique ones
+- Detailed progress logging for each step of the process
+- Automatically expands truncated post text by clicking "more" buttons
 
 ## 🐛 Troubleshooting
 
@@ -115,3 +128,11 @@ python3 scrape_linkedin_posts.py
 - Not all posts contain email addresses
 - Check `linkedin_posts/` directory for scraped posts
 - Verify email regex pattern matches your needs
+- Check if CSV file exists and contains existing emails
+
+### Email extraction features
+- **Company Detection**: Automatically identifies company names from email domains
+- **Personal Email Detection**: Recognizes common personal email providers (Gmail, Yahoo, Outlook, etc.)
+- **Duplicate Prevention**: Skips emails that already exist in the CSV file
+- **CSV Format**: Output includes `email` and `company` columns
+- **Merge Mode**: Preserves existing emails when adding new ones
