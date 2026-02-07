@@ -14,8 +14,8 @@ import random
 from datetime import datetime
 
 # LinkedIn login credentials
-EMAIL = "fivverabhishek@gmail.com"
-PASSWORD = "abhi1234@1234"
+EMAIL = os.getenv("LINKEDIN_EMAIL", "")
+PASSWORD = os.getenv("LINKEDIN_PASSWORD", "")
 LOGIN_URL = "https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin"
 
 # Company settings
@@ -117,6 +117,20 @@ def login_to_linkedin(close_browser=True):
         current_url = driver.current_url
         print(f"  → Current URL after login: {current_url}")
         
+        # Check for security challenges
+        if "checkpoint" in current_url.lower() or "challenge" in current_url.lower() or "authwall" in current_url.lower():
+            print("\n  ⚠ SECURITY CHALLENGE DETECTED!")
+            print("  → LinkedIn is asking for additional verification.")
+            print("  → Please manually complete the security challenge in the browser.")
+            print("  → After completing, navigate to: https://www.linkedin.com/feed")
+            print("  → Then press Enter here to continue...")
+            input("  → Press Enter after completing the security challenge...")
+            
+            # Wait a bit and check URL again
+            time.sleep(3)
+            current_url = driver.current_url
+            print(f"  → Current URL after challenge: {current_url}")
+        
         if "feed" in current_url or "linkedin.com/in/" in current_url or current_url == "https://www.linkedin.com/":
             print("  ✓ Login successful! Redirected to LinkedIn feed/profile.")
         else:
@@ -144,8 +158,8 @@ def login_to_linkedin(close_browser=True):
             driver.quit()
         return None
 
-def navigate_to_visa_posts(driver):
-    """Navigate directly to Visa company Posts page
+def navigate_to_company_posts(driver):
+    """Navigate directly to company Posts page
     
     Args:
         driver: Selenium WebDriver instance
@@ -156,12 +170,12 @@ def navigate_to_visa_posts(driver):
     
     try:
         print("\n" + "="*80)
-        print("STEP 3: Navigating to Visa Company Posts Page")
+        print("STEP 3: Navigating to Company Posts Page")
         print("="*80)
         
         # Navigate directly to the Posts URL
-        posts_url = "https://www.linkedin.com/company/visa/posts/?feedView=all"
-        print(f"  → Navigating directly to Visa Posts page...")
+        posts_url = f"https://www.linkedin.com/company/{COMPANY_NAME}/posts/?feedView=all"
+        print(f"  → Navigating directly to Company Posts page...")
         print(f"     URL: {posts_url}")
         driver.get(posts_url)
         print("  → Page loaded, waiting for content...")
@@ -550,8 +564,8 @@ if __name__ == "__main__":
         driver = login_to_linkedin(close_browser=False)
         
         if driver:
-            # Navigate directly to Visa company Posts page
-            navigate_to_visa_posts(driver)
+            # Navigate directly to Company Posts page
+            navigate_to_company_posts(driver)
             
             # Extract all available post details and save to CSV
             extract_post_details(driver)
