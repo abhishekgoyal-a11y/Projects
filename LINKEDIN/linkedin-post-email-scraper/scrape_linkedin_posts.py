@@ -13,13 +13,13 @@ import shutil
 import random
 from datetime import datetime
 
-# LinkedIn login credentials
-EMAIL = "fivverabhishek@gmail.com"
-PASSWORD = "abhi1234@1234"
+# LinkedIn login credentials - Use environment variables for security
+EMAIL = os.getenv("LINKEDIN_EMAIL", "")
+PASSWORD = os.getenv("LINKEDIN_PASSWORD", "")
 LOGIN_URL = "https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin"
 
-# Search text (modify this to search for different terms)
-SEARCH_TEXT = "qa engineer jobs"  # Set this to your desired search term
+# Search text - Can be set via environment variable or default value
+SEARCH_TEXT = os.getenv("LINKEDIN_SEARCH_TEXT", "qa engineer jobs")  # Set via LINKEDIN_SEARCH_TEXT env var or modify default
 
 def setup_driver():
     """Setup Chrome driver with options"""
@@ -618,5 +618,21 @@ def scrape_linkedin_posts(search_text=""):
             print("="*80)
 
 if __name__ == "__main__":
-    # SEARCH_TEXT is defined at the top of the file
+    # Validate credentials are provided
+    if not EMAIL or not PASSWORD:
+        print("\n" + "="*80)
+        print("ERROR: LinkedIn credentials not found!")
+        print("="*80)
+        print("Please set the following environment variables:")
+        print("  export LINKEDIN_EMAIL='your_email@example.com'")
+        print("  export LINKEDIN_PASSWORD='your_password'")
+        print("\nOr on Windows:")
+        print("  set LINKEDIN_EMAIL=your_email@example.com")
+        print("  set LINKEDIN_PASSWORD=your_password")
+        print("="*80)
+        exit(1)
+    
+    # SEARCH_TEXT can be set via environment variable or uses default
+    print(f"\nUsing search term: '{SEARCH_TEXT}'")
+    print("(Set LINKEDIN_SEARCH_TEXT environment variable to change)")
     scrape_linkedin_posts(SEARCH_TEXT)
