@@ -28,9 +28,9 @@ def setup_driver():
     print("="*80)
     print("  → Creating Chrome options...")
     chrome_options = Options()
-    # Running in headless mode (without opening browser window)
-    chrome_options.add_argument("--headless=new")
-    print("  → Adding Chrome options (headless mode, no-sandbox, disable automation detection)...")
+    # Running in NON-headless mode (browser window will be visible for manual intervention)
+    # chrome_options.add_argument("--headless=new")  # Commented out for manual challenge handling
+    print("  → Adding Chrome options (non-headless mode, no-sandbox, disable automation detection)...")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
@@ -116,8 +116,19 @@ def login_to_linkedin(close_browser=True):
         
         if "feed" in current_url or "linkedin.com/in/" in current_url or current_url == "https://www.linkedin.com/":
             print("  ✓ Login successful! Redirected to LinkedIn feed/profile.")
+        elif "checkpoint" in current_url or "challenge" in current_url:
+            print("  ⚠ LinkedIn challenge detected! Please complete the challenge manually in the browser.")
         else:
             print("  ⚠ Login status unclear. Please check manually.")
+        
+        # Wait for user input before continuing
+        print("\n" + "="*80)
+        print("WAITING FOR MANUAL INPUT")
+        print("="*80)
+        print("  → Please complete any challenges or verify login in the browser window.")
+        print("  → When you're ready to continue, press ENTER in this terminal...")
+        input("  → Press ENTER to continue: ")
+        print("  ✓ Continuing with automation...")
         
         # Don't close browser here - return driver for further use
         print("  ✓ Login process complete! Ready for next steps.")
