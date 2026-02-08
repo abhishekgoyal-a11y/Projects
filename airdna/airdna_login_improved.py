@@ -223,28 +223,44 @@ def extract_listings_data(driver, wait, market_url, market_name):
     # Extract percentage change (+5%)
     print("[DEBUG] Extracting listings percentage change...")
     try:
-        # Try exact class match first
-        listings_percentage_element = wait.until(
-            EC.presence_of_element_located((By.XPATH, "//p[@class='MuiTypography-root MuiTypography-body2 css-38xvzn']"))
-        )
-        listings_percentage = listings_percentage_element.text.strip()
-        listings_data["listings_percentage_change"] = listings_percentage
-        print(f"[DEBUG] Listings percentage change extracted: {listings_percentage}")
-    except TimeoutException:
-        print("[DEBUG] Exact class match failed, trying to find by text pattern (contains %)...")
+        # Try exact class match first with shorter timeout (element might not exist)
+        wait_short = WebDriverWait(driver, 3)
         try:
-            # Fallback: try finding p element with body2 class that contains percentage sign
-            p_elements = driver.find_elements(By.XPATH, "//p[contains(@class, 'MuiTypography-body2') and contains(@class, 'css-38xvzn') and contains(text(), '%')]")
-            if p_elements:
-                listings_percentage = p_elements[0].text.strip()
-                listings_data["listings_percentage_change"] = listings_percentage
-                print(f"[DEBUG] Listings percentage change extracted (fallback): {listings_percentage}")
-            else:
-                print("[ERROR] Could not find listings percentage change element")
+            listings_percentage_element = wait_short.until(
+                EC.presence_of_element_located((By.XPATH, "//p[@class='MuiTypography-root MuiTypography-body2 css-38xvzn']"))
+            )
+            listings_percentage = listings_percentage_element.text.strip()
+            listings_data["listings_percentage_change"] = listings_percentage
+            print(f"[DEBUG] Listings percentage change extracted: {listings_percentage}")
+        except TimeoutException:
+            print("[DEBUG] Exact class match failed, trying alternative strategies...")
+            # Strategy 1: Try finding p element with body2 class that contains percentage sign
+            try:
+                p_elements = driver.find_elements(By.XPATH, "//p[contains(@class, 'MuiTypography-body2') and contains(@class, 'css-38xvzn') and contains(text(), '%')]")
+                if p_elements:
+                    listings_percentage = p_elements[0].text.strip()
+                    listings_data["listings_percentage_change"] = listings_percentage
+                    print(f"[DEBUG] Listings percentage change extracted (strategy 1): {listings_percentage}")
+                else:
+                    # Strategy 2: Try finding any p element with body2 class near listings count
+                    p_elements = driver.find_elements(By.XPATH, "//p[contains(@class, 'MuiTypography-body2') and contains(text(), '%')]")
+                    if p_elements:
+                        # Filter to find one that's likely related to listings
+                        for p_elem in p_elements:
+                            text = p_elem.text.strip()
+                            if '%' in text and ('+' in text or '-' in text):
+                                listings_data["listings_percentage_change"] = text
+                                print(f"[DEBUG] Listings percentage change extracted (strategy 2): {text}")
+                                break
+                    else:
+                        print("[DEBUG] Listings percentage change element not found on page (may not exist)")
+                        listings_data["listings_percentage_change"] = None
+            except Exception as e:
+                print(f"[DEBUG] Error finding listings percentage change: {e}")
                 listings_data["listings_percentage_change"] = None
-        except Exception as e:
-            print(f"[ERROR] Could not find listings percentage change element: {e}")
-            listings_data["listings_percentage_change"] = None
+    except Exception as e:
+        print(f"[ERROR] Could not find listings percentage change element: {e}")
+        listings_data["listings_percentage_change"] = None
     
     print(f"[DEBUG] Listings data extraction completed for {market_name}")
     return listings_data
@@ -390,7 +406,7 @@ def extract_top_submarkets_data(driver, wait, market_url, market_name):
     print(f"[DEBUG] Top-submarkets data extraction completed for {market_name}")
     return submarkets_data
 
-def find_market_links(driver, wait, count=3):
+def find_market_links(driver, wait, count=20):
     """
     Find market links on the current page
     Returns a list of (link_element, link_url, market_name) tuples
@@ -490,7 +506,7 @@ def login_to_airdna():
     # Configure Chrome options (headless mode - browser window will not be visible)
     print("[DEBUG] Configuring Chrome options...")
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
@@ -803,8 +819,8 @@ def login_to_airdna():
         time.sleep(2)
         print(f"[DEBUG] Current URL before finding market links: {driver.current_url}")
         
-        # Find market links (Montgomery + 2 more = 3 total)
-        market_links_list = find_market_links(driver, wait, count=3)
+        # Find market links (up to 20 markets)
+        market_links_list = find_market_links(driver, wait, count=20)
         
         if len(market_links_list) == 0:
             print("[ERROR] No market links found!")

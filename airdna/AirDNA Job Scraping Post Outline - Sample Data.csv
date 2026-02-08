@@ -1,0 +1,252 @@
+,,,,,,
+,Type,Market,Sub-Market,Type of Data,Data,URL
+,Market,Montgomery,n/a,Market Score,100,https://app.airdna.co/data/us/airdna-314/overview
+,Market,Montgomery,n/a,Annual Revenue,29047,https://app.airdna.co/data/us/airdna-314/overview
+,Market,Montgomery,n/a,Annual Revenue Growth,+10%,https://app.airdna.co/data/us/airdna-314/overview
+,Market,Montgomery,n/a,Total Active Listings,518,https://app.airdna.co/data/us/airdna-314/listings
+,Market,Montgomery,n/a,Total Active Listings; Growth Rate,+5%,https://app.airdna.co/data/us/airdna-314/listings
+,Sub-Market,Montgomery,Montgomery,Market Score,100,https://app.airdna.co/data/us/airdna-314/top-submarkets
+,Market,Kauai,n/a,Market Score,100,https://app.airdna.co/data/us/airdna-337/overview
+,Market,Kauai,n/a,Annual Revenue,106000,https://app.airdna.co/data/us/airdna-337/overview
+,Market,Kauai,n/a,Annual Revenue Growth,+6%,https://app.airdna.co/data/us/airdna-337/overview
+,Market,Kauai,n/a,Total Active Listings,5248,https://app.airdna.co/data/us/airdna-337/listings
+,Market,Kauai,n/a,Total Active Listings; Growth Rate,+10%,https://app.airdna.co/data/us/airdna-337/listings
+,Sub-Market,Kauai,Kilauea,Market Score,100,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Koloa,Market Score,99,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Princeville,Market Score,99,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Hanalei,Market Score,98,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Kekaha,Market Score,98,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Lihue,Market Score,97,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Kapaa,Market Score,94,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Anahola,Market Score,58,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Kalaheo,Market Score,37,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Sub-Market,Kauai,Hanapepe,Market Score,--,https://app.airdna.co/data/us/airdna-337/top-submarkets
+,Market,Fort Wayne,n/a,Market Score,100,https://app.airdna.co/data/us/airdna-409/overview
+,Market,Fort Wayne,n/a,Annual Revenue,25187,https://app.airdna.co/data/us/airdna-409/overview
+,Market,Fort Wayne,n/a,Annual Revenue Growth,+13%,https://app.airdna.co/data/us/airdna-409/overview
+,Market,Fort Wayne,n/a,Total Active Listings,559,https://app.airdna.co/data/us/airdna-409/listings
+,Market,Fort Wayne,n/a,Total Active Listings; Growth Rate,+1%,https://app.airdna.co/data/us/airdna-409/listings
+,Sub-Market,Fort Wayne,Fort Wayne,Market Score,100,https://app.airdna.co/data/us/airdna-409/top-submarkets
+,Market,Texas West Area,n/a,Market Score,100,https://app.airdna.co/data/us/airdna-183/overview
+,Market,Texas West Area,n/a,Annual Revenue,30022,https://app.airdna.co/data/us/airdna-183/overview
+,Market,Texas West Area,n/a,Annual Revenue Growth,+6%,https://app.airdna.co/data/us/airdna-183/overview
+,Market,Texas West Area,n/a,Total Active Listings,2816,https://app.airdna.co/data/us/airdna-183/listings
+,Market,Texas West Area,n/a,Total Active Listings; Growth Rate,+19%,https://app.airdna.co/data/us/airdna-183/listings
+,Sub-Market,Texas West Area,Sweetwater,Market Score,100,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Odessa,Market Score,100,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Snyder,Market Score,100,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Pampa,Market Score,99,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,San Angelo,Market Score,99,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Tulia,Market Score,99,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Kermit,Market Score,98,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Midland,Market Score,98,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Big Spring,Market Score,98,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Terlingua,Market Score,95,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Del Rio,Market Score,92,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Canadian,Market Score,92,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Paducah,Market Score,91,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Brownfield,Market Score,91,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Quitaque,Market Score,90,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Justiceburg,Market Score,89,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Monahans,Market Score,89,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Sub-Market,Texas West Area,Lockney,Market Score,88,https://app.airdna.co/data/us/airdna-183/top-submarkets
+,Market,Maui,n/a,Market Score,99,https://app.airdna.co/data/us/airdna-610/overview
+,Market,Maui,n/a,Annual Revenue,114000,https://app.airdna.co/data/us/airdna-610/overview
+,Market,Maui,n/a,Annual Revenue Growth,+16%,https://app.airdna.co/data/us/airdna-610/overview
+,Market,Maui,n/a,Total Active Listings,11049,https://app.airdna.co/data/us/airdna-610/listings
+,Market,Maui,n/a,Total Active Listings; Growth Rate,+15%,https://app.airdna.co/data/us/airdna-610/listings
+,Sub-Market,Maui,Kaanapali,Market Score,100,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kula,Market Score,97,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kahana,Market Score,92,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kapalua,Market Score,92,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Paia,Market Score,89,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Ma'alaea,Market Score,88,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Lanai City,Market Score,86,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kihea,Market Score,84,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Huelo,Market Score,80,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kihei,Market Score,77,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Haiku,Market Score,76,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Wailea,Market Score,76,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Maunaloa,Market Score,74,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Makawao,Market Score,73,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Wailuku,Market Score,69,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Lahaina,Market Score,65,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kahului,Market Score,47,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Sub-Market,Maui,Kaunakakai,Market Score,42,https://app.airdna.co/data/us/airdna-610/top-submarkets
+,Market,Springfield,n/a,Market Score,99,https://app.airdna.co/data/us/airdna-604/overview
+,Market,Springfield,n/a,Annual Revenue,27671,https://app.airdna.co/data/us/airdna-604/overview
+,Market,Springfield,n/a,Annual Revenue Growth,+12%,https://app.airdna.co/data/us/airdna-604/overview
+,Market,Springfield,n/a,Total Active Listings,703,https://app.airdna.co/data/us/airdna-604/listings
+,Market,Springfield,n/a,Total Active Listings; Growth Rate,-3%,https://app.airdna.co/data/us/airdna-604/listings
+,Sub-Market,Springfield,Springfield,Market Score,99,https://app.airdna.co/data/us/airdna-604/top-submarkets
+,Sub-Market,Springfield,Nixa,Market Score,84,https://app.airdna.co/data/us/airdna-604/top-submarkets
+,Sub-Market,Springfield,Ozark,Market Score,62,https://app.airdna.co/data/us/airdna-604/top-submarkets
+,Market,Birmingham,n/a,Market Score,99,https://app.airdna.co/data/us/airdna-377/overview
+,Market,Birmingham,n/a,Annual Revenue,31494,https://app.airdna.co/data/us/airdna-377/overview
+,Market,Birmingham,n/a,Annual Revenue Growth,+6%,https://app.airdna.co/data/us/airdna-377/overview
+,Market,Birmingham,n/a,Total Active Listings,1548,https://app.airdna.co/data/us/airdna-377/listings
+,Market,Birmingham,n/a,Total Active Listings; Growth Rate,-2%,https://app.airdna.co/data/us/airdna-377/listings
+,Sub-Market,Birmingham,Smithfield,Market Score,99,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Downtown Birmingham,Market Score,98,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Norwood,Market Score,96,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Avondale,Market Score,95,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Homewood,Market Score,92,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Five Points South,Market Score,92,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,BMH Airport,Market Score,85,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Pelham / Alabaster,Market Score,81,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Center Point / Trussville,Market Score,80,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Hoover,Market Score,78,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Meadowbrook,Market Score,76,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Bessemer,Market Score,71,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Fairfield,Market Score,71,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Gardendale / Adamsville,Market Score,66,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Sub-Market,Birmingham,Mountain Brook,Market Score,64,https://app.airdna.co/data/us/airdna-377/top-submarkets
+,Market,Tulsa,n/a,Market Score,99,https://app.airdna.co/data/us/airdna-9/overview
+,Market,Tulsa,n/a,Annual Revenue,30509,https://app.airdna.co/data/us/airdna-9/overview
+,Market,Tulsa,n/a,Annual Revenue Growth,+3%,https://app.airdna.co/data/us/airdna-9/overview
+,Market,Tulsa,n/a,Total Active Listings,1885,https://app.airdna.co/data/us/airdna-9/listings
+,Market,Tulsa,n/a,Total Active Listings; Growth Rate,+10%,https://app.airdna.co/data/us/airdna-9/listings
+,Sub-Market,Tulsa,Owasso,Market Score,99,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Broken Arrow,Market Score,99,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Tulsa,Market Score,97,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Claremore,Market Score,97,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Sapulpa,Market Score,96,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Sand Springs,Market Score,93,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Bixby,Market Score,61,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Sub-Market,Tulsa,Sperry,Market Score,--,https://app.airdna.co/data/us/airdna-9/top-submarkets
+,Market,Dayton,n/a,Market Score,98,https://app.airdna.co/data/us/airdna-380/overview
+,Market,Dayton,n/a,Annual Revenue,26025,https://app.airdna.co/data/us/airdna-380/overview
+,Market,Dayton,n/a,Annual Revenue Growth,-1%,https://app.airdna.co/data/us/airdna-380/overview
+,Market,Dayton,n/a,Total Active Listings,891,https://app.airdna.co/data/us/airdna-380/listings
+,Market,Dayton,n/a,Total Active Listings; Growth Rate,+10%,https://app.airdna.co/data/us/airdna-380/listings
+,Sub-Market,Dayton,Dayton,Market Score,98,https://app.airdna.co/data/us/airdna-380/top-submarkets
+,Market,Reno,n/a,Market Score,98,https://app.airdna.co/data/us/airdna-407/overview
+,Market,Reno,n/a,Annual Revenue,39074,https://app.airdna.co/data/us/airdna-407/overview
+,Market,Reno,n/a,Annual Revenue Growth,+12%,https://app.airdna.co/data/us/airdna-407/overview
+,Market,Reno,n/a,Total Active Listings,1188,https://app.airdna.co/data/us/airdna-407/listings
+,Market,Reno,n/a,Total Active Listings; Growth Rate,+1%,https://app.airdna.co/data/us/airdna-407/listings
+,Sub-Market,Reno,North Valley,Market Score,99,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Sub-Market,Reno,Sparks,Market Score,97,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Sub-Market,Reno,Reno,Market Score,94,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Sub-Market,Reno,Northwest Reno,Market Score,93,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Sub-Market,Reno,Bella Vista Ranch,Market Score,88,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Sub-Market,Reno,West University,Market Score,84,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Sub-Market,Reno,Golden Valley,Market Score,51,https://app.airdna.co/data/us/airdna-407/top-submarkets
+,Market,Grand Rapids,n/a,Market Score,98,https://app.airdna.co/data/us/airdna-306/overview
+,Market,Grand Rapids,n/a,Annual Revenue,33716,https://app.airdna.co/data/us/airdna-306/overview
+,Market,Grand Rapids,n/a,Annual Revenue Growth,+3%,https://app.airdna.co/data/us/airdna-306/overview
+,Market,Grand Rapids,n/a,Total Active Listings,562,https://app.airdna.co/data/us/airdna-306/listings
+,Market,Grand Rapids,n/a,Total Active Listings; Growth Rate,+1%,https://app.airdna.co/data/us/airdna-306/listings
+,Sub-Market,Grand Rapids,Grand Rapids,Market Score,95,https://app.airdna.co/data/us/airdna-306/top-submarkets
+,Market,Richmond,n/a,Market Score,98,https://app.airdna.co/data/us/airdna-405/overview
+,Market,Richmond,n/a,Annual Revenue,32782,https://app.airdna.co/data/us/airdna-405/overview
+,Market,Richmond,n/a,Annual Revenue Growth,+6%,https://app.airdna.co/data/us/airdna-405/overview
+,Market,Richmond,n/a,Total Active Listings,1913,https://app.airdna.co/data/us/airdna-405/listings
+,Market,Richmond,n/a,Total Active Listings; Growth Rate,+7%,https://app.airdna.co/data/us/airdna-405/listings
+,Sub-Market,Richmond,Petersburg,Market Score,98,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Manchester,Market Score,97,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Mechanicsville,Market Score,97,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Richmond,Market Score,96,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Hopewell,Market Score,96,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,South Richmond,Market Score,92,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Glen Allen,Market Score,81,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Tuckahoe,Market Score,77,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Midlothian,Market Score,69,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Lakeside,Market Score,66,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Henrico,Market Score,59,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Sub-Market,Richmond,Bon Air,Market Score,53,https://app.airdna.co/data/us/airdna-405/top-submarkets
+,Market,Tallahassee,n/a,Market Score,97,https://app.airdna.co/data/us/airdna-167/overview
+,Market,Tallahassee,n/a,Annual Revenue,29756,https://app.airdna.co/data/us/airdna-167/overview
+,Market,Tallahassee,n/a,Annual Revenue Growth,+9%,https://app.airdna.co/data/us/airdna-167/overview
+,Market,Tallahassee,n/a,Total Active Listings,1202,https://app.airdna.co/data/us/airdna-167/listings
+,Market,Tallahassee,n/a,Total Active Listings; Growth Rate,+11%,https://app.airdna.co/data/us/airdna-167/listings
+,Sub-Market,Tallahassee,Tallahassee,Market Score,95,https://app.airdna.co/data/us/airdna-167/top-submarkets
+,Market,St. Louis,n/a,Market Score,97,https://app.airdna.co/data/us/airdna-429/overview
+,Market,St. Louis,n/a,Annual Revenue,31212,https://app.airdna.co/data/us/airdna-429/overview
+,Market,St. Louis,n/a,Annual Revenue Growth,+8%,https://app.airdna.co/data/us/airdna-429/overview
+,Market,St. Louis,n/a,Total Active Listings,3515,https://app.airdna.co/data/us/airdna-429/listings
+,Market,St. Louis,n/a,Total Active Listings; Growth Rate,--%,https://app.airdna.co/data/us/airdna-429/listings
+,Sub-Market,St. Louis,STL Airport,Market Score,100,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Carondelet,Market Score,99,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Bevo Mill,Market Score,99,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Belleville,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Benton Park,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Princeton Heights,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Tower Grove South,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Saint Charles,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Alton / Glen Carbon,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Debaliviere Place,Market Score,98,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,O Fallon,Market Score,97,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Northwoods,Market Score,96,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Boulevard Heights,Market Score,95,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Soulard,Market Score,95,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Arnold / Festus,Market Score,94,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Lindenwood Park,Market Score,94,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Hi-Pointe,Market Score,94,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Sub-Market,St. Louis,Shaw,Market Score,93,https://app.airdna.co/data/us/airdna-429/top-submarkets
+,Market,Illinois Area,n/a,Market Score,97,https://app.airdna.co/data/us/airdna-349/overview
+,Market,Illinois Area,n/a,Annual Revenue,30027,https://app.airdna.co/data/us/airdna-349/overview
+,Market,Illinois Area,n/a,Annual Revenue Growth,+2%,https://app.airdna.co/data/us/airdna-349/overview
+,Market,Illinois Area,n/a,Total Active Listings,5412,https://app.airdna.co/data/us/airdna-349/listings
+,Market,Illinois Area,n/a,Total Active Listings; Growth Rate,+9%,https://app.airdna.co/data/us/airdna-349/listings
+,Sub-Market,Illinois Area,Danville,Market Score,100,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Marion,Market Score,100,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Bloomington / Normal,Market Score,100,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Carrollton,Market Score,100,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Cobden,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Beardstown,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Lincoln,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Decatur,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Pinckneyville,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Vandalia,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Peoria,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Jacksonville,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Ottawa,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Springfield,Market Score,99,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Eureka,Market Score,98,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Carbondale,Market Score,98,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Olney,Market Score,98,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Sub-Market,Illinois Area,Macomb,Market Score,97,https://app.airdna.co/data/us/airdna-349/top-submarkets
+,Market,Columbia SC,n/a,Market Score,,https://app.airdna.co/data/us/airdna-301/overview
+,Market,Columbia SC,n/a,Annual Revenue,,https://app.airdna.co/data/us/airdna-301/overview
+,Market,Columbia SC,n/a,Annual Revenue Growth,,https://app.airdna.co/data/us/airdna-301/overview
+,Market,Columbia SC,n/a,Total Active Listings,1540,https://app.airdna.co/data/us/airdna-301/listings
+,Market,Columbia SC,n/a,Total Active Listings; Growth Rate,+3%,https://app.airdna.co/data/us/airdna-301/listings
+,Sub-Market,Columbia SC,Forest Acres,Market Score,99,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,West Columbia,Market Score,99,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,Downtown Columbia,Market Score,97,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,North Columbia,Market Score,94,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,Hillridge,Market Score,94,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,South East,Market Score,89,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,Lake Murray,Market Score,86,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,St. Andrews,Market Score,84,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Sub-Market,Columbia SC,Arcadia Lakes,Market Score,69,https://app.airdna.co/data/us/airdna-301/top-submarkets
+,Market,Detroit,n/a,Market Score,97,https://app.airdna.co/data/us/airdna-18/overview
+,Market,Detroit,n/a,Annual Revenue,28470,https://app.airdna.co/data/us/airdna-18/overview
+,Market,Detroit,n/a,Annual Revenue Growth,+4%,https://app.airdna.co/data/us/airdna-18/overview
+,Market,Detroit,n/a,Total Active Listings,3929,https://app.airdna.co/data/us/airdna-18/listings
+,Market,Detroit,n/a,Total Active Listings; Growth Rate,+1%,https://app.airdna.co/data/us/airdna-18/listings
+,Sub-Market,Detroit,Auburn Hills,Market Score,98,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Lincoln Park,Market Score,98,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Downtown Detroit,Market Score,98,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Hamtramck,Market Score,98,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Ferndale,Market Score,96,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Royal Oak,Market Score,96,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Warren,Market Score,94,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Highland Park,Market Score,89,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Dearborn,Market Score,88,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Plymouth,Market Score,87,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Clarkston,Market Score,85,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Westland,Market Score,84,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Grosse Pointe,Market Score,84,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Redford,Market Score,82,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Farmington,Market Score,78,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Wyandotte,Market Score,77,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,Rochester,Market Score,74,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Sub-Market,Detroit,DTW Airport,Market Score,65,https://app.airdna.co/data/us/airdna-18/top-submarkets
+,Market,Amarillo,n/a,Market Score,97,https://app.airdna.co/data/us/airdna-133/overview
+,Market,Amarillo,n/a,Annual Revenue,28286,https://app.airdna.co/data/us/airdna-133/overview
+,Market,Amarillo,n/a,Annual Revenue Growth,+10%,https://app.airdna.co/data/us/airdna-133/overview
+,Market,Amarillo,n/a,Total Active Listings,751,https://app.airdna.co/data/us/airdna-133/listings
+,Market,Amarillo,n/a,Total Active Listings; Growth Rate,-3%,https://app.airdna.co/data/us/airdna-133/listings
+,Sub-Market,Amarillo,Amarillo,Market Score,95,https://app.airdna.co/data/us/airdna-133/top-submarkets

@@ -463,6 +463,398 @@
           "score": "95"
         }
       ]
+    },
+    {
+      "market_name": "Richmond",
+      "market_url": "https://app.airdna.co/data/us/airdna-405",
+      "score": "98",
+      "revenue_amount": "$32,782",
+      "percentage_change": "+6%",
+      "listings_count": "1913",
+      "listings_percentage_change": "+7%",
+      "submarkets_count": 12,
+      "top_submarkets": [
+        {
+          "location": "Petersburg",
+          "score": "98"
+        },
+        {
+          "location": "Manchester",
+          "score": "97"
+        },
+        {
+          "location": "Mechanicsville",
+          "score": "97"
+        },
+        {
+          "location": "Richmond",
+          "score": "96"
+        },
+        {
+          "location": "Hopewell",
+          "score": "96"
+        },
+        {
+          "location": "South Richmond",
+          "score": "92"
+        },
+        {
+          "location": "Glen Allen",
+          "score": "81"
+        },
+        {
+          "location": "Tuckahoe",
+          "score": "77"
+        },
+        {
+          "location": "Midlothian",
+          "score": "69"
+        },
+        {
+          "location": "Lakeside",
+          "score": "66"
+        },
+        {
+          "location": "Henrico",
+          "score": "59"
+        },
+        {
+          "location": "Bon Air",
+          "score": "53"
+        }
+      ]
+    },
+    {
+      "market_name": "Tallahassee",
+      "market_url": "https://app.airdna.co/data/us/airdna-167",
+      "score": "97",
+      "revenue_amount": "$29,756",
+      "percentage_change": "+9%",
+      "listings_count": "1202",
+      "listings_percentage_change": "+11%",
+      "submarkets_count": 1,
+      "top_submarkets": [
+        {
+          "location": "Tallahassee",
+          "score": "95"
+        }
+      ]
+    },
+    {
+      "market_name": "St. Louis",
+      "market_url": "https://app.airdna.co/data/us/airdna-429",
+      "score": "97",
+      "revenue_amount": "$31,212",
+      "percentage_change": "+8%",
+      "listings_count": "3515",
+      "listings_percentage_change": "--%",
+      "submarkets_count": 42,
+      "top_submarkets": [
+        {
+          "location": "STL Airport",
+          "score": "100"
+        },
+        {
+          "location": "Carondelet",
+          "score": "99"
+        },
+        {
+          "location": "Bevo Mill",
+          "score": "99"
+        },
+        {
+          "location": "Belleville",
+          "score": "98"
+        },
+        {
+          "location": "Benton Park",
+          "score": "98"
+        },
+        {
+          "location": "Princeton Heights",
+          "score": "98"
+        },
+        {
+          "location": "Tower Grove South",
+          "score": "98"
+        },
+        {
+          "location": "Saint Charles",
+          "score": "98"
+        },
+        {
+          "location": "Alton / Glen Carbon",
+          "score": "98"
+        },
+        {
+          "location": "Debaliviere Place",
+          "score": "98"
+        },
+        {
+          "location": "O Fallon",
+          "score": "97"
+        },
+        {
+          "location": "Northwoods",
+          "score": "96"
+        },
+        {
+          "location": "Boulevard Heights",
+          "score": "95"
+        },
+        {
+          "location": "Soulard",
+          "score": "95"
+        },
+        {
+          "location": "Arnold / Festus",
+          "score": "94"
+        },
+        {
+          "location": "Lindenwood Park",
+          "score": "94"
+        },
+        {
+          "location": "Hi-Pointe",
+          "score": "94"
+        },
+        {
+          "location": "Shaw",
+          "score": "93"
+        }
+      ]
+    },
+    {
+      "market_name": "Illinois Area",
+      "market_url": "https://app.airdna.co/data/us/airdna-349",
+      "score": "97",
+      "revenue_amount": "$30,027",
+      "percentage_change": "+2%",
+      "listings_count": "5412",
+      "listings_percentage_change": "+9%",
+      "submarkets_count": 88,
+      "top_submarkets": [
+        {
+          "location": "Danville",
+          "score": "100"
+        },
+        {
+          "location": "Marion",
+          "score": "100"
+        },
+        {
+          "location": "Bloomington / Normal",
+          "score": "100"
+        },
+        {
+          "location": "Carrollton",
+          "score": "100"
+        },
+        {
+          "location": "Cobden",
+          "score": "99"
+        },
+        {
+          "location": "Beardstown",
+          "score": "99"
+        },
+        {
+          "location": "Lincoln",
+          "score": "99"
+        },
+        {
+          "location": "Decatur",
+          "score": "99"
+        },
+        {
+          "location": "Pinckneyville",
+          "score": "99"
+        },
+        {
+          "location": "Vandalia",
+          "score": "99"
+        },
+        {
+          "location": "Peoria",
+          "score": "99"
+        },
+        {
+          "location": "Jacksonville",
+          "score": "99"
+        },
+        {
+          "location": "Ottawa",
+          "score": "99"
+        },
+        {
+          "location": "Springfield",
+          "score": "99"
+        },
+        {
+          "location": "Eureka",
+          "score": "98"
+        },
+        {
+          "location": "Carbondale",
+          "score": "98"
+        },
+        {
+          "location": "Olney",
+          "score": "98"
+        },
+        {
+          "location": "Macomb",
+          "score": "97"
+        }
+      ]
+    },
+    {
+      "market_name": "Columbia SC",
+      "market_url": "https://app.airdna.co/data/us/airdna-301",
+      "score": null,
+      "revenue_amount": null,
+      "percentage_change": null,
+      "listings_count": "1540",
+      "listings_percentage_change": "+3%",
+      "submarkets_count": 9,
+      "top_submarkets": [
+        {
+          "location": "Forest Acres",
+          "score": "99"
+        },
+        {
+          "location": "West Columbia",
+          "score": "99"
+        },
+        {
+          "location": "Downtown Columbia",
+          "score": "97"
+        },
+        {
+          "location": "North Columbia",
+          "score": "94"
+        },
+        {
+          "location": "Hillridge",
+          "score": "94"
+        },
+        {
+          "location": "South East",
+          "score": "89"
+        },
+        {
+          "location": "Lake Murray",
+          "score": "86"
+        },
+        {
+          "location": "St. Andrews",
+          "score": "84"
+        },
+        {
+          "location": "Arcadia Lakes",
+          "score": "69"
+        }
+      ]
+    },
+    {
+      "market_name": "Detroit",
+      "market_url": "https://app.airdna.co/data/us/airdna-18",
+      "score": "97",
+      "revenue_amount": "$28,470",
+      "percentage_change": "+4%",
+      "listings_count": "3929",
+      "listings_percentage_change": "+1%",
+      "submarkets_count": 26,
+      "top_submarkets": [
+        {
+          "location": "Auburn Hills",
+          "score": "98"
+        },
+        {
+          "location": "Lincoln Park",
+          "score": "98"
+        },
+        {
+          "location": "Downtown Detroit",
+          "score": "98"
+        },
+        {
+          "location": "Hamtramck",
+          "score": "98"
+        },
+        {
+          "location": "Ferndale",
+          "score": "96"
+        },
+        {
+          "location": "Royal Oak",
+          "score": "96"
+        },
+        {
+          "location": "Warren",
+          "score": "94"
+        },
+        {
+          "location": "Highland Park",
+          "score": "89"
+        },
+        {
+          "location": "Dearborn",
+          "score": "88"
+        },
+        {
+          "location": "Plymouth",
+          "score": "87"
+        },
+        {
+          "location": "Clarkston",
+          "score": "85"
+        },
+        {
+          "location": "Westland",
+          "score": "84"
+        },
+        {
+          "location": "Grosse Pointe",
+          "score": "84"
+        },
+        {
+          "location": "Redford",
+          "score": "82"
+        },
+        {
+          "location": "Farmington",
+          "score": "78"
+        },
+        {
+          "location": "Wyandotte",
+          "score": "77"
+        },
+        {
+          "location": "Rochester",
+          "score": "74"
+        },
+        {
+          "location": "DTW Airport",
+          "score": "65"
+        }
+      ]
+    },
+    {
+      "market_name": "Amarillo",
+      "market_url": "https://app.airdna.co/data/us/airdna-133",
+      "score": "97",
+      "revenue_amount": "$28,286",
+      "percentage_change": "+10%",
+      "listings_count": "751",
+      "listings_percentage_change": "-3%",
+      "submarkets_count": 1,
+      "top_submarkets": [
+        {
+          "location": "Amarillo",
+          "score": "95"
+        }
+      ]
     }
   ]
 }
