@@ -7,7 +7,96 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-import json
+import csv
+import re
+
+def convert_revenue_to_numeric(revenue_str):
+    """
+    Convert revenue string like '$29,047' or '$106K' to numeric format like '29047' or '106000'
+    """
+    if not revenue_str:
+        return ""
+    
+    # Remove $ and commas
+    revenue_str = revenue_str.replace('$', '').replace(',', '').strip()
+    
+    # Handle K suffix (thousands)
+    if revenue_str.upper().endswith('K'):
+        try:
+            num = float(revenue_str[:-1])
+            return str(int(num * 1000))
+        except:
+            return revenue_str
+    
+    return revenue_str
+
+def save_data_to_csv(extracted_data, csv_file):
+    """
+    Save extracted data to CSV file in the format matching the sample CSV
+    Format: Type, Market, Sub-Market, Type of Data, Data, URL
+    """
+    try:
+        print(f"[DEBUG] Saving data to CSV file: {csv_file}")
+        
+        with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            
+            # Write empty first row
+            writer.writerow(['', '', '', '', '', '', ''])
+            
+            # Write header row
+            writer.writerow(['', 'Type', 'Market', 'Sub-Market', 'Type of Data', 'Data', 'URL'])
+            
+            # Process each market
+            for market in extracted_data.get("markets", []):
+                market_name = market.get("market_name", "")
+                market_url = market.get("market_url", "")
+                score = market.get("score", "")
+                revenue_amount = market.get("revenue_amount", "")
+                percentage_change = market.get("percentage_change", "")
+                listings_count = market.get("listings_count", "")
+                listings_percentage_change = market.get("listings_percentage_change", "")
+                top_submarkets = market.get("top_submarkets", [])
+                
+                # Convert revenue to numeric format (remove $, commas, handle K)
+                revenue_numeric = convert_revenue_to_numeric(revenue_amount)
+                
+                # Base URL parts
+                base_url = market_url.rstrip('/')
+                overview_url = f"{base_url}/overview" if base_url else ""
+                listings_url = f"{base_url}/listings" if base_url else ""
+                submarkets_url = f"{base_url}/top-submarkets" if base_url else ""
+                
+                # Write market-level data rows
+                # Market Score
+                writer.writerow(['', 'Market', market_name, 'n/a', 'Market Score', score, overview_url])
+                
+                # Annual Revenue
+                writer.writerow(['', 'Market', market_name, 'n/a', 'Annual Revenue', revenue_numeric, overview_url])
+                
+                # Annual Revenue Growth
+                writer.writerow(['', 'Market', market_name, 'n/a', 'Annual Revenue Growth', percentage_change, overview_url])
+                
+                # Total Active Listings
+                writer.writerow(['', 'Market', market_name, 'n/a', 'Total Active Listings', listings_count, listings_url])
+                
+                # Total Active Listings; Growth Rate
+                writer.writerow(['', 'Market', market_name, 'n/a', 'Total Active Listings; Growth Rate', listings_percentage_change, listings_url])
+                
+                # Write sub-market data rows
+                for submarket in top_submarkets:
+                    submarket_location = submarket.get("location", "")
+                    submarket_score = submarket.get("score", "")
+                    # Handle empty scores (like "--")
+                    if not submarket_score or submarket_score == "--":
+                        submarket_score = "--"
+                    writer.writerow(['', 'Sub-Market', market_name, submarket_location, 'Market Score', submarket_score, submarkets_url])
+        
+        print(f"[DEBUG] CSV file saved successfully: {csv_file}")
+        return True
+    except Exception as e:
+        print(f"[ERROR] Failed to save CSV file: {e}")
+        return False
 
 def handle_permission_dialog(driver, wait_time=2):
     """
@@ -406,7 +495,7 @@ def extract_top_submarkets_data(driver, wait, market_url, market_name):
     print(f"[DEBUG] Top-submarkets data extraction completed for {market_name}")
     return submarkets_data
 
-def find_market_links(driver, wait, count=20):
+def find_market_links(driver, wait, count=3):
     """
     Find market links on the current page
     Returns a list of (link_element, link_url, market_name) tuples
@@ -415,9 +504,52 @@ def find_market_links(driver, wait, count=20):
     market_links = []
     
     try:
+        # Wait for market links to be present and visible
+        print("[DEBUG] Waiting for market links to be present...")
+        try:
+            wait.until(
+                EC.presence_of_element_located((By.XPATH, "//a[contains(@href, '/data/us/airdna-')]"))
+            )
+            print("[DEBUG] At least one market link is present")
+        except TimeoutException:
+            print("[DEBUG] Warning: No market links found after explicit wait")
+        
+        # Additional wait for all links to load
+        print("[DEBUG] Waiting 3 seconds for all market links to load...")
+        time.sleep(3)
+        
         # Find all links that match the pattern /data/us/airdna-XXX
         all_links = driver.find_elements(By.XPATH, "//a[contains(@href, '/data/us/airdna-')]")
         print(f"[DEBUG] Found {len(all_links)} potential market link(s)")
+        
+        # If no links found, try alternative selectors
+        if len(all_links) == 0:
+            print("[DEBUG] No links found with primary selector, trying alternative selectors...")
+            # Try without the full path
+            all_links = driver.find_elements(By.XPATH, "//a[contains(@href, 'airdna-')]")
+            print(f"[DEBUG] Alternative selector 1 found {len(all_links)} link(s)")
+            
+            if len(all_links) == 0:
+                # Try finding any links in the market list area
+                all_links = driver.find_elements(By.XPATH, "//a[starts-with(@href, '/data/us/')]")
+                print(f"[DEBUG] Alternative selector 2 found {len(all_links)} link(s)")
+        
+        # If still no links found, try scrolling to load more content
+        if len(all_links) == 0:
+            print("[DEBUG] No links found, trying to scroll page to trigger lazy loading...")
+            # Scroll down slowly to trigger lazy loading
+            for i in range(3):
+                driver.execute_script(f"window.scrollTo(0, {(i+1) * 500});")
+                time.sleep(2)
+                all_links = driver.find_elements(By.XPATH, "//a[contains(@href, '/data/us/airdna-')]")
+                if len(all_links) > 0:
+                    print(f"[DEBUG] Found {len(all_links)} link(s) after scroll {i+1}")
+                    break
+            # Scroll back to top
+            driver.execute_script("window.scrollTo(0, 0);")
+            time.sleep(2)
+            all_links = driver.find_elements(By.XPATH, "//a[contains(@href, '/data/us/airdna-')]")
+            print(f"[DEBUG] After scrolling, found {len(all_links)} potential market link(s)")
         
         # Filter to get unique links and extract up to 'count' links
         seen_urls = set()
@@ -506,7 +638,7 @@ def login_to_airdna():
     # Configure Chrome options (headless mode - browser window will not be visible)
     print("[DEBUG] Configuring Chrome options...")
     chrome_options = Options()
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
@@ -815,8 +947,34 @@ def login_to_airdna():
         
         # Step 6 & 7: Process multiple market links and extract data
         print("[DEBUG] ========== Step 6 & 7: Processing multiple markets ==========")
-        print("[DEBUG] Waiting 2 seconds for page to fully load...")
-        time.sleep(2)
+        print("[DEBUG] Waiting for page to fully load and market links to appear...")
+        
+        # Wait for loading spinner to disappear
+        print("[DEBUG] Waiting for loading spinner to disappear...")
+        try:
+            # Wait for spinner to disappear (if it exists)
+            wait.until(lambda driver: len(driver.find_elements(By.XPATH, "//*[contains(@class, 'MuiCircularProgress')]")) == 0 or 
+                                 len(driver.find_elements(By.XPATH, "//*[contains(@class, 'spinner')]")) == 0)
+            print("[DEBUG] Loading spinner disappeared")
+        except:
+            print("[DEBUG] No spinner found or already disappeared, continuing...")
+        
+        # Wait for market links to appear with explicit wait
+        print("[DEBUG] Waiting for market links to appear on the page...")
+        try:
+            # Wait for at least one market link to appear
+            wait.until(
+                lambda driver: len(driver.find_elements(By.XPATH, "//a[contains(@href, '/data/us/airdna-')]")) > 0
+            )
+            print("[DEBUG] Market links found on page!")
+        except TimeoutException:
+            print("[DEBUG] Market links not found after wait, trying longer wait...")
+            time.sleep(10)  # Additional wait for slow loading
+        
+        # Additional wait for dynamic content
+        print("[DEBUG] Waiting additional 5 seconds for dynamic content to fully render...")
+        time.sleep(5)
+        
         print(f"[DEBUG] Current URL before finding market links: {driver.current_url}")
         
         # Find market links (up to 20 markets)
@@ -831,7 +989,7 @@ def login_to_airdna():
         extracted_data = {
             "markets": []
         }
-        output_file = "extracted_data.json"
+        output_file_csv = "extracted_data.csv"
         
         # Process each market link
         for market_index, (market_link, market_url, market_name) in enumerate(market_links_list):
@@ -887,21 +1045,22 @@ def login_to_airdna():
             
             # Save after each market (in case script fails)
             try:
-                with open(output_file, 'w', encoding='utf-8') as f:
-                    json.dump(extracted_data, f, indent=2, ensure_ascii=False)
-                print(f"[DEBUG] Complete data saved for {market_name}")
-            except Exception as json_error:
-                print(f"[ERROR] Failed to save JSON file: {json_error}")
+                # Save CSV
+                save_data_to_csv(extracted_data, output_file_csv)
+                print(f"[DEBUG] CSV data saved for {market_name}")
+            except Exception as save_error:
+                print(f"[ERROR] Failed to save CSV file: {save_error}")
         
         # Final save
-        print("[DEBUG] ========== Saving all extracted market data to JSON ==========")
+        print("[DEBUG] ========== Saving all extracted market data ==========")
         try:
-            with open(output_file, 'w', encoding='utf-8') as f:
-                json.dump(extracted_data, f, indent=2, ensure_ascii=False)
-            print(f"[DEBUG] All market data saved successfully to {output_file}")
+            # Save CSV
+            save_data_to_csv(extracted_data, output_file_csv)
+            print(f"[DEBUG] All market data saved successfully to {output_file_csv}")
+            
             print(f"[DEBUG] Total markets processed: {len(extracted_data['markets'])}")
-        except Exception as json_error:
-            print(f"[ERROR] Failed to save JSON file: {json_error}")
+        except Exception as save_error:
+            print(f"[ERROR] Failed to save CSV file: {save_error}")
         
         # Take a screenshot at the end (using last market's top-submarkets page)
         print("[DEBUG] ========== Taking screenshot ==========")
