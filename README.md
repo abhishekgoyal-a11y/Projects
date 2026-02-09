@@ -107,17 +107,51 @@ python3 extract_emails_from_posts.py
 
 ---
 
+### 4. 🏠 [AirDNA Market Data Scraper](./airdna/)
+**Automated AirDNA market data extraction tool**
+
+A Python-based automation tool using Selenium to extract comprehensive market data from AirDNA. Automates login, navigates through multiple markets, and extracts market scores, revenue, listings, and submarket information.
+
+**Key Features:**
+- 🔐 Automated login process
+- 🏙️ Processes up to 20 markets automatically
+- 📊 Comprehensive data extraction (overview, listings, submarkets)
+- 📁 CSV export matching sample structure
+- 💾 Incremental saves after each market
+- 🛡️ Error handling with screenshots and detailed logging
+- 👻 Headless mode support
+
+**Tech Stack:** Python 3.9+, Selenium, WebDriver Manager
+
+**Use Cases:**
+- Real estate market research
+- Investment property analysis
+- Market intelligence and trends
+- Competitive market analysis
+- Data-driven investment decisions
+
+**Quick Start:**
+```bash
+cd airdna
+pip install -r requirements.txt
+python3 airdna_login_improved.py
+```
+
+📖 **[Full Documentation →](./airdna/README.md)**
+
+---
+
 ## 🎯 Project Comparison
 
-| Feature | Amazon Scraper | LinkedIn Company Posts | LinkedIn Email Scraper |
-|---------|---------------|------------------------|------------------------|
-| **Platform** | Amazon | LinkedIn | LinkedIn |
-| **Data Type** | Product listings | Company posts | Posts + Emails |
-| **Output Format** | CSV, JSON | CSV | JSON |
-| **Authentication** | Not required | Required (env vars) | Required (env vars) |
-| **Browser** | Playwright | Selenium | Selenium |
-| **Scalability** | High (100k+ products) | Medium (company posts) | Medium (posts) |
-| **Use Case** | E-commerce intelligence | Content analysis | Lead generation |
+| Feature | Amazon Scraper | LinkedIn Company Posts | LinkedIn Email Scraper | AirDNA Scraper |
+|---------|---------------|------------------------|------------------------|---------------|
+| **Platform** | Amazon | LinkedIn | LinkedIn | AirDNA |
+| **Data Type** | Product listings | Company posts | Posts + Emails | Market data |
+| **Output Format** | CSV, JSON | CSV | JSON | CSV |
+| **Authentication** | Not required | Required (env vars) | Required (env vars) | Required (hardcoded) |
+| **Browser** | Playwright | Selenium | Selenium | Selenium |
+| **Scalability** | High (100k+ products) | Medium (company posts) | Medium (posts) | Medium (20 markets) |
+| **Use Case** | E-commerce intelligence | Content analysis | Lead generation | Real estate research |
 
 ---
 
@@ -162,6 +196,11 @@ pip install selenium webdriver-manager
 pip install -r requirements.txt
 ```
 
+**AirDNA Scraper:**
+```bash
+pip install selenium webdriver-manager
+```
+
 ---
 
 ## 🚀 Quick Start Guide
@@ -197,6 +236,14 @@ python3 scrape_linkedin_posts.py
 python3 extract_emails_from_posts.py
 ```
 
+### 4. AirDNA Market Data Scraper
+```bash
+cd airdna
+pip install -r requirements.txt
+# Edit credentials in airdna_login_improved.py (lines 773, 795) if needed
+python3 airdna_login_improved.py
+```
+
 ---
 
 ## 📊 Output Examples
@@ -223,6 +270,14 @@ post_number,post_time,post_text,likes_count
   ],
   "total_emails": 2
 }
+```
+
+### AirDNA Scraper Output
+```csv
+,Type,Market,Sub-Market,Type of Data,Data,URL
+,Market,Montgomery,n/a,Market Score,100,https://app.airdna.co/data/us/airdna-314/overview
+,Market,Montgomery,n/a,Annual Revenue,29047,https://app.airdna.co/data/us/airdna-314/overview
+,Market,Montgomery,n/a,Annual Revenue Growth,+10%,https://app.airdna.co/data/us/airdna-314/overview
 ```
 
 ---
@@ -273,6 +328,11 @@ Projects/
 │       ├── README.md
 │       ├── scrape_linkedin_posts.py
 │       └── extract_emails_from_posts.py
+└── airdna/                                      # AirDNA Market Data Scraper
+    ├── README.md
+    ├── airdna_login_improved.py
+    ├── extracted_data.csv
+    └── requirements.txt
 ```
 
 ---
@@ -333,6 +393,13 @@ Projects/
 - Contact discovery
 - Email list building
 - Post content analysis with email extraction
+
+### Choose AirDNA Scraper if you need:
+- Real estate market research
+- Investment property analysis
+- Market intelligence and trends
+- Short-term rental market data
+- Competitive market analysis
 
 ---
 
