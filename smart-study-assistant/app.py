@@ -18,9 +18,9 @@ _http = httpx.Client(timeout=120.0, verify=_ssl_ctx)
 
 # Create the OpenAI client using a secret key (never paste keys into this file).
 client = OpenAI(
-    api_key=st.secrets["OPENAI_API_KEY"],
-    http_client=_http,
-)
+    api_key=st.secrets["OPENAI_API_KEY"], 
+    http_client=_http
+    )
 _chat_model = "gpt-4o-mini"
 
 # Large text box where the student pastes notes
