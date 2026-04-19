@@ -1,0 +1,6 @@
+[server]
+# Avoid the first-run "Welcome to Streamlit" email prompt in the terminal.
+showEmailPrompt = false
+
+[browser]
+gatherUsageStats = false
