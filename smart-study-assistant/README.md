@@ -21,13 +21,13 @@ pip install -r requirements.txt
 
 ### API key (secrets)
 
-Create `.streamlit/secrets.toml` (that path is in `.gitignore` so it is not committed) with your key:
+The repo includes `.streamlit/secrets.toml` with an empty `OPENAI_API_KEY`. Edit that file and set your key:
 
 ```toml
 OPENAI_API_KEY = "sk-..."
 ```
 
-Never commit the key or paste it into `app.py`.
+Do not commit real keys (GitHub push protection will reject the push). Never paste the key into `app.py`.
 
 ## Run the app
 
@@ -47,7 +47,7 @@ Then open the URL shown in the terminal (usually `http://localhost:8501`), paste
 | `app.py` | Streamlit UI and OpenAI chat call |
 | `requirements.txt` | Python dependencies |
 | `.streamlit/config.toml` | Local Streamlit options (e.g. disable first-run email prompt in the terminal) |
-| `.streamlit/secrets.toml` | Your `OPENAI_API_KEY` (create locally; not in git) |
+| `.streamlit/secrets.toml` | `OPENAI_API_KEY` (empty placeholder in git; set your key locally) |
 
 ## Dependencies (why they exist)
 
