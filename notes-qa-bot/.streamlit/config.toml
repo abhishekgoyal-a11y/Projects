@@ -1,6 +1,8 @@
 [server]
 # Avoid the first-run "Welcome to Streamlit" email prompt in the terminal.
 showEmailPrompt = false
+# Avoid importing huge transformers subtrees on every file touch (noise / false imports).
+fileWatcherType = "none"
 
 [browser]
 gatherUsageStats = false
