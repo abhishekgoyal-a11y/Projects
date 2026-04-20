@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Email Reply Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <h1>AI Email Reply Generator</h1>
+        <p class="tagline">
+          Paste an email, pick a tone, and get a suggested reply powered by
+          Groq.
+        </p>
+      </header>
+
+      <main class="card">
+        <label class="label" for="email-input">Email to reply to</label>
+        <textarea
+          id="email-input"
+          rows="12"
+          maxlength="8000"
+          placeholder="Paste the email you received here..."
+          aria-describedby="char-hint"
+        ></textarea>
+        <div class="meta-row">
+          <span id="char-count" class="char-count" aria-live="polite"
+            >0 / 8000</span
+          >
+          <span id="char-hint" class="hint">Maximum 8000 characters</span>
+        </div>
+
+        <label class="label" for="tone-select">Reply tone</label>
+        <select id="tone-select" aria-label="Reply tone">
+          <option value="formal">Formal</option>
+          <option value="friendly" selected>Friendly</option>
+          <option value="short">Short</option>
+        </select>
+
+        <button type="button" id="generate-btn" class="primary-btn">
+          Generate Reply
+        </button>
+
+        <p id="status-message" class="status" role="status" aria-live="polite"></p>
+
+        <section class="output-section" aria-labelledby="reply-heading">
+          <div class="output-header">
+            <h2 id="reply-heading">Generated reply</h2>
+            <button
+              type="button"
+              id="copy-btn"
+              class="secondary-btn"
+              disabled
+            >
+              Copy to clipboard
+            </button>
+          </div>
+          <pre id="reply-output" class="reply-box" tabindex="0"></pre>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <small>Beginner demo — do not paste confidential information.</small>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
