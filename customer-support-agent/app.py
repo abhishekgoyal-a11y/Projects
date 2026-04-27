@@ -80,12 +80,17 @@ if build_btn:
         with st.sidebar:
             with st.spinner("Building knowledge base…"):
                 try:
+                    import chromadb
+
                     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=60)
                     docs = splitter.split_documents([Document(page_content=all_text)])
                     embeddings = HuggingFaceEmbeddings(
                         model_name="sentence-transformers/all-MiniLM-L6-v2"
                     )
-                    st.session_state.support_vs = Chroma.from_documents(docs, embeddings)
+                    chroma_client = chromadb.EphemeralClient()
+                    st.session_state.support_vs = Chroma.from_documents(
+                        docs, embeddings, client=chroma_client
+                    )
                     st.session_state.product_name = product_name
                     st.session_state.agent_persona = agent_persona
                     st.session_state.doc_count = len(docs)
