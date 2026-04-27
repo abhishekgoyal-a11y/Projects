@@ -154,8 +154,8 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 #### 3. Install Dependencies
 
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+pip3 install --upgrade pip3
+pip3 install -r requirements.txt
 ```
 
 #### 4. Install Playwright Browser
@@ -502,7 +502,7 @@ python3 run.py \
 #### Issue: Import errors
 **Solutions**:
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 playwright install chromium
 ```
 

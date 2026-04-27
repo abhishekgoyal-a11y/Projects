@@ -7,7 +7,7 @@ A small [Streamlit](https://streamlit.io/) app that **indexes** your notes (past
 - Python 3.10 or newer (3.11+ recommended)
 - A [Groq API key](https://console.groq.com/keys) (free tier available)
 
-On macOS, Homebrew Python often blocks global `pip install` (PEP 668). Use a virtual environment as shown below.
+On macOS, Homebrew Python often blocks global `pip3 install` (PEP 668). Use a virtual environment as shown below.
 
 ## Setup
 
@@ -16,7 +16,7 @@ From this directory:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### API key (secrets)
@@ -74,12 +74,12 @@ Then open the URL shown in the terminal (usually `http://localhost:8501`):
 
 ## Troubleshooting
 
-- **Import errors** — LangChain splits packages across `langchain`, `langchain-community`, etc. Re-run `pip install -r requirements.txt` inside your activated venv. If APIs moved between releases, align with the [LangChain RAG tutorial](https://python.langchain.com/docs/tutorials/rag/).
+- **Import errors** — LangChain splits packages across `langchain`, `langchain-community`, etc. Re-run `pip3 install -r requirements.txt` inside your activated venv. If APIs moved between releases, align with the [LangChain RAG tutorial](https://python3.langchain.com/docs/tutorials/rag/).
 - **Missing or invalid API key** — Confirm `.streamlit/secrets.toml` exists and contains `GROQ_API_KEY`.
 - **Rate limits** — Errors surface in the app; check Groq console for usage and limits.
 - **First-time Streamlit terminal prompt** — `config.toml` sets `showEmailPrompt = false` when you launch from this directory.
 - **`torchvision` errors / huge terminal spam on startup** — Caused by Streamlit’s file watcher probing `transformers`; harmless for this app. `config.toml` sets `fileWatcherType = "none"` to silence it (you lose automatic rerun when editing code unless you refresh manually).
-- **`APIConnectionError` / `CERTIFICATE_VERIFY_FAILED` but `curl` works** — The app uses **`truststore`** so HTTPS verification follows the **macOS Keychain** (and native stores on Windows/Linux), not only **certifi**. Install deps (`pip install -r requirements.txt`), restart Streamlit, and refresh the browser so new TLS clients load. Corporate MITM proxies may still need **`SSL_CERT_FILE`** / **`REQUESTS_CA_BUNDLE`** pointing at your org’s CA PEM. Also try `unset HTTPS_PROXY HTTP_PROXY ALL_PROXY`. Status: https://status.groq.com/
+- **`APIConnectionError` / `CERTIFICATE_VERIFY_FAILED` but `curl` works** — The app uses **`truststore`** so HTTPS verification follows the **macOS Keychain** (and native stores on Windows/Linux), not only **certifi**. Install deps (`pip3 install -r requirements.txt`), restart Streamlit, and refresh the browser so new TLS clients load. Corporate MITM proxies may still need **`SSL_CERT_FILE`** / **`REQUESTS_CA_BUNDLE`** pointing at your org’s CA PEM. Also try `unset HTTPS_PROXY HTTP_PROXY ALL_PROXY`. Status: https://status.groq.com/
 
 ## License
 

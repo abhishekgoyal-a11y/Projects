@@ -133,7 +133,7 @@ A Python-based automation tool using Selenium to extract comprehensive market da
 **Quick Start:**
 ```bash
 cd airdna
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 python3 airdna_login_improved.py
 ```
 
@@ -182,23 +182,23 @@ python3 airdna_login_improved.py
 
 **Amazon Scraper:**
 ```bash
-pip install playwright pandas pyyaml loguru fake-useragent
+pip3 install playwright pandas pyyaml loguru fake-useragent
 playwright install chromium
 ```
 
 **LinkedIn Company Posts:**
 ```bash
-pip install selenium webdriver-manager
+pip3 install selenium webdriver-manager
 ```
 
 **LinkedIn Email Scraper:**
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 **AirDNA Scraper:**
 ```bash
-pip install selenium webdriver-manager
+pip3 install selenium webdriver-manager
 ```
 
 ---
@@ -210,7 +210,7 @@ pip install selenium webdriver-manager
 cd AMAZONS
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 playwright install chromium
 python3 run.py --search-keyword "laptop" --min-price 20000 --max-price 80000
 ```
@@ -218,7 +218,7 @@ python3 run.py --search-keyword "laptop" --min-price 20000 --max-price 80000
 ### 2. LinkedIn Company Posts Scraper
 ```bash
 cd LINKEDIN/linkedin-company-posts-scraper
-pip install selenium webdriver-manager
+pip3 install selenium webdriver-manager
 export LINKEDIN_EMAIL='your_email@example.com'
 export LINKEDIN_PASSWORD='your_password'
 # Edit COMPANY_NAME in linkedin_company_post_scraper.py
@@ -228,7 +228,7 @@ python3 linkedin_company_post_scraper.py
 ### 3. LinkedIn Email Scraper
 ```bash
 cd LINKEDIN/linkedin-post-email-scraper
-pip install selenium webdriver-manager
+pip3 install selenium webdriver-manager
 export LINKEDIN_EMAIL='your_email@example.com'
 export LINKEDIN_PASSWORD='your_password'
 export LINKEDIN_SEARCH_TEXT='qa engineer jobs'  # Optional
@@ -239,7 +239,7 @@ python3 extract_emails_from_posts.py
 ### 4. AirDNA Market Data Scraper
 ```bash
 cd airdna
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 # Edit credentials in airdna_login_improved.py (lines 773, 795) if needed
 python3 airdna_login_improved.py
 ```
@@ -342,7 +342,7 @@ Projects/
 ### Common Issues
 
 **Import Errors:**
-- Ensure all dependencies are installed: `pip install -r requirements.txt`
+- Ensure all dependencies are installed: `pip3 install -r requirements.txt`
 - For Playwright: `playwright install chromium`
 
 **Authentication Issues:**

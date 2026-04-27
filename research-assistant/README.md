@@ -132,7 +132,7 @@ python3.12 -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 > **First install takes 3–5 minutes** — it downloads PyTorch + the HuggingFace embedding model (~90 MB cached after first run).
@@ -157,7 +157,7 @@ If your machine uses a corporate proxy (e.g. Zscaler), Python's certificate bund
 
 ```bash
 # From inside backend/ with venv active
-CERTIFI_PATH=$(python -c "import certifi; print(certifi.where())")
+CERTIFI_PATH=$(python3 -c "import certifi; print(certifi.where())")
 security find-certificate -a -p /Library/Keychains/System.keychain >> "$CERTIFI_PATH"
 security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain >> "$CERTIFI_PATH"
 ```

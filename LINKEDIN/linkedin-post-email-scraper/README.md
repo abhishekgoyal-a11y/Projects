@@ -23,7 +23,7 @@ Automated tool to scrape LinkedIn posts based on search terms and extract email 
 
 1. **Install required Python packages**
    ```bash
-   pip install selenium webdriver-manager
+   pip3 install selenium webdriver-manager
    ```
 
 2. **Set up environment variables**

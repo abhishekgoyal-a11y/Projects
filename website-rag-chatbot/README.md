@@ -21,8 +21,8 @@ Enter any public URL, scrape its content, and ask questions about it using Retri
 ## Setup
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+python3 -m venv .venv && source .venv/bin/activate
+pip3 install -r requirements.txt
 ```
 
 Add your Groq API key to `.streamlit/secrets.toml`:

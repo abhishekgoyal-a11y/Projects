@@ -20,11 +20,10 @@ _ssl_ctx = truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 
 
 def _scrape(url: str) -> str:
-    import requests
     from bs4 import BeautifulSoup
 
     headers = {"User-Agent": "Mozilla/5.0 (compatible; DevShelfRAGBot/1.0)"}
-    resp = requests.get(url, headers=headers, timeout=15)
+    resp = httpx.get(url, headers=headers, timeout=15, verify=_ssl_ctx, follow_redirects=True)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
     for tag in soup(["script", "style", "nav", "footer", "header", "aside", "noscript", "form"]):
@@ -47,7 +46,9 @@ def _build_index(text: str):
 
 
 def _ask(vector_store, question: str) -> dict:
-    from langchain.chains import RetrievalQA
+    from langchain_core.output_parsers import StrOutputParser
+    from langchain_core.prompts import ChatPromptTemplate
+    from langchain_core.runnables import RunnablePassthrough
     from langchain_groq import ChatGroq
 
     llm = ChatGroq(
@@ -56,13 +57,24 @@ def _ask(vector_store, question: str) -> dict:
         http_client=httpx.Client(timeout=120.0, verify=_ssl_ctx),
     )
     retriever = vector_store.as_retriever(search_kwargs={"k": 4})
-    qa = RetrievalQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",
-        retriever=retriever,
-        return_source_documents=True,
+
+    prompt = ChatPromptTemplate.from_template(
+        "Use the context below to answer the question. "
+        "If the answer isn't in the context, say so.\n\n"
+        "Context:\n{context}\n\nQuestion: {question}"
     )
-    return qa.invoke({"query": question})
+
+    chain = (
+        {"context": retriever | (lambda docs: "\n\n".join(d.page_content for d in docs)),
+         "question": RunnablePassthrough()}
+        | prompt
+        | llm
+        | StrOutputParser()
+    )
+
+    source_docs = retriever.invoke(question)
+    answer = chain.invoke(question)
+    return {"result": answer, "source_documents": source_docs}
 
 
 url_input = st.text_input("Website URL", placeholder="https://example.com/page")

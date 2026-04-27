@@ -7,7 +7,7 @@ A small [Streamlit](https://streamlit.io/) app that sends pasted study notes to 
 - Python 3.10 or newer (3.11+ recommended)
 - An [OpenAI API key](https://platform.openai.com/api-keys)
 
-On macOS, Homebrew Python often blocks global `pip install` (PEP 668). Use a virtual environment as shown below.
+On macOS, Homebrew Python often blocks global `pip3 install` (PEP 668). Use a virtual environment as shown below.
 
 ## Setup
 
@@ -16,7 +16,7 @@ From this directory:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### API key (secrets)
