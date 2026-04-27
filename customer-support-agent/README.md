@@ -17,13 +17,20 @@ A Streamlit web app that turns your product documentation into a live customer s
 
 ## Setup
 
-### 1. Install dependencies
+### 1. Create a virtual environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 2. Install dependencies
 
 ```bash
 pip3 install -r requirements.txt
 ```
 
-### 2. Configure the API key
+### 3. Configure the API key
 
 ```bash
 mkdir -p .streamlit
@@ -35,9 +42,10 @@ Create `.streamlit/secrets.toml` with:
 GROQ_API_KEY = "your_groq_api_key_here"
 ```
 
-### 3. Run the app
+### 4. Run the app
 
 ```bash
+source venv/bin/activate  # skip if already active
 streamlit run app.py
 ```
 
