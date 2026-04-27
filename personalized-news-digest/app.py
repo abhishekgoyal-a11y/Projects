@@ -36,7 +36,7 @@ _MODEL = "llama-3.3-70b-versatile"
 
 RSS_FEEDS = {
     "Technology": "https://feeds.feedburner.com/TechCrunch",
-    "AI & Machine Learning": "https://rss.beehiiv.com/feeds/mTCMoB7KJO.xml",
+    "AI & Machine Learning": "https://venturebeat.com/category/ai/feed/",
     "Science": "https://www.sciencedaily.com/rss/top.xml",
     "Business": "https://feeds.bloomberg.com/markets/news.rss",
     "World News": "https://feeds.bbci.co.uk/news/world/rss.xml",
@@ -77,11 +77,15 @@ if generate_btn:
     # ── Fetch RSS articles ─────────────────────────────────────────────────────
     articles_by_topic: dict[str, list[dict]] = {}
 
+    http_client = httpx.Client(verify=_ssl_ctx, timeout=15, follow_redirects=True,
+                               headers={"User-Agent": "Mozilla/5.0 (compatible; NewsDigest/1.0)"})
+
     with st.spinner("Fetching latest news…"):
         for topic in selected_topics:
             feed_url = RSS_FEEDS[topic]
             try:
-                feed = feedparser.parse(feed_url)
+                resp = http_client.get(feed_url)
+                feed = feedparser.parse(resp.content)
                 entries = feed.entries[:num_stories]
                 items = []
                 for entry in entries:
