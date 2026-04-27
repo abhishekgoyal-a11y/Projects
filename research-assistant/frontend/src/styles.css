@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-950 text-gray-100 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
+  }
+
+  .message-enter {
+    animation: slideUp 0.2s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Markdown prose overrides for dark theme */
+.prose pre {
+  @apply bg-gray-900 border border-gray-700;
+}
+
+.prose code {
+  @apply bg-gray-800 px-1 py-0.5 rounded text-sm text-blue-300;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-gray-200;
+}
+
+.prose blockquote {
+  @apply border-l-blue-500 text-gray-400;
+}
+
+.prose ul > li::before {
+  @apply bg-gray-500;
+}
+
+.prose ol > li::before {
+  @apply text-gray-400;
+}

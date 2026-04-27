@@ -27,7 +27,7 @@ Automated Python script using Selenium to extract market data from AirDNA. The s
 
 1. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 2. The script uses `webdriver-manager` for automatic ChromeDriver management, so no manual ChromeDriver setup is required.

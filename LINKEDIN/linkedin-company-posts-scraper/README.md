@@ -49,7 +49,7 @@ webdriver-manager>=3.8.0
 
 2. **Install required Python packages**
    ```bash
-   pip install selenium webdriver-manager
+   pip3 install selenium webdriver-manager
    ```
 
 3. **Set up environment variables**
@@ -71,7 +71,7 @@ webdriver-manager>=3.8.0
 1. **Set your LinkedIn credentials** (see Installation step 3)
 
 2. **Configure the company name** in `linkedin_company_post_scraper.py`:
-   ```python
+   ```python3
    COMPANY_NAME = "visa"  # Change to your target company
    ```
 
@@ -132,7 +132,7 @@ Here's a sample of the extracted data from `visa_posts.csv`:
 
 Edit `linkedin_company_post_scraper.py` to customize:
 
-```python
+```python3
 # Company settings (line 22)
 COMPANY_NAME = "visa"  # Change to target company name
 
