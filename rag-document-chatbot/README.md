@@ -4,24 +4,27 @@ A command-line chatbot that answers questions about a PDF using Retrieval-Augmen
 
 ## How it works
 
-1. `ingest.py` loads a PDF, splits it into chunks, embeds them with OpenAI, and saves a FAISS index to disk
-2. `chatbot.py` loads that index and runs an interactive chat loop — every question retrieves relevant chunks and passes them to GPT-4o-mini
+1. `ingest.py` loads a PDF, splits it into chunks, embeds them with a local HuggingFace model, and saves a FAISS index to disk
+2. `chatbot.py` loads that index and runs an interactive chat loop — every question retrieves relevant chunks and passes them to Groq's LLM
 
 ## Setup
 
 ```bash
-pip install -r requirements.txt
-export OPENAI_API_KEY="sk-..."
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+
+export GROQ_API_KEY="gsk_..."
 ```
 
 ## Usage
 
 ```bash
 # Step 1 — build the index from your PDF (run once)
-python ingest.py your_document.pdf
+python3 ingest.py your_document.pdf
 
 # Step 2 — start chatting
-python chatbot.py
+python3 chatbot.py
 ```
 
 ## Project structure
@@ -34,7 +37,16 @@ rag-document-chatbot/
 └── faiss_index/     # created by ingest.py
 ```
 
+## Stack
+
+| Component | Library | Notes |
+|-----------|---------|-------|
+| LLM | `langchain-groq` | `llama-3.3-70b-versatile` |
+| Embeddings | `langchain-huggingface` | `all-MiniLM-L6-v2`, runs locally |
+| Vector store | FAISS | persisted to disk |
+| SSL fix | `truststore` | required on macOS with Python 3.14 |
+
 ## Requirements
 
 - Python 3.10+
-- OpenAI API key
+- Groq API key (free at console.groq.com)

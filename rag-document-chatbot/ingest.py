@@ -2,10 +2,11 @@ import os
 import sys
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
 INDEX_DIR = "faiss_index"
+EMBED_MODEL = "all-MiniLM-L6-v2"
 
 
 def ingest(pdf_path: str, index_dir: str = INDEX_DIR):
@@ -25,7 +26,8 @@ def ingest(pdf_path: str, index_dir: str = INDEX_DIR):
     chunks = splitter.split_documents(docs)
     print(f"  Split into {len(chunks)} chunks")
 
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    print(f"  Embedding with {EMBED_MODEL} (local, no API key)...")
+    embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
     vectorstore = FAISS.from_documents(chunks, embeddings)
     vectorstore.save_local(index_dir)
     print(f"  Index saved to ./{index_dir}/")

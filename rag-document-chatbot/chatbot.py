@@ -1,27 +1,32 @@
 import os
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+import truststore
+truststore.inject_into_ssl()
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
+from operator import itemgetter
 
 INDEX_DIR = "faiss_index"
+EMBED_MODEL = "all-MiniLM-L6-v2"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 if not os.path.exists(INDEX_DIR):
-    print(f"Index not found. Run 'python ingest.py <your_document.pdf>' first.")
+    print("Index not found. Run 'python ingest.py <your_document.pdf>' first.")
     raise SystemExit(1)
 
 # ── Load vector store ──────────────────────────────────────────────────────────
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
 vectorstore = FAISS.load_local(
     INDEX_DIR, embeddings, allow_dangerous_deserialization=True
 )
 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
-# ── LLM ───────────────────────────────────────────────────────────────────────
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+# ── LLM (Groq) ────────────────────────────────────────────────────────────────
+llm = ChatGroq(model=GROQ_MODEL, temperature=0)
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
 system_prompt = """You are a helpful assistant that answers questions \
@@ -43,8 +48,9 @@ def format_docs(docs):
 
 chain = (
     {
-        "context":  retriever | format_docs,
-        "question": RunnablePassthrough(),
+        "context":  itemgetter("question") | retriever | format_docs,
+        "question": itemgetter("question"),
+        "history":  itemgetter("history"),
     }
     | prompt
     | llm
@@ -69,7 +75,7 @@ chat = RunnableWithMessageHistory(
 config = {"configurable": {"session_id": "default"}}
 
 # ── Chat loop ─────────────────────────────────────────────────────────────────
-print("RAG Document Chatbot — type 'quit' to exit\n")
+print(f"RAG Document Chatbot (Groq / {GROQ_MODEL}) — type 'quit' to exit\n")
 while True:
     try:
         question = input("You: ").strip()
@@ -80,5 +86,5 @@ while True:
         break
     if not question:
         continue
-    answer = chat.invoke(question, config=config)
+    answer = chat.invoke({"question": question}, config=config)
     print(f"Bot: {answer}\n")
