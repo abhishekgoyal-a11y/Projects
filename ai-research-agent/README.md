@@ -15,7 +15,7 @@ The agent runs a loop:
 ## Prerequisites
 
 - Python 3.10+
-- An [OpenAI API key](https://platform.openai.com/api-keys)
+- A [Groq API key](https://console.groq.com/keys) (free tier available)
 - A [Tavily API key](https://tavily.com/) (free tier available)
 
 ## Setup
@@ -33,14 +33,14 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip3 install -r requirements.txt
 
 # 4. Set your API keys
-export OPENAI_API_KEY="sk-..."
+export GROQ_API_KEY="gsk_..."
 export TAVILY_API_KEY="tvly-..."
 ```
 
 ## Run
 
 ```bash
-python agent.py
+python3 agent.py
 ```
 
 Then type your research goal when prompted:
