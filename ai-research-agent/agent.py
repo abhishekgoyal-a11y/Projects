@@ -4,12 +4,12 @@ import os
 import truststore
 truststore.inject_into_ssl()
 
-from groq import Groq  # noqa: E402
+from openai import OpenAI  # noqa: E402
 
 from tools import TOOLS, web_search  # noqa: E402
 
-groq_client = Groq(
-    api_key=os.environ["GROQ_API_KEY"],
+openai_client = OpenAI(
+    api_key=os.environ["OPENAI_API_KEY"],
 )
 
 
@@ -27,8 +27,8 @@ def run_agent(goal: str, max_steps: int = 10) -> str:
     ]
 
     for _ in range(max_steps):
-        response = groq_client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+        response = openai_client.chat.completions.create(
+            model="gpt-4o-mini",
             messages=messages,
             tools=TOOLS,
             tool_choice="auto",
