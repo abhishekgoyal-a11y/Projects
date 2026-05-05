@@ -4,7 +4,7 @@ Type `/webresearch "topic"` in your AI coding assistant and it autonomously rese
 
 ## Demo
 
-https://github.com/user-attachments/assets/screen-capture.webm
+https://github.com/abhishekgoyal-a11y/Projects/blob/main/webresearch/output/screen-capture.webm
 
 > See it in action: `/webresearch "python async programming"` — 20 pages fetched, 4 subagents running in parallel, full report in ~3 minutes.
 
