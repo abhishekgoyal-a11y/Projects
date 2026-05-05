@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webresearchh"
+version = "0.1.0"
+description = "Autonomously research any topic from multiple web sources — CLI tool for Claude Code"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "webresearch contributors" }]
+keywords = ["research", "web", "ai", "cli", "claude"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "httpx>=0.27",
+  "html2text>=2024.2.26",
+  "rapidfuzz>=3.0",
+  "ddgs>=2.0",
+]
+
+[project.optional-dependencies]
+arxiv = ["arxiv>=2.1"]
+pdf   = ["pypdf>=4.0"]
+serp  = ["google-search-results>=2.4"]
+all   = ["webresearchh[arxiv,pdf,serp]"]
+
+[project.scripts]
+webresearch = "webresearch.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["webresearch*"]
+
+[tool.setuptools.package-data]
+webresearch = ["skill.md"]
