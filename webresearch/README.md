@@ -2,6 +2,12 @@
 
 Type `/webresearch "topic"` in your AI coding assistant and it autonomously researches any topic — searches the web, reads pages, extracts key facts, detects contradictions, and generates a structured report.
 
+## Demo
+
+https://github.com/user-attachments/assets/screen-capture.webm
+
+> See it in action: `/webresearch "python async programming"` — 20 pages fetched, 4 subagents running in parallel, full report in ~3 minutes.
+
 Works in **Claude Code, Codex, OpenCode, GitHub Copilot, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, and Google Antigravity.**
 
 ```
