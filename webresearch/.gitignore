@@ -1,0 +1,19 @@
+# Build artifacts
+*.egg-info/
+dist/
+build/
+__pycache__/
+*.pyc
+*.pyo
+
+# Local research outputs (user-generated, not part of the package)
+research-out/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Misc
+.DS_Store
+*.egg
