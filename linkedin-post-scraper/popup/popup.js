@@ -4,6 +4,7 @@
  */
 
 const els = {
+  keywords: document.getElementById('keywords'),
   targetCount: document.getElementById('targetCount'),
   startBtn: document.getElementById('startBtn'),
   stopBtn: document.getElementById('stopBtn'),
@@ -59,9 +60,13 @@ function setRunningUI(isRunning) {
   els.startBtn.disabled = isRunning;
   els.stopBtn.disabled = !isRunning;
   els.targetCount.disabled = isRunning;
+  els.keywords.disabled = isRunning;
 }
 
-const SEARCH_URL = 'https://www.linkedin.com/search/results/content/?keywords=qa%20engineer%20hiring&origin=SWITCH_SEARCH_VERTICAL';
+function buildSearchUrl(keywords) {
+  const q = encodeURIComponent(keywords.trim());
+  return `https://www.linkedin.com/search/results/content/?keywords=${q}&origin=SWITCH_SEARCH_VERTICAL`;
+}
 
 async function getActiveLinkedInTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -72,13 +77,35 @@ async function getActiveLinkedInTab() {
   return ok ? tab : null;
 }
 
-async function ensureFeedTab() {
+async function ensureFeedTab(keywords) {
   const tab = await getActiveLinkedInTab();
-  if (tab) return tab;
-  return chrome.tabs.create({ url: SEARCH_URL });
+  if (tab) return { tab, created: false };
+  // Open in background so the popup stays open long enough to finish the
+  // START_SCRAPE handshake. If the popup loses focus (which it would if we
+  // created the tab with active:true), it gets torn down and the rest of
+  // this click handler never runs.
+  const created = await chrome.tabs.create({
+    url: buildSearchUrl(keywords),
+    active: false,
+  });
+  return { tab: created, created: true };
 }
 
-async function sendToContent(tabId, message, retries = 3) {
+function waitForTabComplete(tabId) {
+  return new Promise((resolve) => {
+    const listener = (updatedId, info) => {
+      if (updatedId === tabId && info.status === 'complete') {
+        chrome.tabs.onUpdated.removeListener(listener);
+        resolve();
+      }
+    };
+    chrome.tabs.onUpdated.addListener(listener);
+  });
+}
+
+// LinkedIn's content script injects at document_idle, but the search-results
+// feed renders asynchronously after that, so we keep retrying generously.
+async function sendToContent(tabId, message, retries = 12) {
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
       return await chrome.tabs.sendMessage(tabId, message);
@@ -96,24 +123,24 @@ els.startBtn.addEventListener('click', async () => {
     return;
   }
 
+  const keywords = (els.keywords.value || '').trim();
+  if (!keywords) {
+    log('Enter search keywords.', 'error');
+    return;
+  }
+
   setRunningUI(true);
   setStatus(STATE.RUNNING);
-  log(`Starting scrape for ${target} posts…`);
+  log(`Starting scrape for ${target} posts on "${keywords}"…`);
 
   try {
-    const tab = await ensureFeedTab();
+    await chrome.storage.local.set({ keywords });
+    const { tab, created } = await ensureFeedTab(keywords);
     if (!tab) throw new Error('Could not obtain a LinkedIn feed tab.');
 
-    if (tab.status !== 'complete') {
-      await new Promise(resolve => {
-        const listener = (tabId, info) => {
-          if (tabId === tab.id && info.status === 'complete') {
-            chrome.tabs.onUpdated.removeListener(listener);
-            resolve();
-          }
-        };
-        chrome.tabs.onUpdated.addListener(listener);
-      });
+    if (created || tab.status !== 'complete') {
+      log('Waiting for LinkedIn to load…');
+      await waitForTabComplete(tab.id);
     }
 
     await chrome.storage.local.set({
@@ -125,6 +152,8 @@ els.startBtn.addEventListener('click', async () => {
     const response = await sendToContent(tab.id, { type: 'START_SCRAPE', target });
     if (response && response.ok) {
       log('Content script acknowledged. Scrolling…');
+      // Now safe to bring the tab to the foreground — handshake is done.
+      if (created) chrome.tabs.update(tab.id, { active: true });
     } else {
       throw new Error(response?.error || 'Content script did not respond.');
     }
@@ -184,9 +213,10 @@ chrome.runtime.onMessage.addListener((msg) => {
 });
 
 (async function init() {
-  const data = await chrome.storage.local.get(['posts', 'isRunning', 'target']);
+  const data = await chrome.storage.local.get(['posts', 'isRunning', 'target', 'keywords']);
   const posts = data.posts || [];
   const target = data.target || parseInt(els.targetCount.value, 10) || 0;
+  if (data.keywords) els.keywords.value = data.keywords;
   updateProgress(posts.length, target);
   if (data.isRunning) {
     setStatus(STATE.RUNNING);

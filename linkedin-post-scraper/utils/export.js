@@ -8,7 +8,7 @@
 // Fields to include in exports (JSON + CSV). Other fields like id, urn,
 // authorName, scrapedAt are kept in storage for dedup/debugging but not
 // surfaced to the user.
-const EXPORT_FIELDS = ['authorUrl', 'postUrl', 'text'];
+const EXPORT_FIELDS = ['authorUrl', 'text'];
 
 function projectRow(row) {
   const out = {};

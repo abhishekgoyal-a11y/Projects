@@ -11,6 +11,14 @@
     return;
   }
 
+  // After the extension is reloaded/updated, orphan content scripts keep
+  // running on the page but `chrome.runtime.id` becomes undefined and any
+  // chrome.* call throws "Extension context invalidated". Guard with this
+  // helper and treat that specific error as a clean stop signal.
+  const extAlive = () => Boolean(chrome?.runtime?.id);
+  const isContextInvalidated = (err) =>
+    err && /Extension context invalidated/i.test(err.message || String(err));
+
   const SCROLL_MIN_MS = 1400;
   const SCROLL_MAX_MS = 2800;
   const SCROLL_STEP_MIN = 600;
@@ -28,40 +36,53 @@
   };
 
   async function loadExistingPosts() {
-    const data = await chrome.storage.local.get('posts');
-    const posts = Array.isArray(data.posts) ? data.posts : [];
-    session.posts = posts;
-    session.seen = new Set(posts.map((p) => p.id));
+    if (!extAlive()) return;
+    try {
+      const data = await chrome.storage.local.get('posts');
+      const posts = Array.isArray(data.posts) ? data.posts : [];
+      session.posts = posts;
+      session.seen = new Set(posts.map((p) => p.id));
+    } catch (err) {
+      if (!isContextInvalidated(err)) throw err;
+    }
   }
 
   async function persistPosts() {
-    await chrome.storage.local.set({ posts: session.posts });
+    if (!extAlive()) return;
+    try {
+      await chrome.storage.local.set({ posts: session.posts });
+    } catch (err) {
+      if (!isContextInvalidated(err)) throw err;
+    }
+  }
+
+  function safeSendMessage(message) {
+    if (!extAlive()) return;
+    try {
+      chrome.runtime.sendMessage(message).catch(() => {});
+    } catch {
+      /* context invalidated between the check and the call — ignore */
+    }
   }
 
   function reportProgress(extra = {}) {
-    chrome.runtime
-      .sendMessage({
-        type: 'PROGRESS_UPDATE',
-        collected: session.posts.length,
-        target: session.target,
-        ...extra,
-      })
-      .catch(() => {});
+    safeSendMessage({
+      type: 'PROGRESS_UPDATE',
+      collected: session.posts.length,
+      target: session.target,
+      ...extra,
+    });
   }
 
   function reportDone() {
-    chrome.runtime
-      .sendMessage({
-        type: 'SCRAPE_DONE',
-        collected: session.posts.length,
-      })
-      .catch(() => {});
+    safeSendMessage({
+      type: 'SCRAPE_DONE',
+      collected: session.posts.length,
+    });
   }
 
   function reportError(error) {
-    chrome.runtime
-      .sendMessage({ type: 'SCRAPE_ERROR', error: String(error) })
-      .catch(() => {});
+    safeSendMessage({ type: 'SCRAPE_ERROR', error: String(error) });
   }
 
   async function collectVisiblePosts() {
@@ -127,6 +148,13 @@
       await collectVisiblePosts();
 
       while (session.running && session.posts.length < session.target) {
+        // Extension was reloaded mid-scrape — stop quietly. Any further
+        // chrome.* call would throw "Extension context invalidated".
+        if (!extAlive()) {
+          session.running = false;
+          return;
+        }
+
         if (Date.now() - session.startedAt > MAX_RUNTIME_MS) {
           reportProgress({ log: 'Max runtime reached — stopping.', logKind: 'error' });
           break;
@@ -157,13 +185,23 @@
         }
       }
     } catch (err) {
+      if (isContextInvalidated(err)) {
+        // Orphaned content script after extension reload — silent exit.
+        return;
+      }
       LFS.error('runLoop error:', err);
       reportError(err.message || String(err));
     } finally {
       session.running = false;
-      await chrome.storage.local.set({ isRunning: false });
-      reportProgress({ status: session.posts.length >= session.target ? 'Done' : 'Stopped' });
-      reportDone();
+      if (extAlive()) {
+        try {
+          await chrome.storage.local.set({ isRunning: false });
+        } catch (err) {
+          if (!isContextInvalidated(err)) throw err;
+        }
+        reportProgress({ status: session.posts.length >= session.target ? 'Done' : 'Stopped' });
+        reportDone();
+      }
     }
   }
 
