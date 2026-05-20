@@ -8,30 +8,66 @@
   const LFS = (globalThis.LFS = globalThis.LFS || {});
 
   const POST_SELECTORS = [
+    // Classic feed layout
     'div.feed-shared-update-v2',
     'div[data-id^="urn:li:activity:"]',
     'div.occludable-update',
+    'div[data-chameleon-result-urn^="urn:li:activity:"]',
+    'li[data-chameleon-result-urn^="urn:li:activity:"]',
+    'div.search-results__cluster-content div.feed-shared-update-v2',
+    // New search-results layout: post cards are listitems with a componentkey.
+    // LinkedIn A/B tests the suffix (e.g. `_AFeedType_FLAGSHIP_SEARCH`) so we
+    // match any listitem with a componentkey and filter below to ones that
+    // contain a post body — that filter is what keeps nav listitems out.
+    'div[role="listitem"][componentkey]',
+    'li[role="listitem"][componentkey]',
   ];
+
+  function looksLikePostBody(n) {
+    return Boolean(
+      n.querySelector('[data-testid="expandable-text-box"]') ||
+      n.querySelector('[componentkey^="feed-commentary"]')
+    );
+  }
 
   function findPostNodes(root = document) {
     const nodes = new Set();
     for (const sel of POST_SELECTORS) {
-      root.querySelectorAll(sel).forEach((n) => nodes.add(n));
+      root.querySelectorAll(sel).forEach((n) => {
+        // For the broad role=listitem selector, require a post body inside so
+        // we don't accept nav/menu/search-filter listitems.
+        if (sel.includes('role="listitem"') && !looksLikePostBody(n)) return;
+        nodes.add(n);
+      });
     }
     return Array.from(nodes);
   }
 
   function extractPostUrn(node) {
-    const urn =
+    const raw =
       node.getAttribute('data-id') ||
       node.getAttribute('data-urn') ||
+      node.getAttribute('data-chameleon-result-urn') ||
       node.querySelector('[data-urn^="urn:li:activity:"]')?.getAttribute('data-urn') ||
+      node.querySelector('[data-chameleon-result-urn^="urn:li:activity:"]')?.getAttribute('data-chameleon-result-urn') ||
       '';
-    if (urn) return urn;
+    if (raw) {
+      const m = raw.match(/urn:li:activity:\d+/);
+      if (m) return m[0];
+    }
     const link = node.querySelector('a[href*="/feed/update/urn:li:activity:"]');
     if (link) {
       const match = link.href.match(/urn:li:activity:\d+/);
       if (match) return match[0];
+    }
+    // Search-results layout exposes no real urn:li:activity. Derive a stable
+    // synthetic id from the listitem's componentkey so de-dup works. The
+    // suffix `_AFeedType_FLAGSHIP_SEARCH` is layout chrome — strip it so the
+    // id stays the same if LinkedIn rerenders the card.
+    const ck = node.getAttribute('componentkey');
+    if (ck) {
+      const stable = ck.replace(/_AFeedType_.*$/, '');
+      if (stable) return `urn:li:activity:search:${stable}`;
     }
     return '';
   }
@@ -41,7 +77,11 @@
       'a[href*="/feed/update/urn:li:activity:"]'
     );
     if (direct?.href) return LFS.absoluteUrl(direct.href.split('?')[0]);
-    if (urn) return `https://www.linkedin.com/feed/update/${urn}/`;
+    // Only build a feed-update URL for real numeric activity ids. Synthetic
+    // search-results ids (urn:li:activity:search:...) don't resolve.
+    if (urn && /^urn:li:activity:\d+$/.test(urn)) {
+      return `https://www.linkedin.com/feed/update/${urn}/`;
+    }
     return '';
   }
 
@@ -88,12 +128,31 @@
       name = name.replace(/\s*•\s*(1st|2nd|3rd\+?|Following).*$/i, '').trim();
     }
 
+    // Search-results layout: the cleanest name source is the overflow menu's
+    // aria-label, which always reads "Open control menu for post by <Name>".
+    if (!name) {
+      const menu = node.querySelector('button[aria-label^="Open control menu for post by "]');
+      if (menu) {
+        name = menu.getAttribute('aria-label')
+          .replace(/^Open control menu for post by\s+/, '')
+          .trim();
+      }
+    }
+
+    // Fallback: the actor figure's aria-label reads "View <Name>'s profile, …".
+    if (!name && urlLink) {
+      const labelled = urlLink.querySelector('[aria-label^="View "]') || urlLink;
+      const lbl = labelled.getAttribute('aria-label') || '';
+      const m = lbl.match(/^View\s+(.+?)['’]s\s+profile/i);
+      if (m) name = m[1].trim();
+    }
+
     return { name, url };
   }
 
   function expandSeeMore(node) {
     const seeMore = node.querySelector(
-      'button.feed-shared-inline-show-more-text__see-more-less-toggle, button.see-more, button[aria-label*="see more"]'
+      'button.feed-shared-inline-show-more-text__see-more-less-toggle, button.see-more, button[aria-label*="see more"], button[data-testid="expandable-text-button"]'
     );
     if (seeMore && !seeMore.dataset.lfsClicked) {
       try {
@@ -162,6 +221,8 @@
   function extractText(node) {
     expandSeeMore(node);
     const textContainer =
+      node.querySelector('[data-testid="expandable-text-box"]') ||
+      node.querySelector('[componentkey^="feed-commentary"]') ||
       node.querySelector('.update-components-text') ||
       node.querySelector('.feed-shared-update-v2__description') ||
       node.querySelector('.feed-shared-text') ||
@@ -170,7 +231,7 @@
     if (!textContainer) return '';
     const clone = textContainer.cloneNode(true);
     clone
-      .querySelectorAll('button, .feed-shared-inline-show-more-text__see-more-less-toggle')
+      .querySelectorAll('button, .feed-shared-inline-show-more-text__see-more-less-toggle, [data-testid="expandable-text-button"]')
       .forEach((b) => b.remove());
     return tidyMultiline(richText(clone));
   }

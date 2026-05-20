@@ -61,18 +61,21 @@ function setRunningUI(isRunning) {
   els.targetCount.disabled = isRunning;
 }
 
+const SEARCH_URL = 'https://www.linkedin.com/search/results/content/?keywords=qa%20engineer%20hiring&origin=SWITCH_SEARCH_VERTICAL';
+
 async function getActiveLinkedInTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab || !tab.url || !tab.url.startsWith('https://www.linkedin.com/feed')) {
-    return null;
-  }
-  return tab;
+  if (!tab || !tab.url) return null;
+  const ok =
+    tab.url.startsWith('https://www.linkedin.com/search/results/') ||
+    tab.url.startsWith('https://www.linkedin.com/feed');
+  return ok ? tab : null;
 }
 
 async function ensureFeedTab() {
   const tab = await getActiveLinkedInTab();
   if (tab) return tab;
-  return chrome.tabs.create({ url: 'https://www.linkedin.com/feed/' });
+  return chrome.tabs.create({ url: SEARCH_URL });
 }
 
 async function sendToContent(tabId, message, retries = 3) {
