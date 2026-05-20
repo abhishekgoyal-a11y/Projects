@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LinkedIn Feed Scraper</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LinkedIn Feed Scraper</h1>
+      <p class="subtitle">Automate feed scrolling and export posts</p>
+    </header>
+
+    <section class="config">
+      <label for="targetCount">Number of posts to scrape</label>
+      <input type="number" id="targetCount" min="1" max="2000" value="50" />
+    </section>
+
+    <section class="controls">
+      <button id="startBtn" class="btn btn-primary">Start Scraping</button>
+      <button id="stopBtn" class="btn btn-secondary" disabled>Stop Scraping</button>
+    </section>
+
+    <section class="status" id="statusSection">
+      <div class="status-row">
+        <span class="status-label">Status:</span>
+        <span id="statusText" class="status-value">Idle</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Posts collected:</span>
+        <span id="postCount" class="status-value">0</span>
+        <span class="status-divider"> / </span>
+        <span id="targetCountDisplay" class="status-value">0</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+      <div id="logArea" class="log-area" aria-live="polite"></div>
+    </section>
+
+    <section class="exports">
+      <button id="downloadJsonBtn" class="btn btn-export" disabled>Download JSON</button>
+      <button id="downloadCsvBtn" class="btn btn-export" disabled>Download CSV</button>
+      <button id="clearBtn" class="btn btn-danger">Clear Data</button>
+    </section>
+
+    <footer>
+      <span class="version">v1.0.0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
