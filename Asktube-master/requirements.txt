@@ -1,0 +1,10 @@
+flask
+flask-cors
+python-dotenv
+langchain
+langchain-groq
+langchain-community
+langchain-huggingface
+faiss-cpu
+youtube-transcript-api
+sentence-transformers==2.7.0
