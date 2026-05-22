@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkyCast — Weather</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="theme-clear">
+    <div class="bg-mesh" aria-hidden="true"></div>
+    <div class="bg-grain" aria-hidden="true"></div>
+
+    <main class="container">
+      <header class="header">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">☀</span>
+          <div>
+            <h1 class="app-title">SkyCast</h1>
+            <p class="app-subtitle">Live weather — no API key required</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="search-section">
+        <div class="search-box">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            type="text"
+            id="cityInput"
+            class="city-input"
+            placeholder="Search city — London, Tokyo, Mumbai..."
+            autocomplete="off"
+          />
+          <button id="searchBtn" class="search-btn" type="button" aria-label="Search weather">
+            Go
+          </button>
+        </div>
+
+        <div class="quick-cities" role="group" aria-label="Quick city search">
+          <button type="button" class="quick-city" data-city="London">London</button>
+          <button type="button" class="quick-city" data-city="New York">New York</button>
+          <button type="button" class="quick-city" data-city="Tokyo">Tokyo</button>
+          <button type="button" class="quick-city" data-city="Mumbai">Mumbai</button>
+        </div>
+      </section>
+
+      <div id="errorMsg" class="error-msg hidden" role="alert">
+        <span class="error-icon">!</span>
+        City not found. Check the spelling and try again.
+      </div>
+
+      <div id="loader" class="loader hidden" aria-live="polite">
+        <div class="spinner"></div>
+        <p>Fetching live weather...</p>
+      </div>
+
+      <article id="weatherBox" class="weather-box hidden">
+        <div class="weather-top">
+          <div class="weather-location">
+            <h2 id="cityName" class="city-name"></h2>
+            <p id="dateTime" class="date-time"></p>
+          </div>
+          <div class="temp-range">
+            <span class="range-label">Low</span>
+            <span id="tempMin" class="range-value"></span>
+            <span class="range-divider">/</span>
+            <span class="range-label">High</span>
+            <span id="tempMax" class="range-value"></span>
+          </div>
+        </div>
+
+        <div class="weather-hero">
+          <div id="weatherIcon" class="weather-icon" role="img" aria-label="Weather"></div>
+          <div class="hero-temp">
+            <div class="temp-group">
+              <span id="temperature" class="temperature"></span>
+              <span class="temp-unit">°C</span>
+            </div>
+            <p id="weatherCondition" class="weather-condition"></p>
+          </div>
+        </div>
+
+        <div class="weather-stats">
+          <div class="stat-card">
+            <span class="stat-label">Humidity</span>
+            <span id="humidity" class="stat-value"></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Wind</span>
+            <span id="windSpeed" class="stat-value"></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Visibility</span>
+            <span id="visibility" class="stat-value"></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Feels like</span>
+            <span id="feelsLike" class="stat-value"></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Pressure</span>
+            <span id="pressure" class="stat-value"></span>
+          </div>
+          <div class="stat-card stat-card--sun">
+            <span class="stat-label">Sunrise</span>
+            <span id="sunrise" class="stat-value"></span>
+          </div>
+          <div class="stat-card stat-card--sun">
+            <span class="stat-label">Sunset</span>
+            <span id="sunset" class="stat-value"></span>
+          </div>
+        </div>
+
+        <p class="data-source">Data provided by Open-Meteo</p>
+      </article>
+    </main>
+
+    <script src="assets/js/app.js" defer></script>
+  </body>
+</html>

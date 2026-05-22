@@ -1,0 +1,15 @@
+streamlit
+python-dotenv
+
+langchain
+langchain-core
+langchain-groq
+langgraph
+
+pydantic
+
+tavily-python
+
+markdown
+
+typing-extensions

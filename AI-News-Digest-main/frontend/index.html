@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI News Digest</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📡 AI News Digest</h1>
+    <span>Powered by Groq · Multi-Agent Pipeline</span>
+  </div>
+  <button id="refresh-btn" onclick="loadDigest()">
+    <span id="btn-icon">⚡</span> Generate Digest
+  </button>
+</header>
+
+<main>
+  <div id="status-bar">
+    <div class="spinner"></div>
+    <span id="status-text">Fetching news and running agents...</span>
+  </div>
+
+  <div id="error-box"></div>
+
+  <div id="digest-grid">
+    <div id="empty-state">
+      <div class="big-icon">🗞️</div>
+      <p>Click <strong>Generate Digest</strong> to fetch today's AI-powered news briefing.</p>
+    </div>
+  </div>
+
+  <div id="last-updated"></div>
+</main>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

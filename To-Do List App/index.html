@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>My Tasks</h1>
+    <p class="subtitle" id="dateLabel"></p>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p class="progress-label" id="progressLabel">0 of 0 tasks completed</p>
+    </div>
+
+    <div class="input-row">
+      <input id="taskInput" type="text" placeholder="Add a new task…" maxlength="120" aria-label="New task" />
+      <select id="prioInput" aria-label="Priority">
+        <option value="low">🟢 Low</option>
+        <option value="med" selected>🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
+      <button class="add-btn" id="addBtn" type="button">
+        <i class="ti ti-plus"></i> Add
+      </button>
+    </div>
+
+    <div class="filters">
+      <button type="button" class="filter-btn active" data-filter="all">All</button>
+      <button type="button" class="filter-btn" data-filter="active">Active</button>
+      <button type="button" class="filter-btn" data-filter="done">Done</button>
+      <button type="button" class="filter-btn" data-filter="high">🔴 Urgent</button>
+    </div>
+
+    <div class="list" id="list" aria-live="polite"></div>
+
+    <div class="footer-row">
+      <p id="footerNote"></p>
+      <button type="button" class="clear-btn" id="clearDone">Clear completed</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>

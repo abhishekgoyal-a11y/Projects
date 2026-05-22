@@ -1,0 +1,13 @@
+# Ignore local secret environment variables (CRITICAL)
+.env
+backend/.env
+
+# Ignore bulky dependency folders (They can always be re-installed using npm install)
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Ignore production build folders and logs
+dist/
+*.log
+.DS_Store
