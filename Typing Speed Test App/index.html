@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--
+  TypeMaster Pro — static front-end (no build step).
+
+  This folder may be read-only on disk (e.g. Downloads). To use a split layout,
+  run: chmod u+w . && mkdir -p assets/css assets/js
+  Then move style.css → assets/css/main.css, split passages from script.js
+  into assets/js/passages.js, move logic → assets/js/app.js, and update paths
+  in this file accordingly.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TypeMaster Pro — a quick typing speed and accuracy challenge in your browser.">
+<title>TypeMaster Pro</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="container" id="app" aria-label="TypeMaster Pro">
+
+    <!-- HOME SCREEN -->
+
+    <section id="homeScreen" class="screen active" aria-label="Home">
+
+        <div class="card">
+
+            <h1>⌨ TypeMaster Pro</h1>
+
+            <p class="subtitle">
+                Improve your typing speed and accuracy
+            </p>
+
+            <div class="field">
+                <label for="difficulty">Difficulty</label>
+
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="duration">Duration</label>
+
+                <select id="duration">
+                    <option value="30">30 Seconds</option>
+                    <option value="60" selected>60 Seconds</option>
+                    <option value="120">120 Seconds</option>
+                </select>
+            </div>
+
+            <div class="best-card">
+                🔥 Best WPM :
+                <span id="bestScore">0</span>
+            </div>
+
+            <button type="button" id="startBtn">
+                Start Challenge
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- TEST SCREEN -->
+
+    <section id="testScreen" class="screen" aria-label="Typing test">
+
+        <div class="card">
+
+            <div class="top-bar">
+
+                <div>⏱ <span id="timer">60</span>s</div>
+
+                <div>⚡ <span id="wpm">0</span></div>
+
+                <div>🎯 <span id="accuracy">0.0</span>%</div>
+
+            </div>
+
+            <div id="paragraph" class="paragraph"></div>
+
+            <textarea
+            id="typingInput"
+            placeholder="Start typing here..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"></textarea>
+
+            <div class="bottom-bar">
+
+                <div>
+                    ❌ Errors:
+                    <span id="errors">0</span>
+                </div>
+
+                <div title="Correct characters per minute (based on elapsed time)">
+                    ⌨ CPM:
+                    <span id="cpm">0</span>
+                </div>
+
+            </div>
+
+            <div class="progress">
+                <div id="progressFill"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- RESULT SCREEN -->
+
+    <section id="resultScreen" class="screen" aria-label="Results">
+
+        <div class="card">
+
+            <h2>🎉 Test Completed</h2>
+
+            <div class="result-grid">
+
+                <div class="result-box">
+                    <h3>WPM</h3>
+                    <p id="finalWpm">0</p>
+                </div>
+
+                <div class="result-box">
+                    <h3>Accuracy</h3>
+                    <p id="finalAccuracy">0%</p>
+                </div>
+
+                <div class="result-box">
+                    <h3>Errors</h3>
+                    <p id="finalErrors">0</p>
+                </div>
+
+                <div class="result-box">
+                    <h3>Best</h3>
+                    <p id="finalBest">0</p>
+                </div>
+
+            </div>
+
+            <button type="button" id="retryBtn">
+                Try Again
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>
