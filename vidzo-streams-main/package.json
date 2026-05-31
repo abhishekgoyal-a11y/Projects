@@ -1,0 +1,13 @@
+{
+  "name": "vidzo",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix \"vidzo movies\" run dev",
+    "server": "npm --prefix \"vidzo movies\" run server",
+    "seed": "npm --prefix \"vidzo movies\" run seed",
+    "build": "npm --prefix \"vidzo movies\" run build",
+    "lint": "npm --prefix \"vidzo movies\" run lint",
+    "preview": "npm --prefix \"vidzo movies\" run preview"
+  }
+}

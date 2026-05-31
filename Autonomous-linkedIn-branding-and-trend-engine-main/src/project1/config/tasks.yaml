@@ -1,0 +1,33 @@
+trend_research_task:
+  description: >
+    Research the top 5 latest trends about {topic} in 2026.
+    Focus on what professionals are talking about on LinkedIn.
+  expected_output: >
+    A list of top 5 trending topics about {topic} with 
+    brief explanation of each trend.
+  agent: trend_researcher
+
+content_creation_task:
+  description: >
+    Based on the trending topics, write an engaging LinkedIn 
+    post about {topic}. The post should be professional, 
+    inspiring and drive engagement. Include emojis.
+    Maximum 300 words.
+  expected_output: >
+    A complete LinkedIn post about {topic} that is ready 
+    to publish. Should include hook, main content and 
+    call to action.
+  agent: content_writer
+  context:
+    - trend_research_task
+
+hashtag_task:
+  description: >
+    Find the top 10 best hashtags for the LinkedIn post 
+    about {topic}. Mix of popular and niche hashtags.
+  expected_output: >
+    A list of 10 hashtags optimized for LinkedIn reach 
+    and engagement about {topic}.
+  agent: hashtag_specialist
+  context:
+    - content_creation_task

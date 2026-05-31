@@ -1,0 +1,51 @@
+/* TABLET */
+@media (max-width: 1024px) {
+
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .toggle-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .password-display {
+
+    font-size: 2rem;
+  }
+
+  .strength-section {
+
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .refresh-btn {
+
+    width: 100%;
+  }
+}
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+
+}
+
+@media (max-width: 768px) {
+
+  .header-title {
+
+    font-size: 3.5rem;
+  }
+
+  .header-subtitle {
+
+    font-size: 1.1rem;
+  }
+
+  .generator-card {
+
+    padding: 28px;
+  }
+}

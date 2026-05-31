@@ -1,0 +1,220 @@
+.options-panel {
+
+  margin-top: 30px;
+}
+
+/* LENGTH SECTION */
+
+.length-section {
+
+  margin-bottom: 28px;
+}
+
+/* HEADER */
+
+.length-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+/* TITLE */
+
+.length-header h2 {
+
+  font-size: 1.2rem;
+
+  font-weight: 600;
+
+  color: var(--text-primary);
+}
+
+/* VALUE */
+
+.length-header span {
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  color: var(--text-primary);
+
+  opacity: 0.95;
+}
+
+/* SLIDER */
+
+.length-slider {
+
+  width: 100%;
+}
+
+/* TOGGLE GRID */
+
+.toggle-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 24px 42px;
+
+  margin-top: 24px;
+}
+
+/* ITEM */
+
+.toggle-item {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+/* LABEL */
+
+.toggle-item span {
+
+  font-size: 1rem;
+
+  font-weight: 500;
+
+  color: var(--text-secondary);
+}
+
+/* SWITCH */
+
+.switch {
+
+  position: relative;
+
+  display: inline-block;
+
+  width: 62px;
+
+  height: 34px;
+
+  flex-shrink: 0;
+}
+
+/* INPUT */
+
+.switch input {
+
+  opacity: 0;
+
+  width: 0;
+
+  height: 0;
+}
+
+/* SLIDER */
+
+.slider {
+
+  position: absolute;
+
+  inset: 0;
+
+  cursor: pointer;
+
+  background:
+    #cbd5e1;
+
+  border-radius: 999px;
+
+  transition: 0.3s ease;
+
+  border:
+    1px solid rgba(15,23,42,0.06);
+}
+
+/* CIRCLE */
+
+.slider::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 24px;
+
+  height: 24px;
+
+  left: 4px;
+
+  top: 4px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* ACTIVE */
+
+.switch input:checked + .slider {
+
+  background:
+    linear-gradient(
+      to right,
+      #22c55e,
+      #16a34a
+    );
+
+  box-shadow:
+    0 0 8px rgba(34,197,94,0.16);
+}
+
+/* MOVE */
+
+.switch input:checked + .slider::before {
+
+  transform:
+    translateX(28px);
+}
+
+/* DARK MODE */
+
+.dark .slider {
+
+  background:
+    #334155;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.dark .slider::before {
+
+  background:
+    #f8fafc;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .toggle-grid {
+
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .length-header h2 {
+
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,146 @@
+@import "./reset.css";
+@import "./variables.css";
+@import "./responsive.css";
+
+body {
+
+  background:
+    var(--bg-primary);
+
+  color:
+    var(--text-primary);
+
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
+
+  transition:
+    var(--transition);
+
+  overflow-x: hidden;
+}
+
+button {
+
+  cursor: pointer;
+
+  border: none;
+
+  outline: none;
+
+  transition:
+    var(--transition);
+}
+
+/* APP */
+
+.app-container {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-start;
+
+  padding:
+    60px 20px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      var(--bg-primary),
+      var(--bg-secondary)
+    );
+}
+
+/* MAIN */
+
+.main-wrapper {
+
+  width: 100%;
+
+  max-width: 920px;
+
+  margin: 0 auto;
+}
+
+/* CARD */
+
+.generator-card {
+
+  width: 100%;
+
+  background:
+    var(--card-bg);
+
+  backdrop-filter:
+    var(--glass-blur);
+
+  border:
+    1px solid var(--border);
+
+  border-radius:
+    var(--radius-xl);
+
+  padding:
+    36px;
+
+  box-shadow:
+    var(--shadow-lg);
+
+  transition:
+    var(--transition);
+}
+
+/* TITLES */
+
+h1,h2,h3,h4 {
+
+  color:
+    var(--text-primary);
+
+  line-height: 1.1;
+}
+
+p,span,label {
+
+  color:
+    var(--text-secondary);
+}
+
+/* BUTTON HOVER */
+
+button:hover {
+
+  transform:
+    translateY(-2px);
+}
+
+/* BUTTON FOCUS */
+
+button:focus,
+input:focus {
+
+  outline:
+    3px solid rgba(59,130,246,0.35);
+
+  outline-offset: 3px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+  .generator-card {
+
+    padding: 24px;
+  }
+
+  .app-container {
+
+    padding: 30px 14px;
+  }
+}

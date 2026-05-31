@@ -1,0 +1,412 @@
+.passphrase-options {
+
+  margin-top: 30px;
+}
+
+.option-group {
+
+  margin-bottom: 28px;
+}
+
+/* HEADER */
+
+.option-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+/* TITLE */
+
+.option-header h2 {
+
+  font-size: 1.2rem;
+
+  font-weight: 600;
+
+  color: var(--text-primary);
+}
+
+/* VALUE */
+
+.option-header span {
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+  color: var(--text-primary);
+
+  opacity: 0.95;
+}
+
+/* SLIDER */
+
+.word-slider {
+
+  width: 100%;
+
+  cursor: pointer;
+}
+
+/* LABEL */
+
+label {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 1rem;
+
+  font-weight: 500;
+
+  color: var(--text-secondary);
+}
+
+/* TOGGLES */
+
+.toggle-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.toggle-row span {
+
+  font-size: 1rem;
+
+  font-weight: 500;
+
+  color: var(--text-secondary);
+}
+
+/* CUSTOM SELECT */
+
+.custom-select {
+
+  position: relative;
+
+  width: 100%;
+}
+
+/* BUTTON */
+
+.custom-select-trigger {
+
+  width: 100%;
+
+  padding: 16px 18px;
+
+  border-radius: 18px;
+
+  border:
+    1px solid rgba(148,163,184,0.16);
+
+  background:
+    var(--card-bg);
+
+  backdrop-filter:
+    blur(10px);
+
+  color:
+    var(--text-primary);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 1rem;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    0.25s ease;
+
+  outline: none;
+}
+
+/* REMOVE BLUE OUTLINE */
+
+.custom-select-trigger:focus {
+
+  outline: none;
+
+  box-shadow: none;
+}
+
+/* HOVER */
+
+.custom-select-trigger:hover {
+
+  border-color:
+    rgba(59,130,246,0.20);
+}
+
+/* MENU */
+
+.custom-options {
+
+  position: absolute;
+
+  top: calc(100% + 10px);
+
+  left: 0;
+
+  width: 100%;
+
+  padding: 10px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(255,255,255,0.92);
+
+  backdrop-filter:
+    blur(14px);
+
+  border:
+    1px solid rgba(148,163,184,0.12);
+
+  box-shadow:
+    0 10px 30px rgba(15,23,42,0.08);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  z-index: 50;
+
+  animation:
+    dropdownFade 0.2s ease;
+}
+
+/* ITEMS */
+
+.custom-options button {
+
+  border: none;
+
+  background: transparent;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+
+  text-align: left;
+
+  font-size: 1rem;
+
+  color:
+    var(--text-primary);
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+/* HOVER */
+
+.custom-options button:hover {
+
+  background:
+    rgba(59,130,246,0.08);
+}
+
+/* ARROW */
+
+.dropdown-arrow {
+
+  transition:
+    0.25s ease;
+}
+
+.dropdown-arrow.rotate {
+
+  transform:
+    rotate(180deg);
+}
+
+/* ANIMATION */
+
+@keyframes dropdownFade {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(-6px);
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+/* SWITCH */
+
+.switch {
+
+  position: relative;
+
+  display: inline-block;
+
+  width: 62px;
+
+  height: 34px;
+
+  flex-shrink: 0;
+}
+
+/* INPUT */
+
+.switch input {
+
+  opacity: 0;
+
+  width: 0;
+
+  height: 0;
+}
+
+/* SLIDER */
+
+.slider {
+
+  position: absolute;
+
+  inset: 0;
+
+  cursor: pointer;
+
+  background:
+    #cbd5e1;
+
+  border-radius: 999px;
+
+  transition: 0.3s ease;
+
+  border:
+    1px solid rgba(15,23,42,0.06);
+}
+
+/* CIRCLE */
+
+.slider::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 24px;
+
+  height: 24px;
+
+  left: 4px;
+
+  top: 4px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  transition: 0.3s ease;
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* ACTIVE */
+
+.switch input:checked + .slider {
+
+  background:
+    linear-gradient(
+      to right,
+      #22c55e,
+      #16a34a
+    );
+
+  box-shadow:
+    0 0 8px rgba(34,197,94,0.16);
+}
+
+/* MOVE */
+
+.switch input:checked + .slider::before {
+
+  transform:
+    translateX(28px);
+}
+
+/* DARK MODE */
+
+.dark .custom-select-trigger {
+
+  background:
+    rgba(17,24,39,0.80);
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+}
+
+.dark .custom-options {
+
+  background:
+    rgba(17,24,39,0.92);
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+}
+
+.dark .slider {
+
+  background:
+    #334155;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.dark .slider::before {
+
+  background:
+    #f8fafc;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .toggle-row {
+
+    gap: 18px;
+  }
+
+  .option-header h2 {
+
+    font-size: 1rem;
+  }
+}

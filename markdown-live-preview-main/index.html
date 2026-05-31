@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Markdown Studio Pro</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <header class="header">
+
+        <div>
+            <h1>📝 Markdown Studio Pro</h1>
+
+            <p class="subtitle">
+                Professional Markdown Editor with Live Preview
+            </p>
+        </div>
+
+        <button
+        id="themeToggle"
+        class="btn secondary-btn">
+
+            🌙 Dark Mode
+
+        </button>
+
+    </header>
+
+    <section class="stats-section">
+
+        <div class="stat-card">
+
+            <span>Words</span>
+
+            <h2 id="wordCount">0</h2>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>Characters</span>
+
+            <h2 id="charCount">0</h2>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>Reading Time</span>
+
+            <h2 id="readingTime">1 min</h2>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>Status</span>
+
+            <h2 id="saveStatus">Saved</h2>
+
+        </div>
+
+    </section>
+
+    <section class="search-section">
+
+        <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search in markdown...">
+
+    </section>
+
+
+    <section class="toolbar">
+
+        <button id="clearBtn" class="btn">
+            🗑 Clear
+        </button>
+
+        <button id="copyBtn" class="btn">
+            📋 Copy Markdown
+        </button>
+
+        <button id="downloadBtn" class="btn">
+            ⬇ Download HTML
+        </button>
+
+        <button id="fullscreenBtn" class="btn">
+            ⛶ Full Screen
+        </button>
+
+    </section>
+
+    <!-- MAIN AREA -->
+
+    <section class="editor-preview-container">
+
+        <!-- EDITOR -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                Markdown Editor
+
+            </div>
+
+<textarea
+id="markdownInput"
+spellcheck="false">
+
+# Study Planner
+
+## Today's Goals
+
+- Complete Java assignment
+- Practice DSA problems
+- Learn JavaScript concepts
+- Revise database topics
+
+## Weekly Progress
+
+- HTML ✔
+- CSS ✔
+- JavaScript ⏳
+- React ⏳
+
+## Motivation
+
+> Small progress every day leads to big results.
+
+## Learning Resources
+
+[GeeksforGeeks](https://www.geeksforgeeks.org)
+
+[MDN Web Docs](https://developer.mozilla.org)
+
+## Notes
+
+Consistency is the key to becoming a better developer. Focus on learning one concept at a time and practice regularly.
+
+---
+
+Keep learning and improving 🚀
+
+</textarea>
+
+        </div>
+
+        <!-- PREVIEW -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                Live Preview
+
+            </div>
+
+            <div id="preview"></div>
+
+        </div>
+
+    </section>
+
+    <!-- INFO BAR -->
+
+    <section class="info-bar">
+
+        <div>
+            💾 Last Saved:
+            <span id="lastSaved">
+                Just now
+            </span>
+        </div>
+
+        <div>
+            ⌨ Shortcut:
+            Ctrl + S
+        </div>
+
+    </section>
+
+    <!-- GUIDE -->
+
+    <section class="guide-section">
+
+        <h2>
+            Markdown Quick Guide
+        </h2>
+
+        <div class="guide-grid">
+
+            <div class="guide-card">
+                <code># Heading</code>
+            </div>
+
+            <div class="guide-card">
+                <code>## Subheading</code>
+            </div>
+
+            <div class="guide-card">
+                <code>**Bold**</code>
+            </div>
+
+            <div class="guide-card">
+                <code>*Italic*</code>
+            </div>
+
+            <div class="guide-card">
+                <code>- List Item</code>
+            </div>
+
+            <div class="guide-card">
+                <code>> Quote</code>
+            </div>
+
+            <div class="guide-card">
+                <code>[Link](url)</code>
+            </div>
+
+            <div class="guide-card">
+                <code>---</code>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer class="footer">
+
+        <p>
+            Markdown Studio Pro • Built using HTML, CSS and JavaScript
+        </p>
+
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

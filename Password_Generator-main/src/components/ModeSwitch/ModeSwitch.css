@@ -1,0 +1,109 @@
+.mode-switch {
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  flex-wrap: nowrap;
+
+  gap: 20px;
+
+  margin: 0 auto 32px auto;
+}
+
+/* BUTTON */
+
+.mode-btn {
+
+  width: 240px;
+
+  height: 62px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,0.06);
+
+  color:
+    var(--text-primary);
+
+  border:
+    1px solid var(--border);
+
+  font-size: 1rem;
+
+  font-weight: 700;
+
+  text-align: center;
+
+  backdrop-filter:
+    blur(10px);
+
+  box-shadow:
+    var(--shadow-md);
+
+  transition:
+    var(--transition);
+
+  flex-shrink: 0;
+}
+
+/* HOVER */
+
+.mode-btn:hover {
+
+  transform:
+    translateY(-2px);
+
+  background:
+    rgba(59,130,246,0.12);
+
+  border-color:
+    rgba(59,130,246,0.25);
+
+  box-shadow:
+    0 10px 24px rgba(37,99,235,0.18);
+}
+
+/* ACTIVE */
+
+.mode-btn.active {
+
+  background:
+    var(--primary);
+
+  color: white;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 8px 24px rgba(37,99,235,0.30);
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .mode-switch {
+
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  .mode-btn {
+
+    width: 100%;
+  }
+}

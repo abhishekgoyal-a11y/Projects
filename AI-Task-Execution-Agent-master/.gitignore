@@ -1,0 +1,34 @@
+# Secrets
+.env
+
+# Guide (local only, not for GitHub)
+guide.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+
+# Generated reports
+reports/
+
+# Frontend build
+node_modules/
+frontend/build/
+frontend/.env.local
+
+# OS
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user

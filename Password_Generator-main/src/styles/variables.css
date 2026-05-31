@@ -1,0 +1,95 @@
+:root {
+
+  /* BACKGROUNDS */
+
+  --bg-primary: #f5f5f4;
+  --bg-secondary: #e2e8e1;
+
+  /* CARD */
+
+  --card-bg: rgba(255,255,255,0.78);
+
+  /* TEXT */
+
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;;
+
+  /* BRAND */
+
+  --primary: #02367b;
+  --primary-hover: #1d4ed8;
+
+  /* SUCCESS */
+
+  --success: #22c55e;
+
+  /* BORDERS */
+
+  --border:
+    rgba(15,23,42,0.10);
+
+  /* SHADOWS */
+
+  --shadow-lg:
+    0 10px 30px rgba(15,23,42,0.08);
+
+  --shadow-md:
+    0 6px 18px rgba(15,23,42,0.06);
+
+  /* RADIUS */
+
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+
+  /* TRANSITIONS */
+
+  --transition:
+    all 0.25s ease;
+
+  /* GLASS */
+
+  --glass-blur: blur(12px);
+}
+
+/* DARK MODE */
+
+.dark {
+
+  /* BACKGROUNDS */
+
+  --bg-primary: #092562db;
+  --bg-secondary: #020617;
+
+  /* CARD */
+
+  --card-bg:
+    rgba(17, 24, 39, 0.86);
+
+  /* TEXT */
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+
+  /* BRAND */
+
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+
+  /* SUCCESS */
+
+  --success: #22c55e;
+
+  /* BORDERS */
+
+  --border:
+    rgba(255,255,255,0.10);
+
+  /* SHADOWS */
+
+  --shadow-lg:
+    0 12px 40px rgba(0,0,0,0.45);
+
+  --shadow-md:
+    0 6px 20px rgba(0,0,0,0.30);
+}

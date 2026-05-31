@@ -1,0 +1,24 @@
+.theme-toggle {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--border-color);
+
+  background: var(--bg-card);
+
+  color: var(--text-primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.3rem;
+
+  transition: 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+}

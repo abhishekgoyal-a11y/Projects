@@ -1,0 +1,54 @@
+:root {
+
+  --bg-main: #f3f4f6;
+
+  --bg-card: #ffffff;
+
+  --text-primary: #111827;
+
+  --text-secondary: #6b7280;
+
+  --border: #d1d5db;
+}
+
+.dark {
+
+  --bg-main: #071126;
+
+  --bg-card: #ffffff;
+
+  --text-primary: #ffffff;
+
+  --text-secondary: #cbd5e1;
+
+  --border: rgba(255,255,255,0.08);
+}
+
+* {
+
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  background: var(--bg-main);
+
+  color: var(--text-primary);
+
+  transition: 0.3s ease;
+}
+
+.app-container {
+
+  min-height: 100vh;
+
+  background: var(--bg-main);
+
+  transition: 0.3s ease;
+}

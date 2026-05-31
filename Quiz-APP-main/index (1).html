@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brain Quest – Quiz App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+ 
+  <div class="blob blob1" aria-hidden="true"></div>
+  <div class="blob blob2" aria-hidden="true"></div>
+  <div class="blob blob3" aria-hidden="true"></div>
+
+  <div class="app">
+
+    <!-- ===================== START SCREEN ===================== -->
+    <section class="screen active" id="startScreen" aria-label="Quiz start screen">
+      <div class="start-card">
+        <div class="logo-ring" aria-hidden="true">🧠</div>
+        <h1 class="start-title">Brain Quest</h1>
+        <p class="start-sub">
+          10 random questions · 20 seconds each · Instant feedback<br />
+          Replay for a freshly shuffled challenge every time.
+        </p>
+        <div class="stats-row">
+          <div class="stat-pill"><strong>25</strong>Question pool</div>
+          <div class="stat-pill"><strong>20s</strong>Per Q</div>
+          <div class="stat-pill"><strong>7</strong>Topics</div>
+        </div>
+        <button class="btn-primary" id="btnStart">Start Quiz →</button>
+      </div>
+    </section>
+
+    <!-- ===================== QUIZ SCREEN ===================== -->
+    <section class="screen" id="quizScreen" aria-label="Quiz questions">
+      <div class="quiz-header">
+        <div class="q-counter" aria-live="polite">
+          Question <span id="qNum">1</span> / 10
+        </div>
+        <div class="timer-box" id="timerBox" aria-live="assertive" aria-label="Time remaining">20</div>
+      </div>
+
+      <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10">
+        <div class="progress-bar" id="progressBar" style="width: 10%;"></div>
+      </div>
+
+      <div class="question-card">
+        <span class="q-cat-badge" id="qCat">Science</span>
+        <p class="q-text" id="qText">Question text loads here.</p>
+      </div>
+
+      <div class="options-grid" id="optionsGrid" role="group" aria-label="Answer options">
+        <!-- Options injected by JS -->
+      </div>
+
+      <div class="quiz-footer">
+        <div class="feedback-bar" id="feedbackBar" role="alert" aria-live="polite"></div>
+        <button class="btn-next" id="btnNext">Next Question →</button>
+      </div>
+    </section>
+
+    <!-- ===================== RESULT SCREEN ===================== -->
+    <section class="screen" id="resultScreen" aria-label="Quiz results">
+      <div class="result-card">
+        <div class="score-ring-wrap" aria-hidden="true">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="58" fill="none"
+              stroke="rgba(255,255,255,0.06)" stroke-width="12" />
+            <circle cx="70" cy="70" r="58" fill="none"
+              stroke="url(#scoreGrad)" stroke-width="12"
+              stroke-linecap="round"
+              stroke-dasharray="364.4"
+              id="scoreDash"
+              stroke-dashoffset="364.4" />
+            <defs>
+              <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7c6fff" />
+                <stop offset="100%" stop-color="#ff6b9d" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="score-number">
+            <span class="big" id="scorePercent">0%</span>
+            <span class="small">score</span>
+          </div>
+        </div>
+
+        <h2 class="result-title" id="resultTitle">Great Job!</h2>
+        <p class="result-sub" id="resultSub">You completed the quiz.</p>
+
+        <div class="stats-grid-2">
+          <div class="stat-card2">
+            <div class="num num-correct" id="resCorrect">0</div>
+            <div class="lbl">Correct</div>
+          </div>
+          <div class="stat-card2">
+            <div class="num num-wrong" id="resWrong">0</div>
+            <div class="lbl">Wrong</div>
+          </div>
+          <div class="stat-card2">
+            <div class="num num-time" id="resTime">0s</div>
+            <div class="lbl">Time spent</div>
+          </div>
+          <div class="stat-card2">
+            <div class="num num-skipped" id="resSkipped">0</div>
+            <div class="lbl">Skipped</div>
+          </div>
+        </div>
+
+        <button class="btn-restart" id="btnRestart">Play Again →</button>
+      </div>
+    </section>
+
+  </div><!-- /.app -->
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.env.local
+npm-debug.log*
+*.log
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+coverage
