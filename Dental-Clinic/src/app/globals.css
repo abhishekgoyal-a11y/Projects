@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-neutral-100 font-body text-neutral-950 antialiased dark:bg-primary-900 dark:text-neutral-50;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-[3px] ring-primary-500/35 ring-offset-2;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-5 py-16 md:px-8 md:py-20 lg:px-10 lg:py-24;
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.08em] text-primary-500;
+  }
+
+  .section-title {
+    @apply font-display text-[26px] font-medium leading-tight text-primary-900 md:text-4xl;
+  }
+
+  .section-lead {
+    @apply mt-4 max-w-prose text-base leading-relaxed text-neutral-700 md:text-lg;
+  }
+}
