@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Maps Lead Scraper</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Maps Lead Scraper</h1>
+
+    <div class="field">
+      <label for="query">Search query</label>
+      <input id="query" type="text" placeholder="e.g. dentists in New York" autocomplete="off" />
+    </div>
+
+    <div class="options-row">
+      <div class="field">
+        <label for="target">Leads target</label>
+        <input id="target" type="number" value="20" min="1" max="500" />
+      </div>
+      <label class="checkbox-label" title="Visits each business website to look for a contact email">
+        <input id="fetchEmails" type="checkbox" checked />
+        Fetch emails from websites
+      </label>
+    </div>
+
+    <div class="controls">
+      <button id="btnStart" class="btn primary">Start Scraping</button>
+      <button id="btnStop"  class="btn danger" disabled>Stop</button>
+    </div>
+
+    <hr />
+
+    <div class="status-row">
+      <span id="statusDot" class="dot idle"></span>
+      <span id="statusText" class="status-text">Idle — enter a query and click Start</span>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+      <span id="progressText" class="progress-text">0 / 0 leads</span>
+    </div>
+
+    <div id="logBox" class="log-box">—</div>
+
+    <div class="export-row">
+      <button id="btnJSON"  class="btn secondary" disabled>&#8659; JSON</button>
+      <button id="btnCSV"   class="btn secondary" disabled>&#8659; CSV</button>
+      <button id="btnClear" class="btn ghost">Clear data</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  width: 390px;
+  color: #202124;
+  background: #fff;
+}
+
+.container { padding: 16px; }
+
+h1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #202124;
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+}
+
+/* ── Fields ─────────────────────────────────────────────────────────────── */
+
+.field { margin-bottom: 10px; }
+
+.field label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 4px;
+}
+
+.field input[type="text"],
+.field input[type="number"] {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #dadce0;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #202124;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field input:focus {
+  border-color: #0f9d58;
+  box-shadow: 0 0 0 3px rgba(15, 157, 88, 0.15);
+}
+
+/* ── Options row ────────────────────────────────────────────────────────── */
+
+.options-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.options-row .field { flex: 0 0 110px; margin: 0; }
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #5f6368;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.4;
+  padding-bottom: 2px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: #0f9d58;
+  flex-shrink: 0;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+
+.controls { display: flex; gap: 8px; margin-bottom: 12px; }
+
+.btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.btn:disabled { opacity: 0.42; cursor: not-allowed; }
+
+.btn.primary  { background: #0f9d58; color: #fff; }
+.btn.primary:not(:disabled):hover  { background: #0b8043; }
+
+.btn.danger   { background: #ea4335; color: #fff; }
+.btn.danger:not(:disabled):hover   { background: #c5221f; }
+
+.btn.secondary { background: #e6f4ea; color: #137333; }
+.btn.secondary:not(:disabled):hover { background: #ceead6; }
+
+.btn.ghost    { background: #f1f3f4; color: #5f6368; }
+.btn.ghost:not(:disabled):hover    { background: #e8eaed; }
+
+hr { border: none; border-top: 1px solid #e8eaed; margin: 10px 0; }
+
+/* ── Status ─────────────────────────────────────────────────────────────── */
+
+.status-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot.idle    { background: #9aa0a6; }
+.dot.running { background: #fbbc04; animation: pulse 1.2s ease-in-out infinite; }
+.dot.done    { background: #34a853; }
+.dot.error   { background: #ea4335; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+.status-text {
+  font-size: 12px;
+  color: #5f6368;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Progress ───────────────────────────────────────────────────────────── */
+
+.progress-wrap { margin-bottom: 8px; }
+
+.progress-bar {
+  background: #e8eaed;
+  border-radius: 2px;
+  height: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #0f9d58;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-size: 11px;
+  color: #9aa0a6;
+  text-align: right;
+}
+
+/* ── Log ────────────────────────────────────────────────────────────────── */
+
+.log-box {
+  font-size: 11px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  color: #5f6368;
+  background: #f8f9fa;
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  padding: 6px 9px;
+  min-height: 30px;
+  max-height: 56px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ── Export row ─────────────────────────────────────────────────────────── */
+
+.export-row { display: flex; gap: 6px; }
+.export-row .btn { font-size: 12px; padding: 6px 8px; }
