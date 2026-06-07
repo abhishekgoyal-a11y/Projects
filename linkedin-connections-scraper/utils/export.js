@@ -2,7 +2,7 @@
  * Export connections as JSON / CSV via chrome.downloads.
  */
 
-const EXPORT_FIELDS = ['name', 'profileUrl', 'headline', 'connectedAt'];
+const EXPORT_FIELDS = ['name', 'profileUrl', 'headline', 'connectedAt', 'phone', 'email'];
 
 function projectRow(row) {
   const out = {};

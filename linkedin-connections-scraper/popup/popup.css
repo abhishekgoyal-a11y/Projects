@@ -219,6 +219,86 @@ input:disabled {
   color: #b91c1c;
 }
 
+.enrich-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.enrich-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.enrich-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.enrich-note {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.btn-enrich {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.btn-enrich:hover:not(:disabled) {
+  background: #6d28d9;
+}
+
+.load-json-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-load {
+  background: #374151;
+  color: #fff;
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  font-size: 12px;
+  min-width: auto;
+}
+
+.btn-load:hover:not(:disabled) {
+  background: #1f2937;
+}
+
+.loaded-filename {
+  font-size: 11px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.enrich-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.enrich-name {
+  color: #6b7280;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
 footer {
   text-align: center;
   font-size: 10px;

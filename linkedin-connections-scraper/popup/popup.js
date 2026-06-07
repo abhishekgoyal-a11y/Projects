@@ -19,6 +19,15 @@ const els = {
   targetDisplay: document.getElementById('targetDisplay'),
   progressFill: document.getElementById('progressFill'),
   logArea: document.getElementById('logArea'),
+  loadJsonBtn: document.getElementById('loadJsonBtn'),
+  jsonFileInput: document.getElementById('jsonFileInput'),
+  loadedFilename: document.getElementById('loadedFilename'),
+  enrichLimit: document.getElementById('enrichLimit'),
+  enrichBtn: document.getElementById('enrichBtn'),
+  stopEnrichBtn: document.getElementById('stopEnrichBtn'),
+  enrichProgressRow: document.getElementById('enrichProgressRow'),
+  enrichCount: document.getElementById('enrichCount'),
+  enrichName: document.getElementById('enrichName'),
 };
 
 const STATE = {
@@ -62,6 +71,7 @@ function updateProgress(collected, target, scrapeAll) {
   const hasData = collected > 0;
   els.downloadJsonBtn.disabled = !hasData;
   els.downloadCsvBtn.disabled = !hasData;
+  els.enrichBtn.disabled = !hasData;
 }
 
 function setRunningUI(isRunning) {
@@ -213,6 +223,84 @@ els.clearBtn.addEventListener('click', async () => {
   log('Data cleared.');
 });
 
+// ── Load JSON file ───────────────────────────────────────────────────────────
+
+els.loadJsonBtn.addEventListener('click', () => els.jsonFileInput.click());
+
+els.jsonFileInput.addEventListener('change', async () => {
+  const file = els.jsonFileInput.files[0];
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    if (!Array.isArray(parsed)) throw new Error('JSON must be an array.');
+
+    // Normalise each entry — assign an id if missing
+    const connections = parsed.map((c) => ({
+      id: c.id || (() => {
+        try { return new URL(c.profileUrl).pathname.replace(/^\/in\//, '').replace(/\/$/, '').toLowerCase(); } catch { return ''; }
+      })(),
+      name: c.name || '',
+      profileUrl: c.profileUrl || '',
+      headline: c.headline || '',
+      connectedAt: c.connectedAt || '',
+      phone: c.phone || '',
+      email: c.email || '',
+      enriched: c.enriched || false,
+    })).filter((c) => c.id);
+
+    await chrome.storage.local.set({
+      connections,
+      enrichFilename: file.name,
+    });
+
+    els.loadedFilename.textContent = file.name;
+    els.loadedFilename.title = file.name;
+    const scrapeAll = els.scrapeAll.checked;
+    const target = parseInt(els.targetCount.value, 10) || 0;
+    updateProgress(connections.length, target, scrapeAll);
+    log(`Loaded ${connections.length} connections from "${file.name}".`);
+  } catch (err) {
+    log(`Failed to load file: ${err.message}`, 'error');
+  }
+
+  els.jsonFileInput.value = '';
+});
+
+function setEnrichingUI(running) {
+  els.enrichBtn.disabled = running;
+  els.stopEnrichBtn.disabled = !running;
+  els.enrichLimit.disabled = running;
+  els.enrichProgressRow.style.display = running ? 'flex' : 'none';
+  if (!running) els.enrichName.textContent = '';
+}
+
+els.enrichBtn.addEventListener('click', async () => {
+  const count = parseInt(els.enrichLimit.value, 10);
+  if (!Number.isFinite(count) || count < 1) {
+    log('Enter a valid number of profiles to enrich.', 'error');
+    return;
+  }
+  setEnrichingUI(true);
+  log(`Starting enrichment for up to ${count} profiles — auto-saving after each…`);
+  try {
+    const resp = await chrome.runtime.sendMessage({ type: 'ENRICH_START', count });
+    if (!resp?.ok) throw new Error(resp?.error || 'Failed to start.');
+  } catch (err) {
+    log(`Enrich error: ${err.message}`, 'error');
+    setEnrichingUI(false);
+  }
+});
+
+els.stopEnrichBtn.addEventListener('click', async () => {
+  log('Stopping enrichment…');
+  await chrome.runtime.sendMessage({ type: 'ENRICH_STOP' });
+  setEnrichingUI(false);
+  const data = await chrome.storage.local.get('connections');
+  els.enrichBtn.disabled = !(data.connections?.length > 0);
+});
+
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === 'PROGRESS_UPDATE') {
     updateProgress(msg.collected, msg.target, msg.scrapeAll);
@@ -226,6 +314,14 @@ chrome.runtime.onMessage.addListener((msg) => {
     setStatus(STATE.ERROR);
     setRunningUI(false);
     log(`Scrape error: ${msg.error}`, 'error');
+  } else if (msg.type === 'ENRICH_PROGRESS') {
+    els.enrichCount.textContent = `${msg.current} / ${msg.total}`;
+    els.enrichName.textContent = msg.name ? `· ${msg.name}` : '';
+    log(`Enriching ${msg.current}/${msg.total}: ${msg.name || ''}`);
+  } else if (msg.type === 'ENRICH_DONE') {
+    setEnrichingUI(false);
+    els.enrichBtn.disabled = false;
+    log(`Enrichment done: ${msg.processed} profiles processed.`);
   }
 });
 
@@ -235,6 +331,7 @@ chrome.runtime.onMessage.addListener((msg) => {
     'isRunning',
     'target',
     'scrapeAll',
+    'enrichFilename',
   ]);
 
   const connections = data.connections || [];
@@ -253,6 +350,17 @@ chrome.runtime.onMessage.addListener((msg) => {
     setStatus(connections.length > 0 ? STATE.DONE : STATE.IDLE);
     setRunningUI(false);
   }
+
+  if (data.enrichFilename) {
+    els.loadedFilename.textContent = data.enrichFilename;
+    els.loadedFilename.title = data.enrichFilename;
+  }
+
+  // Restore enrich state if background enrichment is still running
+  try {
+    const enrichStatus = await chrome.runtime.sendMessage({ type: 'ENRICH_STATUS' });
+    if (enrichStatus?.running) setEnrichingUI(true);
+  } catch { /* background may not be ready yet */ }
 
   log('Popup ready.');
 })();

@@ -51,6 +51,33 @@
       <button id="clearBtn" class="btn btn-danger">Clear Data</button>
     </section>
 
+    <section class="enrich-section">
+      <div class="enrich-header">
+        <span class="enrich-title">Enrich with Contact Info</span>
+        <span class="enrich-note">Opens each profile · extracts headline, phone &amp; email · auto-saves after each</span>
+      </div>
+
+      <div class="load-json-row">
+        <button id="loadJsonBtn" class="btn btn-load">Load JSON file</button>
+        <span id="loadedFilename" class="loaded-filename">No file loaded</span>
+        <input type="file" id="jsonFileInput" accept=".json" style="display:none" />
+      </div>
+
+      <div class="target-wrap">
+        <label for="enrichLimit">Profiles to enrich</label>
+        <input type="number" id="enrichLimit" min="1" max="30000" value="50" />
+      </div>
+      <div class="controls">
+        <button id="enrichBtn" class="btn btn-enrich" disabled>Enrich Profiles</button>
+        <button id="stopEnrichBtn" class="btn btn-secondary" disabled>Stop</button>
+      </div>
+      <div class="enrich-progress-row" id="enrichProgressRow" style="display:none">
+        <span class="status-label">Enriching:</span>
+        <span id="enrichCount" class="status-value">0 / 0</span>
+        <span id="enrichName" class="enrich-name"></span>
+      </div>
+    </section>
+
     <footer>
       <span class="version">v1.0.0</span>
     </footer>
