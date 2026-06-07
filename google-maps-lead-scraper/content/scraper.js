@@ -14,7 +14,7 @@
     address:     'button[data-item-id="address"], button[aria-label^="Address:"]',
     category:    'button.DkEaL',
     rating:      'div.F7nice span[aria-hidden="true"]',
-    reviewCount: 'div.F7nice span[aria-label]',
+    reviewCount: 'div.F7nice span[aria-label]:nth-child(1)',
     backBtn:     'button[aria-label="Back"], button[aria-label="Go back"]',
   };
 
