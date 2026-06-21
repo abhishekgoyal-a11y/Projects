@@ -75,6 +75,46 @@ input:disabled {
   margin-bottom: 2px;
 }
 
+.mode-toggle {
+  display: flex;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 7px 10px;
+  border: none;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #6b7280;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mode-btn.active {
+  background: #0a66c2;
+  color: #fff;
+}
+
+.mode-btn:not(.active):hover:not(:disabled) {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.mode-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.url-hint {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+
 .controls,
 .exports {
   display: flex;

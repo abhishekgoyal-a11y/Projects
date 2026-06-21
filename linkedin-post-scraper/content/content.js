@@ -5,11 +5,13 @@
  */
 
 (function () {
+  if (globalThis.LFS?._contentRegistered) return; // prevent double-injection
   const LFS = globalThis.LFS;
   if (!LFS || !LFS.Scraper) {
     console.error('[LFS] helpers/scraper not loaded — aborting content script.');
     return;
   }
+  LFS._contentRegistered = true;
 
   // After the extension is reloaded/updated, orphan content scripts keep
   // running on the page but `chrome.runtime.id` becomes undefined and any
@@ -126,18 +128,30 @@
     return Boolean(waited);
   }
 
+  // Returns true if a "load more" button was found and clicked.
+  // Profile/group pages are paginated rather than infinitely scrolling, so
+  // after clicking we wait longer to give the next batch time to render.
   async function clickShowMoreIfPresent() {
-    const showMoreBtn = document.querySelector(
-      'button.scaffold-finite-scroll__load-button, button[aria-label*="Show more"]'
-    );
-    if (showMoreBtn) {
+    const showMoreBtn = document.querySelector([
+      'button.scaffold-finite-scroll__load-button',
+      'button[aria-label*="Show more"]',
+      'button[aria-label*="Load more"]',
+      'button[aria-label*="show more results" i]',
+      'button[aria-label*="See more" i]',
+    ].join(', '));
+
+    if (showMoreBtn && !showMoreBtn.dataset.lfsClicked) {
       try {
+        showMoreBtn.dataset.lfsClicked = '1';
         showMoreBtn.click();
-        await LFS.sleep(LFS.randInt(800, 1500));
+        // Wait longer on paginated pages — new batch takes time to render
+        await LFS.sleep(LFS.randInt(2000, 3500));
+        return true;
       } catch {
         /* ignore */
       }
     }
+    return false;
   }
 
   async function runLoop() {
@@ -164,22 +178,28 @@
         const beforeHeight = document.body.scrollHeight;
 
         await performScrollStep();
-        await clickShowMoreIfPresent();
+        const clicked = await clickShowMoreIfPresent();
         await collectVisiblePosts();
 
         const grew = session.posts.length > beforeCount;
         const pageGrew = document.body.scrollHeight > beforeHeight + 10;
 
         if (!grew && !pageGrew) {
-          session.stallCount++;
-          if (session.stallCount >= STALL_LIMIT) {
-            reportProgress({
-              log: `Feed appears exhausted after ${STALL_LIMIT} stalled scrolls.`,
-              logKind: 'error',
-            });
-            break;
+          // Clicking "load more" counts as productive even if new posts
+          // haven't rendered yet — don't penalise it as a stall.
+          if (clicked) {
+            session.stallCount = 0;
+          } else {
+            session.stallCount++;
+            if (session.stallCount >= STALL_LIMIT) {
+              reportProgress({
+                log: `Feed appears exhausted after ${STALL_LIMIT} stalled scrolls.`,
+                logKind: 'error',
+              });
+              break;
+            }
+            await LFS.sleep(LFS.randInt(1500, 2500));
           }
-          await LFS.sleep(LFS.randInt(1500, 2500));
         } else {
           session.stallCount = 0;
         }

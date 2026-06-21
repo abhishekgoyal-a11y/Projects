@@ -32,7 +32,9 @@
       "matches": [
         "https://www.linkedin.com/search/results/*",
         "https://www.linkedin.com/feed/*",
-        "https://www.linkedin.com/feed"
+        "https://www.linkedin.com/feed",
+        "https://www.linkedin.com/in/*/recent-activity/*",
+        "https://www.linkedin.com/groups/*"
       ],
       "js": [
         "utils/helpers.js",

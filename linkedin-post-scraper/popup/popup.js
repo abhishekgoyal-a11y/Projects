@@ -1,10 +1,15 @@
 /**
  * Popup controller — manages UI state, user input, and messaging with
  * the background service worker and active content script.
+ * Supports three scraping modes: keyword search, profile activity, group feed.
  */
 
 const els = {
   keywords: document.getElementById('keywords'),
+  profileUrl: document.getElementById('profileUrl'),
+  keywordPanel: document.getElementById('keywordPanel'),
+  urlPanel: document.getElementById('urlPanel'),
+  modeBtns: document.querySelectorAll('.mode-btn'),
   targetCount: document.getElementById('targetCount'),
   startBtn: document.getElementById('startBtn'),
   stopBtn: document.getElementById('stopBtn'),
@@ -25,6 +30,21 @@ const STATE = {
   DONE: 'Done',
   ERROR: 'Error',
 };
+
+let currentMode = 'keyword'; // 'keyword' | 'url'
+
+function setMode(mode) {
+  currentMode = mode;
+  els.modeBtns.forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  els.keywordPanel.style.display = mode === 'keyword' ? '' : 'none';
+  els.urlPanel.style.display = mode === 'url' ? '' : 'none';
+}
+
+els.modeBtns.forEach((btn) => {
+  btn.addEventListener('click', () => setMode(btn.dataset.mode));
+});
 
 function log(message, kind = 'info') {
   const entry = document.createElement('div');
@@ -61,33 +81,55 @@ function setRunningUI(isRunning) {
   els.stopBtn.disabled = !isRunning;
   els.targetCount.disabled = isRunning;
   els.keywords.disabled = isRunning;
+  els.profileUrl.disabled = isRunning;
+  els.modeBtns.forEach((btn) => { btn.disabled = isRunning; });
 }
 
-function buildSearchUrl(keywords) {
-  const q = encodeURIComponent(keywords.trim());
-  return `https://www.linkedin.com/search/results/content/?keywords=${q}&origin=SWITCH_SEARCH_VERTICAL`;
+function buildTargetUrl(mode, value) {
+  if (mode === 'keyword') {
+    const q = encodeURIComponent(value.trim());
+    return `https://www.linkedin.com/search/results/content/?keywords=${q}&origin=SWITCH_SEARCH_VERTICAL`;
+  }
+  return value.trim();
+}
+
+function validateProfileUrl(url) {
+  try {
+    const u = new URL(url);
+    return (
+      u.hostname === 'www.linkedin.com' &&
+      (u.pathname.startsWith('/in/') || u.pathname.startsWith('/groups/'))
+    );
+  } catch {
+    return false;
+  }
+}
+
+// Returns the first two path segments so tabs at the same profile/group/search
+// section are considered compatible for reuse.
+// e.g. /in/username/recent-activity/all → /in/username
+//      /groups/9334060                  → /groups/9334060
+//      /search/results/content          → /search/results
+function getTabBasePath(pathname) {
+  return pathname.replace(/\/$/, '').split('/').slice(0, 3).join('/') || '/';
 }
 
 async function getActiveLinkedInTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab || !tab.url) return null;
-  const ok =
-    tab.url.startsWith('https://www.linkedin.com/search/results/') ||
-    tab.url.startsWith('https://www.linkedin.com/feed');
-  return ok ? tab : null;
+  if (!tab?.url?.startsWith('https://www.linkedin.com/')) return null;
+  return tab;
 }
 
-async function ensureFeedTab(keywords) {
+async function ensureFeedTab(targetUrl) {
   const tab = await getActiveLinkedInTab();
-  if (tab) return { tab, created: false };
-  // Open in background so the popup stays open long enough to finish the
-  // START_SCRAPE handshake. If the popup loses focus (which it would if we
-  // created the tab with active:true), it gets torn down and the rest of
-  // this click handler never runs.
-  const created = await chrome.tabs.create({
-    url: buildSearchUrl(keywords),
-    active: false,
-  });
+  if (tab) {
+    try {
+      const currentBase = getTabBasePath(new URL(tab.url).pathname);
+      const targetBase = getTabBasePath(new URL(targetUrl).pathname);
+      if (currentBase === targetBase) return { tab, created: false };
+    } catch { /* fall through to create */ }
+  }
+  const created = await chrome.tabs.create({ url: targetUrl, active: false });
   return { tab: created, created: true };
 }
 
@@ -103,8 +145,26 @@ function waitForTabComplete(tabId) {
   });
 }
 
-// LinkedIn's content script injects at document_idle, but the search-results
-// feed renders asynchronously after that, so we keep retrying generously.
+// Ensures the content script is running on the given tab. Chrome does NOT
+// re-inject content scripts into tabs that were already open when the
+// extension was installed or reloaded. We detect that case via a PING and
+// inject programmatically if needed.
+async function ensureContentScript(tabId) {
+  try {
+    const resp = await chrome.tabs.sendMessage(tabId, { type: 'PING' });
+    if (resp?.alive) return; // already running
+  } catch { /* not injected yet — fall through */ }
+
+  await chrome.scripting.executeScript({
+    target: { tabId },
+    files: ['utils/helpers.js', 'content/scraper.js', 'content/content.js'],
+  });
+  // Give scripts a moment to register their message listener
+  await new Promise(r => setTimeout(r, 400));
+}
+
+// LinkedIn's content script injects at document_idle, but the feed renders
+// asynchronously after that, so we keep retrying generously.
 async function sendToContent(tabId, message, retries = 12) {
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
@@ -123,20 +183,39 @@ els.startBtn.addEventListener('click', async () => {
     return;
   }
 
-  const keywords = (els.keywords.value || '').trim();
-  if (!keywords) {
-    log('Enter search keywords.', 'error');
-    return;
+  let inputValue;
+  if (currentMode === 'keyword') {
+    inputValue = (els.keywords.value || '').trim();
+    if (!inputValue) {
+      log('Enter search keywords.', 'error');
+      return;
+    }
+  } else {
+    inputValue = (els.profileUrl.value || '').trim();
+    if (!inputValue) {
+      log('Enter a LinkedIn profile or group URL.', 'error');
+      return;
+    }
+    if (!validateProfileUrl(inputValue)) {
+      log('URL must be a LinkedIn /in/… or /groups/… link.', 'error');
+      return;
+    }
   }
 
   setRunningUI(true);
   setStatus(STATE.RUNNING);
-  log(`Starting scrape for ${target} posts on "${keywords}"…`);
+  log(`Starting scrape for ${target} posts…`);
 
   try {
-    await chrome.storage.local.set({ keywords });
-    const { tab, created } = await ensureFeedTab(keywords);
-    if (!tab) throw new Error('Could not obtain a LinkedIn feed tab.');
+    await chrome.storage.local.set({
+      mode: currentMode,
+      keywords: (els.keywords.value || '').trim(),
+      profileUrl: (els.profileUrl.value || '').trim(),
+    });
+
+    const targetUrl = buildTargetUrl(currentMode, inputValue);
+    const { tab, created } = await ensureFeedTab(targetUrl);
+    if (!tab) throw new Error('Could not obtain a LinkedIn tab.');
 
     if (created || tab.status !== 'complete') {
       log('Waiting for LinkedIn to load…');
@@ -149,10 +228,10 @@ els.startBtn.addEventListener('click', async () => {
       startedAt: Date.now(),
     });
 
+    await ensureContentScript(tab.id);
     const response = await sendToContent(tab.id, { type: 'START_SCRAPE', target });
     if (response && response.ok) {
       log('Content script acknowledged. Scrolling…');
-      // Now safe to bring the tab to the foreground — handshake is done.
       if (created) chrome.tabs.update(tab.id, { active: true });
     } else {
       throw new Error(response?.error || 'Content script did not respond.');
@@ -213,10 +292,14 @@ chrome.runtime.onMessage.addListener((msg) => {
 });
 
 (async function init() {
-  const data = await chrome.storage.local.get(['posts', 'isRunning', 'target', 'keywords']);
+  const data = await chrome.storage.local.get(['posts', 'isRunning', 'target', 'keywords', 'profileUrl', 'mode']);
   const posts = data.posts || [];
   const target = data.target || parseInt(els.targetCount.value, 10) || 0;
+
+  if (data.mode) setMode(data.mode);
   if (data.keywords) els.keywords.value = data.keywords;
+  if (data.profileUrl) els.profileUrl.value = data.profileUrl;
+
   updateProgress(posts.length, target);
   if (data.isRunning) {
     setStatus(STATE.RUNNING);

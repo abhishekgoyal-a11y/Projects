@@ -13,8 +13,21 @@
     </header>
 
     <section class="config">
-      <label for="keywords">Search keywords</label>
-      <input type="text" id="keywords" placeholder="e.g. qa engineer hiring" value="qa engineer hiring" />
+      <div class="mode-toggle" role="group" aria-label="Scraping mode">
+        <button class="mode-btn active" data-mode="keyword">Keyword Search</button>
+        <button class="mode-btn" data-mode="url">Profile / Group URL</button>
+      </div>
+
+      <div id="keywordPanel">
+        <label for="keywords">Search keywords</label>
+        <input type="text" id="keywords" placeholder="e.g. qa engineer hiring" value="qa engineer hiring" />
+      </div>
+
+      <div id="urlPanel" style="display:none">
+        <label for="profileUrl">LinkedIn URL</label>
+        <input type="url" id="profileUrl" placeholder="https://www.linkedin.com/in/.../recent-activity/all/" />
+        <p class="url-hint">Paste a profile activity or group URL</p>
+      </div>
 
       <label for="targetCount">Number of posts to scrape</label>
       <input type="number" id="targetCount" min="1" max="2000" value="50" />

@@ -5,6 +5,7 @@
  */
 
 (function () {
+  if (globalThis.LFS?.Scraper) return; // already loaded — prevent double-injection
   const LFS = (globalThis.LFS = globalThis.LFS || {});
 
   const POST_SELECTORS = [
@@ -14,6 +15,8 @@
     'div.occludable-update',
     'div[data-chameleon-result-urn^="urn:li:activity:"]',
     'li[data-chameleon-result-urn^="urn:li:activity:"]',
+    // Profile activity pages use li elements with data-urn
+    'li[data-urn^="urn:li:activity:"]',
     'div.search-results__cluster-content div.feed-shared-update-v2',
     // New search-results layout: post cards are listitems with a componentkey.
     // LinkedIn A/B tests the suffix (e.g. `_AFeedType_FLAGSHIP_SEARCH`) so we
